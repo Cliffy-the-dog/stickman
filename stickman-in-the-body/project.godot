@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Stickman in the Body"
+run/main_scene="uid://dqeeidq7t2drx"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

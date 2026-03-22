@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://gnmp0yh0cmhe"]
+
+[ext_resource type="Script" uid="uid://c6c7bqdistc0g" path="res://Scripts Stuff/CharacterMove.gd" id="1_21c00"]
+[ext_resource type="Texture2D" uid="uid://bvxtpu58su52v" path="res://AnimationPackForStickmen.png" id="2_b8g2h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_peqie"]
+size = Vector2(42, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rwv0"]
+atlas = ExtResource("2_b8g2h")
+region = Rect2(0, 219, 142, 219)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyc7h"]
+atlas = ExtResource("2_b8g2h")
+region = Rect2(0, 0, 142, 219)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oi3yl"]
+atlas = ExtResource("2_b8g2h")
+region = Rect2(142, 0, 142, 219)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jk1bl"]
+atlas = ExtResource("2_b8g2h")
+region = Rect2(284, 0, 142, 219)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yny7d"]
+atlas = ExtResource("2_b8g2h")
+region = Rect2(426, 0, 142, 219)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uglg6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3rwv0")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qyc7h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oi3yl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jk1bl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yny7d")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 5.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1074889554]
+script = ExtResource("1_21c00")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1023303441]
+position = Vector2(1, 22.5)
+shape = SubResource("RectangleShape2D_peqie")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=64196167]
+sprite_frames = SubResource("SpriteFrames_uglg6")
+animation = &"Idle"
+frame_progress = 0.68373823
