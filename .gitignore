@@ -1,0 +1,22 @@
+# Godot specific
+.godot/
+imported/
+.import/
+.cache/
+
+# Export templates and builds
+export_presets.cfg  # Only if you don't want to share export settings
+exports/
+builds/
+
+# Editor specific (optional - comment out if using Godot 4's .godot folder)
+# .godot/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files (if you use external editor)
+.vscode/
+.idea/
+*.kate-swp
