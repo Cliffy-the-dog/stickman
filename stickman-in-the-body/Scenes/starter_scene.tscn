@@ -1,22 +1,22 @@
-[gd_scene format=3 uid="uid://dqeeidq7t2drx"]
+[gd_scene format=4 uid="uid://dqeeidq7t2drx"]
 
 [ext_resource type="PackedScene" uid="uid://gnmp0yh0cmhe" path="res://Sprites/character_body_2d.tscn" id="1_j8eka"]
-[ext_resource type="Texture2D" uid="uid://chtu3p1jn1o2s" path="res://Sprites/Screenshot 2026-03-22 110602.png" id="2_lhs2h"]
+[ext_resource type="Texture2D" uid="uid://xcpxyyecrq8m" path="res://Tileset/PhysicsTiles/PhysicsBlocksTileset.png" id="2_lhs2h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_knupb"]
 texture = ExtResource("2_lhs2h")
-12:0/size_in_atlas = Vector2i(11, 6)
-12:0/0 = 0
-12:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-95.86777, -47.93388, 96.83307, -48.416534, 98.562225, 48.416534, -95.86777, 49.586773)
-0:0/size_in_atlas = Vector2i(12, 6)
+0:0/size_in_atlas = Vector2i(16, 16)
 0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-95.86777, -47.93388, 96.83307, -48.416534, 98.562225, 48.416534, -95.86777, 49.586773)
-0:6/size_in_atlas = Vector2i(12, 7)
-0:6/0 = 0
-0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-95.86777, -47.93388, 96.83307, -48.416534, 98.562225, 48.416534, -95.86777, 49.586773)
-12:6/size_in_atlas = Vector2i(11, 7)
-12:6/0 = 0
-12:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-95.86777, -47.93388, 96.83307, -48.416534, 98.562225, 48.416534, -95.86777, 47.93388)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -128, 128, -128, 128, 128, -128, 128)
+16:0/size_in_atlas = Vector2i(16, 16)
+16:0/0 = 0
+16:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -128, 128, -128, 128, 128, -128, 128)
+0:16/size_in_atlas = Vector2i(16, 16)
+0:16/0 = 0
+0:16/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -128, 128, -128, 128, 128, -128, 128)
+16:16/size_in_atlas = Vector2i(16, 16)
+16:16/0 = 0
+16:16/0/physics_layer_0/polygon_0/points = PackedVector2Array(-128, -128, 128, -128, 128, 128, -128, 128)
 
 [sub_resource type="TileSet" id="TileSet_5arw2"]
 physics_layer_0/collision_layer = 3
@@ -36,5 +36,5 @@ zoom = Vector2(0.5, 0.5)
 limit_bottom = 12000
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=57834583]
-tile_map_data = PackedByteArray(0, 0, 240, 255, 9, 0, 0, 0, 12, 0, 0, 0, 0, 0, 251, 255, 9, 0, 0, 0, 12, 0, 0, 0, 0, 0, 6, 0, 9, 0, 0, 0, 12, 0, 0, 0, 0, 0, 17, 0, 9, 0, 0, 0, 12, 0, 0, 0, 0, 0)
+tile_map_data = PackedByteArray("AADw/wkAAAAMAAAAAAD7/wkAAAAMAAAAAAAGAAkAAAAMAAAAAAARAAkAAAAMAAAAAAD//w0AAAAAAAAAAAAPAA0AAAAQAAAAAAAPAB0AAAAAABAAAAD//x0AAAAQABAAAAA=")
 tile_set = SubResource("TileSet_5arw2")
