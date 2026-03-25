@@ -30,6 +30,10 @@ region = Rect2(79, 483, 79, 161)
 atlas = ExtResource("2_21c00")
 region = Rect2(158, 483, 79, 161)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_21c00"]
+atlas = ExtResource("2_21c00")
+region = Rect2(158, 483, 79, 161)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_yny7d"]
 atlas = ExtResource("2_21c00")
 region = Rect2(79, 161, 79, 161)
@@ -89,6 +93,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_21c00")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_yny7d")
 }, {
 "duration": 1.0,
@@ -128,5 +140,4 @@ shape = SubResource("RectangleShape2D_peqie")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=64196167]
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_uglg6")
-animation = &"Walking"
-frame_progress = 0.54605836
+animation = &"Jump"
