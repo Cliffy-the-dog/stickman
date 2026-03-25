@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c6c7bqdistc0g" path="res://Scripts Stuff/CharacterMove.gd" id="1_21c00"]
 [ext_resource type="Texture2D" uid="uid://dtfntlflbm2cu" path="res://Sprites/spritesheet.png" id="2_21c00"]
+[ext_resource type="Texture2D" uid="uid://btxrb8x3d73gi" path="res://FullSpriteSheet.png" id="3_b8g2h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_peqie"]
 size = Vector2(42, 161)
@@ -30,9 +31,17 @@ region = Rect2(79, 483, 79, 161)
 atlas = ExtResource("2_21c00")
 region = Rect2(158, 483, 79, 161)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_21c00"]
-atlas = ExtResource("2_21c00")
-region = Rect2(158, 483, 79, 161)
+[sub_resource type="AtlasTexture" id="AtlasTexture_41qpt"]
+atlas = ExtResource("3_b8g2h")
+region = Rect2(745, 644, 149, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewsyt"]
+atlas = ExtResource("3_b8g2h")
+region = Rect2(596, 644, 149, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k77nb"]
+atlas = ExtResource("3_b8g2h")
+region = Rect2(447, 644, 149, 161)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yny7d"]
 atlas = ExtResource("2_21c00")
@@ -93,7 +102,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_21c00")
+"texture": SubResource("AtlasTexture_41qpt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewsyt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k77nb")
 }],
 "loop": true,
 "name": &"Jump",
