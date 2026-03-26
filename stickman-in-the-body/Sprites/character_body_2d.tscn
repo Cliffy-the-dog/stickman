@@ -174,4 +174,4 @@ shape = SubResource("RectangleShape2D_peqie")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=64196167]
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_uglg6")
-animation = &"Falling"
+animation = &"Jump"
