@@ -26,9 +26,11 @@ func _physics_process(delta: float) -> void:
 	
 	if direction == 0:
 		character.play("Idle")
-	else:
+	elif is_on_floor():
 		character.play("Walking")
-	
+	if not is_on_floor():
+		if JUMP_VELOCITY < 0:
+			character.play("Falling")
 	
 	if direction:
 		print("direction: ", direction, "  SPEED: ", SPEED)
