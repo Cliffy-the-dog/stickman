@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c6c7bqdistc0g" path="res://Scripts Stuff/CharacterMove.gd" id="1_21c00"]
 [ext_resource type="Texture2D" uid="uid://dtfntlflbm2cu" path="res://Sprites/spritesheet.png" id="2_21c00"]
 [ext_resource type="Texture2D" uid="uid://btxrb8x3d73gi" path="res://FullSpriteSheet.png" id="3_b8g2h"]
-[ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://Sprites/healthbar.tscn" id="4_peqie"]
+[ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://Sprites/Characters and GUI/healthbar.tscn" id="4_peqie"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_peqie"]
 size = Vector2(42, 145.83334)
@@ -234,10 +234,11 @@ scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_peqie")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=64196167]
+position = Vector2(-1, 0)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_uglg6")
 animation = &"Falling"
-frame_progress = 0.22319661
+frame_progress = 0.4983841
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("4_peqie")]
 offset_left = -122.0

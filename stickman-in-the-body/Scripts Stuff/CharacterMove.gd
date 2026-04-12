@@ -1,6 +1,12 @@
 extends CharacterBody2D
 @onready var character: AnimatedSprite2D = $AnimatedSprite2D
+@onready var healthbar: ProgressBar = $Healthbar
+@onready var management: Node = %Management
 
+var damage_value = 10
+
+func _ready():
+	healthbar.health = 100 + 20 * management.health_upgrades
 
 const SPEED = 1000.0
 const JUMP_VELOCITY = -2000.0
@@ -37,6 +43,19 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-	
+		
+
 
 	move_and_slide()
+	
+	
+	# Check every object the player is currently touching
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+	
+	# If the object we touched is a RigidBody2D
+		if collider is RigidBody2D:
+			print("Player is touching the enemy!")
+			healthbar.value = healthbar.value - damage_value
+			await get_tree().create_timer(1.0).timeout
