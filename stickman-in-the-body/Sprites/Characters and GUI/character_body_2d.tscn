@@ -12,6 +12,30 @@ size = Vector2(42, 145.83334)
 atlas = ExtResource("3_b8g2h")
 region = Rect2(149, 644, 149, 161)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_elhyv"]
+atlas = ExtResource("2_21c00")
+region = Rect2(447, 972, 149, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_at0vm"]
+atlas = ExtResource("2_21c00")
+region = Rect2(0, 1134, 149, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7lbt"]
+atlas = ExtResource("2_21c00")
+region = Rect2(149, 1134, 149, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7jsu"]
+atlas = ExtResource("2_21c00")
+region = Rect2(0, 1296, 149, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbhyn"]
+atlas = ExtResource("2_21c00")
+region = Rect2(447, 1134, 149, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvrmd"]
+atlas = ExtResource("2_21c00")
+region = Rect2(298, 1134, 149, 162)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_3rwv0"]
 atlas = ExtResource("3_b8g2h")
 region = Rect2(0, 0, 149, 161)
@@ -128,6 +152,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_elhyv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_at0vm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7lbt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7jsu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbhyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvrmd")
+}],
+"loop": true,
+"name": &"Hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_3rwv0")
 }, {
 "duration": 1.0,
@@ -237,8 +284,8 @@ shape = SubResource("RectangleShape2D_peqie")
 position = Vector2(-1, 0)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_uglg6")
-animation = &"Falling"
-frame_progress = 0.4983841
+animation = &"Hurt"
+frame_progress = 0.7225001
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("4_peqie")]
 offset_left = -122.0

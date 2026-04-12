@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/Flow.mp3-2c225e7b563ad57d5a116595dae897ab.mp3
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

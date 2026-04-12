@@ -2,6 +2,7 @@ extends RigidBody2D
 @onready var healthbar: ProgressBar = $Healthbar
 @export var speed = 700.0
 @export var detection_range = 1000.0
+@onready var music_manager: Node = %MusicManager
 
 # This looks for your AnimatedSprite2D child node
 @onready var sprite = $AnimatedSprite2D 
@@ -18,6 +19,12 @@ func _ready():
 func _physics_process(_delta):
 	if player:
 		var distance = global_position.distance_to(player.global_position)
+		if distance < detection_range and not is_chasing:
+			is_chasing = true
+			# --- CHANGE THIS NAME TO YOUR AUTOLOAD NAME ---
+			music_manager.start_chase(get_instance_id()) 
+
+		
 		
 		# Trigger the chase when too close
 		if distance < detection_range:
@@ -39,3 +46,4 @@ func _physics_process(_delta):
 			linear_velocity.x = 0
 			# Optional: Play your "idle" animation
 			sprite.play("Idle")
+			
