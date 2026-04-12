@@ -2,7 +2,7 @@ extends CharacterBody2D
 @onready var character: AnimatedSprite2D = $AnimatedSprite2D
 @onready var healthbar: ProgressBar = $Healthbar
 @onready var management: Node = %Management
-
+var damage_taken_in_the_past_0point4seconds = 0
 var damage_value = 10
 
 func _ready():
@@ -52,10 +52,39 @@ func _physics_process(delta: float) -> void:
 	# Check every object the player is currently touching
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
-		var collider = collision.get_collider()
 	
-	# If the object we touched is a RigidBody2D
-		if collider is RigidBody2D:
-			print("Player is touching the enemy!")
-			healthbar.value = healthbar.value - damage_value
-			await get_tree().create_timer(1.0).timeout
+	# ONLY proceed if the collision actually exists
+		if collision:
+			var collider = collision.get_collider()
+		
+		# Now it's safe to check if it's the enemy
+			if collider is RigidBody2D:
+				print("Player is touching the enemy!")
+				if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0:
+					if healthbar.health - 10 > -1:
+						damage_taken_in_the_past_0point4seconds = 1
+						healthbar.health = healthbar.health - 1
+						await get_tree().create_timer(0.02).timeout
+						healthbar.health = healthbar.health - 1
+						await get_tree().create_timer(0.02).timeout
+						healthbar.health = healthbar.health - 1
+						await get_tree().create_timer(0.02).timeout
+						healthbar.health = healthbar.health - 1
+						await get_tree().create_timer(0.02).timeout
+						healthbar.health = healthbar.health - 1
+						await get_tree().create_timer(0.02).timeout
+						healthbar.health = healthbar.health - 1
+						await get_tree().create_timer(0.02).timeout
+						healthbar.health = healthbar.health - 1
+						await get_tree().create_timer(0.02).timeout
+						healthbar.health = healthbar.health - 1
+						await get_tree().create_timer(0.02).timeout
+						healthbar.health = healthbar.health - 1
+						await get_tree().create_timer(0.02).timeout
+						healthbar.health = healthbar.health - 1
+						await get_tree().create_timer(0.4).timeout
+						damage_taken_in_the_past_0point4seconds = 0
+						healthbar.damage_bar.value = healthbar.health
+
+					else:
+						print("Bro you're already dead.")
