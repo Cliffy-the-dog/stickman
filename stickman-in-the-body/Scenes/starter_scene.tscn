@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://dqeeidq7t2drx"]
 
-[ext_resource type="Script" uid="uid://c3cver7fnu5ca" path="res://Scenes/FaliureManagement.gd" id="1_5arw2"]
+[ext_resource type="Script" path="res://Scenes/FaliureManagement.gd" id="1_5arw2"]
 [ext_resource type="PackedScene" uid="uid://gnmp0yh0cmhe" path="res://Sprites/Characters and GUI/character_body_2d.tscn" id="1_j8eka"]
 [ext_resource type="Texture2D" uid="uid://11c74briycgi" path="res://Tileset/GeneralTilesetV3.png" id="2_lhs2h"]
 [ext_resource type="PackedScene" uid="uid://eq1nth1nqlqc" path="res://Music/node.tscn" id="3_dgyv7"]

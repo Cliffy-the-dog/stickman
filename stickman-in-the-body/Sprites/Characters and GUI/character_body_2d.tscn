@@ -2,32 +2,34 @@
 
 [ext_resource type="Script" uid="uid://c6c7bqdistc0g" path="res://Scripts Stuff/CharacterMove.gd" id="1_21c00"]
 [ext_resource type="Texture2D" uid="uid://dtfntlflbm2cu" path="res://Sprites/spritesheet.png" id="2_21c00"]
-[ext_resource type="Texture2D" uid="uid://22s0d4mithnk" path="res://Sprites/Characters and GUI/SlashSpritesheets.png" id="2_at0vm"]
+[ext_resource type="Texture2D" uid="uid://ptyne2oam0cp" path="res://Sprites/Characters and GUI/SlashesSpritesheetV2.png" id="2_at0vm"]
 [ext_resource type="Texture2D" uid="uid://btxrb8x3d73gi" path="res://FullSpriteSheet.png" id="3_b8g2h"]
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://Sprites/Characters and GUI/healthbar.tscn" id="4_peqie"]
+[ext_resource type="PackedScene" uid="uid://bsbi72s8m65pt" path="res://Sprites/Characters and GUI/animated_sprite_2d.tscn" id="6_n7jsu"]
+[ext_resource type="Script" uid="uid://dn6hopjdvw5er" path="res://Sprites/Characters and GUI/SlashScript.gd" id="7_xbhyn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_peqie"]
 size = Vector2(42, 145.83334)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_53umr"]
 atlas = ExtResource("2_at0vm")
-region = Rect2(0, 0, 171, 152)
+region = Rect2(0, 189, 239, 189)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eceog"]
 atlas = ExtResource("2_at0vm")
-region = Rect2(342, 0, 171, 152)
+region = Rect2(239, 189, 239, 189)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i0bwr"]
 atlas = ExtResource("2_at0vm")
-region = Rect2(513, 0, 171, 152)
+region = Rect2(717, 189, 239, 189)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x6ao1"]
 atlas = ExtResource("2_at0vm")
-region = Rect2(0, 152, 171, 152)
+region = Rect2(0, 378, 239, 189)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ithgc"]
 atlas = ExtResource("2_at0vm")
-region = Rect2(171, 0, 171, 152)
+region = Rect2(239, 378, 239, 189)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_41qpt"]
 atlas = ExtResource("3_b8g2h")
@@ -326,7 +328,6 @@ position = Vector2(-1, 0)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_uglg6")
 animation = &"Butcher"
-frame = 4
 frame_progress = 1.0
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("4_peqie")]
@@ -334,3 +335,7 @@ offset_left = -122.0
 offset_top = -203.0
 offset_right = 152.0
 offset_bottom = -176.0
+
+[node name="AnimatedSprite2D2" parent="." unique_id=768034852 instance=ExtResource("6_n7jsu")]
+position = Vector2(130, 0)
+script = ExtResource("7_xbhyn")

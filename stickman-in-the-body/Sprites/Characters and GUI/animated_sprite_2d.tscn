@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://bsbi72s8m65pt"]
+
+[ext_resource type="Texture2D" uid="uid://ptyne2oam0cp" path="res://Sprites/Characters and GUI/SlashesSpritesheetV2.png" id="1_da23x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nkqun"]
+atlas = ExtResource("1_da23x")
+region = Rect2(0, 0, 239, 189)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d44vl"]
+atlas = ExtResource("1_da23x")
+region = Rect2(239, 0, 239, 189)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvqr7"]
+atlas = ExtResource("1_da23x")
+region = Rect2(478, 0, 239, 189)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w4t73"]
+atlas = ExtResource("1_da23x")
+region = Rect2(717, 0, 239, 189)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r761j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nkqun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d44vl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvqr7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w4t73")
+}],
+"loop": false,
+"name": &"Slash",
+"speed": 20.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h5slu"]
+size = Vector2(248, 216)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" unique_id=768034852]
+sprite_frames = SubResource("SpriteFrames_r761j")
+animation = &"Slash"
+frame = 3
+frame_progress = 1.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2113782043]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1508004321]
+shape = SubResource("RectangleShape2D_h5slu")

@@ -25,9 +25,8 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		bouncing_in_progress = 1
 		character.play("Jump")
-		if is_on_floor():
-			bouncing_in_progress = 0
 		await is_on_floor()
+		character.play("Idle")
 		bouncing_in_progress = 0
 	if Input.is_action_just_pressed("Slash"):
 		if bouncing_in_progress == 0:
