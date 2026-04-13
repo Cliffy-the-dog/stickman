@@ -5,7 +5,8 @@ extends CharacterBody2D
 @onready var management: Node = %Management
 var damage_taken_in_the_past_0point4seconds = 0
 var damage_value = 10
-
+var butchering_in_progress = 0
+var bouncing_in_progress = 0
 func _ready():
 	healthbar.health = 100 + 20 * management.health_upgrades
 
@@ -22,25 +23,35 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-
+		bouncing_in_progress = 1
+		character.play("Jump")
+		if is_on_floor():
+			bouncing_in_progress = 0
+		await is_on_floor()
+		bouncing_in_progress = 0
+	if Input.is_action_just_pressed("Slash"):
+		if bouncing_in_progress == 0:
+			butchering_in_progress = 1
+			character.play("Butcher")
+			await character.animation_finished
+			butchering_in_progress = 0
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("Walk Left", "Walk Right")
 	if direction > 0:
 		character.flip_h = false
 	elif direction < 0:
 		character.flip_h = true
 	
-	if direction == 0:
+	if direction == 0 and butchering_in_progress == 0 and bouncing_in_progress == 0:
 		character.play("Idle")
 	elif is_on_floor():
-		character.play("Walking")
+		if butchering_in_progress == 0 and bouncing_in_progress == 0:
+			character.play("Walking")
 	if not is_on_floor():
 		if JUMP_VELOCITY < 0:
 			character.play("Falling")
 	
 	if direction:
-		print("direction: ", direction, "  SPEED: ", SPEED)
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -64,28 +75,12 @@ func _physics_process(delta: float) -> void:
 				if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0:
 					if healthbar.health - 10 > -1:
 						damage_taken_in_the_past_0point4seconds = 1
-						healthbar.health = healthbar.health - 1
-						await get_tree().create_timer(0.02).timeout
-						healthbar.health = healthbar.health - 1
-						await get_tree().create_timer(0.02).timeout
-						healthbar.health = healthbar.health - 1
-						await get_tree().create_timer(0.02).timeout
-						healthbar.health = healthbar.health - 1
-						await get_tree().create_timer(0.02).timeout
-						healthbar.health = healthbar.health - 1
-						await get_tree().create_timer(0.02).timeout
-						healthbar.health = healthbar.health - 1
-						await get_tree().create_timer(0.02).timeout
-						healthbar.health = healthbar.health - 1
-						await get_tree().create_timer(0.02).timeout
-						healthbar.health = healthbar.health - 1
-						await get_tree().create_timer(0.02).timeout
-						healthbar.health = healthbar.health - 1
-						await get_tree().create_timer(0.02).timeout
-						healthbar.health = healthbar.health - 1
-						await get_tree().create_timer(0.4).timeout
+						for a in range(damage_value):
+							healthbar.health = healthbar.health - 1
+							await get_tree().create_timer(0.02).timeout
 						damage_taken_in_the_past_0point4seconds = 0
 						healthbar.damage_bar.value = healthbar.health
 
 					else:
 						print("Bro you're already dead.")
+#End of script

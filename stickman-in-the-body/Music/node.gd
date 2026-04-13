@@ -36,3 +36,4 @@ func start_chase(enemy_id):
 
 func stop_chase(enemy_id):
 	chasing_enemies.erase(enemy_id)
+	
