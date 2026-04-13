@@ -1,5 +1,6 @@
 extends AnimatedSprite2D
 
+var slashing_counts = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -17,7 +18,12 @@ func _process(delta: float) -> void:
 		flip_h = false
 	
 	if Input.is_action_just_pressed("Slash"):
-		show()
-		play("Slash")
-		await animation_finished
-		hide()
+		if get_parent().is_on_floor():
+			if slashing_counts == 0:
+				slashing_counts = 1
+				show()
+				play("Slash")
+				await animation_finished
+				hide()
+				await get_tree().create_timer(0.5).timeout
+				slashing_counts = 0

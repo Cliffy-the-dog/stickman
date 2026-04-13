@@ -1,6 +1,6 @@
 extends RigidBody2D
 @onready var healthbar: ProgressBar = $Healthbar
-@export var speed = 900.0
+@export var speed = 600.0
 @export var detection_range = 1000.0
 @onready var music_manager: Node = %MusicManager
 

@@ -318,6 +318,10 @@ animations = [{
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1074889554]
 script = ExtResource("1_21c00")
 
+[node name="AnimatedSprite2D2" parent="." unique_id=768034852 instance=ExtResource("6_n7jsu")]
+position = Vector2(130, 0)
+script = ExtResource("7_xbhyn")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1023303441]
 position = Vector2(2, -15.374998)
 scale = Vector2(1.5, 1.5)
@@ -327,15 +331,10 @@ shape = SubResource("RectangleShape2D_peqie")
 position = Vector2(-1, 0)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_uglg6")
-animation = &"Butcher"
-frame_progress = 1.0
+animation = &"Falling"
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("4_peqie")]
 offset_left = -122.0
 offset_top = -203.0
 offset_right = 152.0
 offset_bottom = -176.0
-
-[node name="AnimatedSprite2D2" parent="." unique_id=768034852 instance=ExtResource("6_n7jsu")]
-position = Vector2(130, 0)
-script = ExtResource("7_xbhyn")

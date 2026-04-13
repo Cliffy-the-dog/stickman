@@ -30,10 +30,14 @@ func _physics_process(delta: float) -> void:
 		bouncing_in_progress = 0
 	if Input.is_action_just_pressed("Slash"):
 		if bouncing_in_progress == 0:
-			butchering_in_progress = 1
-			character.play("Butcher")
-			await character.animation_finished
-			butchering_in_progress = 0
+			if butchering_in_progress == 0:
+				if is_on_floor():
+					butchering_in_progress = 1
+					if is_on_floor():
+						character.play("Butcher")
+						await character.animation_finished
+					await get_tree().create_timer(0.5).timeout
+					butchering_in_progress = 0
 	# Get the input direction and handle the movement/deceleration.
 	var direction := Input.get_axis("Walk Left", "Walk Right")
 	if direction > 0:
