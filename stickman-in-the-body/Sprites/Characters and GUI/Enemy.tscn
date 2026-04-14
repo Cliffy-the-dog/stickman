@@ -1,11 +1,16 @@
 [gd_scene format=3 uid="uid://4jc8ydq23k2q"]
 
 [ext_resource type="Script" uid="uid://bfpt3k2jaqpsi" path="res://Sprites/Characters and GUI/ChaseScript.gd" id="1_dlwnr"]
-[ext_resource type="Texture2D" uid="uid://ctycj4ip0rg8p" path="res://Sprites/EnemySpritesheet.png" id="1_e2upk"]
+[ext_resource type="Texture2D" uid="uid://ctycj4ip0rg8p" path="res://Sprites/Characters and GUI/EnemySpritesheet.png" id="1_e2upk"]
+[ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://Sprites/Characters and GUI/healthbar.tscn" id="3_kc2dw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dlwnr"]
 friction = 0.0
 bounce = 0.25
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n4ces"]
+radius = 25.0
+height = 162.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k4gsa"]
 atlas = ExtResource("1_e2upk")
@@ -158,15 +163,21 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n4ces"]
-radius = 25.0
-height = 162.0
-
 [node name="RigidBody2D" type="RigidBody2D" unique_id=1328572880]
 scale = Vector2(1.2775, 1.2775)
 physics_material_override = SubResource("PhysicsMaterial_dlwnr")
 gravity_scale = 8.0
 script = ExtResource("1_dlwnr")
+
+[node name="DetectionZone" type="Area2D" parent="." unique_id=1527619256]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone" unique_id=141028233]
+scale = Vector2(1.5006018, 1.5006018)
+shape = SubResource("CapsuleShape2D_n4ces")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1519172450]
+scale = Vector2(1.5006018, 1.5006018)
+shape = SubResource("CapsuleShape2D_n4ces")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=429592552]
 scale = Vector2(1.4813478, 1.4813478)
@@ -174,6 +185,9 @@ sprite_frames = SubResource("SpriteFrames_t4dsv")
 animation = &"Idle"
 frame_progress = 0.82467276
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=141028233]
-scale = Vector2(1.5006018, 1.5006018)
-shape = SubResource("CapsuleShape2D_n4ces")
+[node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("3_kc2dw")]
+offset_left = -136.9863
+offset_top = -188.64969
+offset_right = 137.0137
+offset_bottom = -161.64969
+metadata/_edit_use_anchors_ = true

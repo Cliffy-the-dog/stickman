@@ -1,14 +1,21 @@
 extends CharacterBody2D
+
+
+
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var character: AnimatedSprite2D = $AnimatedSprite2D
 @onready var healthbar: ProgressBar = $Healthbar
 @onready var management: Node = %Management
+
+
+
 var damage_taken_in_the_past_0point4seconds = 0
 var damage_value = 10
 var butchering_in_progress = 0
 var bouncing_in_progress = 0
 func _ready():
 	healthbar.health = 100 + 20 * management.health_upgrades
+	butchering_in_progress = 0
 
 const SPEED = 1200.0
 const JUMP_VELOCITY = -2200.0
@@ -21,23 +28,26 @@ func _physics_process(delta: float) -> void:
 		
 
 	# Handle jump.
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-		bouncing_in_progress = 1
-		character.play("Jump")
-		await is_on_floor()
-		character.play("Idle")
-		bouncing_in_progress = 0
+
 	if Input.is_action_just_pressed("Slash"):
-		if bouncing_in_progress == 0:
-			if butchering_in_progress == 0:
-				if is_on_floor():
-					butchering_in_progress = 1
-					if is_on_floor():
-						character.play("Butcher")
-						await character.animation_finished
-					await get_tree().create_timer(0.5).timeout
-					butchering_in_progress = 0
+		if butchering_in_progress == 0:
+			if is_on_floor():
+				butchering_in_progress = 1
+			if is_on_floor():
+				character.play("Butcher")
+				await character.animation_finished
+			character.play("Idle")
+			await get_tree().create_timer(0.25).timeout
+			butchering_in_progress = 0
+			await get_tree().create_timer(0.25).timeout
+	if Input.is_action_just_pressed("Jump") and is_on_floor():
+		if butchering_in_progress == 0:
+			velocity.y = JUMP_VELOCITY
+			bouncing_in_progress = 1
+			character.play("Jump")
+			await is_on_floor()
+			character.play("Idle")
+			bouncing_in_progress = 0
 	# Get the input direction and handle the movement/deceleration.
 	var direction := Input.get_axis("Walk Left", "Walk Right")
 	if direction > 0:
@@ -50,10 +60,8 @@ func _physics_process(delta: float) -> void:
 	elif is_on_floor():
 		if butchering_in_progress == 0 and bouncing_in_progress == 0:
 			character.play("Walking")
-	if not is_on_floor():
-		if JUMP_VELOCITY < 0:
-			character.play("Falling")
-	
+	elif not is_on_floor():
+		character.play("Falling")
 	if direction:
 		velocity.x = direction * SPEED
 	else:
@@ -86,4 +94,6 @@ func _physics_process(delta: float) -> void:
 
 					else:
 						print("Bro you're already dead.")
+
+
 #End of script

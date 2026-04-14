@@ -7,6 +7,9 @@ extends ProgressBar
 
 var health = 0 : set = _set_health
 
+func _ready() -> void:
+	value = 100
+
 func _set_health(new_health):
 	var prev_health = health
 	health = min(max_value, new_health)

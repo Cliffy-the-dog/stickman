@@ -3,6 +3,9 @@ extends RigidBody2D
 @export var speed = 600.0
 @export var detection_range = 1000.0
 @onready var music_manager: Node = %MusicManager
+@onready var slash: Area2D = %Slash
+
+var damage_value = 20
 
 # This looks for your AnimatedSprite2D child node
 @onready var sprite = $AnimatedSprite2D 
@@ -43,7 +46,20 @@ func _physics_process(_delta):
 				# Optional: Play your "run" animation
 				sprite.play("Run")
 		else:
-			linear_velocity.x = 0
-			# Optional: Play your "idle" animation
-			sprite.play("Idle")
+			pass
 			
+	if healthbar.value < 0:
+		if healthbar.value - 10 > -1:
+			for a in range(damage_value):
+				healthbar.value = healthbar.value - 1
+				await get_tree().create_timer(0.02).timeout
+				healthbar.damage_bar.value = healthbar.value
+
+
+func _on_detection_zone_area_entered(area: Area2D) -> void:
+	if area.name == "SlashArea":
+		healthbar.value = healthbar.value - 20
+		for a in range(damage_value):
+			healthbar.value = healthbar.value - 1
+			await get_tree().create_timer(0.02).timeout
+			healthbar.damage_bar.value = healthbar.value

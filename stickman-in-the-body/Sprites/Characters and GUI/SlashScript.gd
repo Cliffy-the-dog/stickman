@@ -1,4 +1,5 @@
 extends AnimatedSprite2D
+@onready var healthbar: ProgressBar = $Healthbar
 
 var slashing_counts = 0
 
@@ -25,5 +26,10 @@ func _process(delta: float) -> void:
 				play("Slash")
 				await animation_finished
 				hide()
-				await get_tree().create_timer(0.5).timeout
+				await get_tree().create_timer(0.25).timeout
 				slashing_counts = 0
+				await get_tree().create_timer(0.25).timeout
+
+
+#================================================================================================#
+#                                   End of Script

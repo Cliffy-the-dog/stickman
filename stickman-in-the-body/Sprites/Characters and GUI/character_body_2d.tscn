@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://btxrb8x3d73gi" path="res://FullSpriteSheet.png" id="3_b8g2h"]
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://Sprites/Characters and GUI/healthbar.tscn" id="4_peqie"]
 [ext_resource type="PackedScene" uid="uid://bsbi72s8m65pt" path="res://Sprites/Characters and GUI/animated_sprite_2d.tscn" id="6_n7jsu"]
-[ext_resource type="Script" uid="uid://dn6hopjdvw5er" path="res://Sprites/Characters and GUI/SlashScript.gd" id="7_xbhyn"]
+[ext_resource type="Script" uid="uid://cs340asmfb5cc" path="res://Sprites/Characters and GUI/animated_sprite_2d.gd" id="6_xbhyn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_peqie"]
-size = Vector2(42, 145.83334)
+size = Vector2(42, 140.66667)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_53umr"]
 atlas = ExtResource("2_at0vm")
@@ -186,7 +186,7 @@ animations = [{
 "speed": 20.0
 }, {
 "frames": [{
-"duration": 100.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_41qpt")
 }],
 "loop": true,
@@ -318,12 +318,11 @@ animations = [{
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1074889554]
 script = ExtResource("1_21c00")
 
-[node name="AnimatedSprite2D2" parent="." unique_id=768034852 instance=ExtResource("6_n7jsu")]
+[node name="Slash" parent="." unique_id=768034852 instance=ExtResource("6_n7jsu")]
 position = Vector2(130, 0)
-script = ExtResource("7_xbhyn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1023303441]
-position = Vector2(2, -15.374998)
+position = Vector2(2, -7.5)
 scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_peqie")
 
@@ -332,6 +331,7 @@ position = Vector2(-1, 0)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_uglg6")
 animation = &"Falling"
+script = ExtResource("6_xbhyn")
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("4_peqie")]
 offset_left = -122.0

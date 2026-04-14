@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bsbi72s8m65pt"]
 
 [ext_resource type="Texture2D" uid="uid://ptyne2oam0cp" path="res://Sprites/Characters and GUI/SlashesSpritesheetV2.png" id="1_da23x"]
+[ext_resource type="Script" uid="uid://dn6hopjdvw5er" path="res://Sprites/Characters and GUI/SlashScript.gd" id="2_nkqun"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nkqun"]
 atlas = ExtResource("1_da23x")
@@ -46,8 +47,12 @@ sprite_frames = SubResource("SpriteFrames_r761j")
 animation = &"Slash"
 frame = 3
 frame_progress = 1.0
+script = ExtResource("2_nkqun")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=2113782043]
+[node name="SlashArea" type="Area2D" parent="." unique_id=2113782043]
+unique_name_in_owner = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1508004321]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlashArea" unique_id=1508004321]
 shape = SubResource("RectangleShape2D_h5slu")
+
+[connection signal="body_entered" from="SlashArea" to="." method="_on_area_2d_body_entered"]
