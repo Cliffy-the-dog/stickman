@@ -163,6 +163,20 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kc2dw"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gders"]
+bg_color = Color(0.33759415, 8.7236984e-08, 1.5642495e-07, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
 [node name="RigidBody2D" type="RigidBody2D" unique_id=1328572880]
 scale = Vector2(1.2775, 1.2775)
 physics_material_override = SubResource("PhysicsMaterial_dlwnr")
@@ -190,4 +204,8 @@ offset_left = -136.9863
 offset_top = -188.64969
 offset_right = 137.0137
 offset_bottom = -161.64969
+theme_override_styles/background = SubResource("StyleBoxFlat_kc2dw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gders")
 metadata/_edit_use_anchors_ = true
+
+[connection signal="body_entered" from="DetectionZone" to="." method="_on_detection_zone_body_entered"]

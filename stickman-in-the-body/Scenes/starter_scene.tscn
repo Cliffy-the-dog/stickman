@@ -214,42 +214,5 @@ tile_set = SubResource("TileSet_5arw2")
 
 [node name="Node" type="Node" parent="." unique_id=66587204]
 
-[node name="RigidBody2D" parent="Node" unique_id=1097298740 instance=ExtResource("3_knupb")]
-position = Vector2(-4370, -29)
-
-[node name="RigidBody2D2" parent="Node" unique_id=1490003447 instance=ExtResource("3_knupb")]
-position = Vector2(-4107, -77)
-
-[node name="RigidBody2D3" parent="Node" unique_id=2058152280 instance=ExtResource("3_knupb")]
-position = Vector2(-3713, -59)
-
-[node name="RigidBody2D4" parent="Node" unique_id=871464349 instance=ExtResource("3_knupb")]
-position = Vector2(-3522, -71)
-
-[node name="RigidBody2D5" parent="Node" unique_id=796736854 instance=ExtResource("3_knupb")]
-position = Vector2(-3373, -83)
-
-[node name="RigidBody2D6" parent="Node" unique_id=1437052719 instance=ExtResource("3_knupb")]
-position = Vector2(-3266, -35)
-
-[node name="RigidBody2D7" parent="Node" unique_id=1096062858 instance=ExtResource("3_knupb")]
-position = Vector2(-3116, -107)
-
-[node name="RigidBody2D8" parent="Node" unique_id=2048222184 instance=ExtResource("3_knupb")]
-position = Vector2(-2591, 78)
-
-[node name="RigidBody2D9" parent="Node" unique_id=807539031 instance=ExtResource("3_knupb")]
-position = Vector2(-2968, -29)
-
-[node name="RigidBody2D10" parent="Node" unique_id=1093716443 instance=ExtResource("3_knupb")]
-position = Vector2(-1512, -135)
-scale = Vector2(1.3174996, 1.3174996)
-
-[node name="RigidBody2D11" parent="Node" unique_id=1328572880 instance=ExtResource("3_knupb")]
-position = Vector2(-4633, 60)
-
-[node name="RigidBody2D12" parent="Node" unique_id=1653633947 instance=ExtResource("3_knupb")]
-position = Vector2(-2794, 30)
-
-[node name="RigidBody2D13" parent="Node" unique_id=1313369591 instance=ExtResource("3_knupb")]
-position = Vector2(-3874, -41)
+[node name="RigidBody2D" parent="." unique_id=1328572880 instance=ExtResource("3_knupb")]
+position = Vector2(-2490, 145)
