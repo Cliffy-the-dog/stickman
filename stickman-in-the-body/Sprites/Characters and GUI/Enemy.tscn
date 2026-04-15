@@ -8,10 +8,6 @@
 friction = 0.0
 bounce = 0.25
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n4ces"]
-radius = 25.0
-height = 162.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_k4gsa"]
 atlas = ExtResource("1_e2upk")
 region = Rect2(190, 486, 190, 162)
@@ -177,21 +173,17 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
-[node name="RigidBody2D" type="RigidBody2D" unique_id=1328572880]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n4ces"]
+radius = 25.0
+height = 162.0
+
+[node name="RigidBody2D" type="RigidBody2D" unique_id=1328572880 groups=["enemy"]]
+editor_description = "I have no clue what I am doing."
 scale = Vector2(1.2775, 1.2775)
+collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_dlwnr")
 gravity_scale = 8.0
 script = ExtResource("1_dlwnr")
-
-[node name="DetectionZone" type="Area2D" parent="." unique_id=1527619256]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone" unique_id=141028233]
-scale = Vector2(1.5006018, 1.5006018)
-shape = SubResource("CapsuleShape2D_n4ces")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1519172450]
-scale = Vector2(1.5006018, 1.5006018)
-shape = SubResource("CapsuleShape2D_n4ces")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=429592552]
 scale = Vector2(1.4813478, 1.4813478)
@@ -208,4 +200,6 @@ theme_override_styles/background = SubResource("StyleBoxFlat_kc2dw")
 theme_override_styles/fill = SubResource("StyleBoxFlat_gders")
 metadata/_edit_use_anchors_ = true
 
-[connection signal="body_entered" from="DetectionZone" to="." method="_on_detection_zone_body_entered"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1519172450]
+scale = Vector2(1.5006018, 1.5006018)
+shape = SubResource("CapsuleShape2D_n4ces")

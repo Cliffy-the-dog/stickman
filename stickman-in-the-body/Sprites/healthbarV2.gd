@@ -37,3 +37,5 @@ func init_health(_health):
 func _on_timer_timeout() -> void:
 	damage_bar.value = health
 	damage_bar.value = value
+	
+#Start of the slashscript

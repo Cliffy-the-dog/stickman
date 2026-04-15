@@ -49,10 +49,8 @@ frame = 3
 frame_progress = 1.0
 script = ExtResource("2_nkqun")
 
-[node name="SlashArea" type="Area2D" parent="." unique_id=2113782043]
+[node name="SlashArea" type="Area2D" parent="." unique_id=922535104]
 unique_name_in_owner = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SlashArea" unique_id=1508004321]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlashArea" unique_id=1085301883]
 shape = SubResource("RectangleShape2D_h5slu")
-
-[connection signal="body_entered" from="SlashArea" to="." method="_on_area_2d_body_entered"]

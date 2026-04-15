@@ -315,6 +315,9 @@ animations = [{
 "speed": 9.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n7jsu"]
+size = Vector2(248, 216)
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1074889554]
 script = ExtResource("1_21c00")
 
@@ -338,3 +341,15 @@ offset_left = -122.0
 offset_top = -203.0
 offset_right = 152.0
 offset_bottom = -176.0
+
+[node name="SlashArea" type="Area2D" parent="." unique_id=304928391]
+unique_name_in_owner = true
+collision_layer = 3
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlashArea" unique_id=2015854089]
+position = Vector2(131, 4)
+shape = SubResource("RectangleShape2D_n7jsu")
+
+[connection signal="body_entered" from="SlashArea" to="." method="_on_slash_area_body_entered"]
