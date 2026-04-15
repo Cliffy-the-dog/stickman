@@ -80,9 +80,8 @@ func _physics_process(delta: float) -> void:
 		if collision:
 			var collider = collision.get_collider()
 		
-		# Now it's safe to check if it's the enemy
+			# Now it's safe to check if it's the enemy
 			if collider is RigidBody2D:
-				print("Player is touching the enemy!")
 				if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0:
 					if healthbar.health - 10 > -1:
 						damage_taken_in_the_past_0point4seconds = 1

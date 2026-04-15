@@ -177,7 +177,7 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
-[node name="RigidBody2D" type="RigidBody2D" unique_id=1328572880]
+[node name="Enemy" type="RigidBody2D" unique_id=1328572880]
 scale = Vector2(1.2775, 1.2775)
 physics_material_override = SubResource("PhysicsMaterial_dlwnr")
 gravity_scale = 8.0

@@ -39,20 +39,9 @@ animations = [{
 "speed": 20.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h5slu"]
-size = Vector2(248, 216)
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" unique_id=768034852]
 sprite_frames = SubResource("SpriteFrames_r761j")
 animation = &"Slash"
 frame = 3
 frame_progress = 1.0
 script = ExtResource("2_nkqun")
-
-[node name="SlashArea" type="Area2D" parent="." unique_id=2113782043]
-unique_name_in_owner = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SlashArea" unique_id=1508004321]
-shape = SubResource("RectangleShape2D_h5slu")
-
-[connection signal="body_entered" from="SlashArea" to="." method="_on_area_2d_body_entered"]

@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://bsbi72s8m65pt" path="res://Sprites/Characters and GUI/animated_sprite_2d.tscn" id="6_n7jsu"]
 [ext_resource type="Script" uid="uid://cs340asmfb5cc" path="res://Sprites/Characters and GUI/animated_sprite_2d.gd" id="6_xbhyn"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n7jsu"]
+size = Vector2(248, 216)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_peqie"]
 size = Vector2(42, 140.66667)
 
@@ -321,7 +324,13 @@ script = ExtResource("1_21c00")
 [node name="Slash" parent="." unique_id=768034852 instance=ExtResource("6_n7jsu")]
 position = Vector2(130, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1023303441]
+[node name="SlashArea2" type="Area2D" parent="Slash" unique_id=1506186180]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slash/SlashArea2" unique_id=1723089465]
+shape = SubResource("RectangleShape2D_n7jsu")
+
+[node name="PlayerShape2D" type="CollisionShape2D" parent="." unique_id=1023303441]
 position = Vector2(2, -7.5)
 scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_peqie")
