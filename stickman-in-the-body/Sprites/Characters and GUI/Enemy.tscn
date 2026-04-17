@@ -115,9 +115,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_56erc")
 }],
-"loop": true,
+"loop": false,
 "name": &"Die",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -190,8 +190,7 @@ shape = SubResource("CapsuleShape2D_n4ces")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=429592552]
 scale = Vector2(1.4813478, 1.4813478)
 sprite_frames = SubResource("SpriteFrames_t4dsv")
-animation = &"Idle"
-frame_progress = 0.82467276
+animation = &"Die"
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("3_kc2dw")]
 offset_left = -136.9863
