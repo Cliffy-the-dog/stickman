@@ -1,5 +1,4 @@
 extends AnimatedSprite2D
-@onready var healthbar: ProgressBar = $Healthbar
 
 var slashing_counts = 0
 

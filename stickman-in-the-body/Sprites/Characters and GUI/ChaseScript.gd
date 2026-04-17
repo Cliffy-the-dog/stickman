@@ -3,8 +3,6 @@ extends RigidBody2D
 @export var speed = 600.0
 @export var detection_range = 1000.0
 @onready var music_manager: Node = %MusicManager
-@onready var slash_area_2: Area2D = %SlashArea2
-@onready var collision_shape_2d: CollisionShape2D = $Slash/SlashArea2/CollisionShape2D
 
 
 
@@ -57,17 +55,6 @@ func _physics_process(_delta):
 				healthbar.value = healthbar.value - 1
 				await get_tree().create_timer(0.02).timeout
 				healthbar.damage_bar.value = healthbar.value
-
-
-func _on_detection_zone_area_entered(area: Area2D) -> void:
-	print("Area entered: ", area.name)
-	if area.name == "SlashArea" or area == slash_area_2:
-		healthbar.value = healthbar.value - 20
-		for a in range(damage_value):
-			healthbar.value = healthbar.value - 1
-			await get_tree().create_timer(0.02).timeout
-			healthbar.damage_bar.value = healthbar.value
-
 
 func take_damage(damage_amount) -> void:
 	healthbar.value -= 20
