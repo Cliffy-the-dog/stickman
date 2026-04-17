@@ -69,11 +69,7 @@ func _on_detection_zone_area_entered(area: Area2D) -> void:
 			healthbar.damage_bar.value = healthbar.value
 
 
-func _on_detection_zone_body_entered(body: Node2D) -> void:
-	print("Body entered: ", body.name)
-	if body.name == "collision_shape_2d":
-		healthbar.value -=20
-		for a in range(damage_value):
-			healthbar.value -= 1
-			await get_tree().create_timer(0.02).timeout
-			healthbar.damage_bar.value = healthbar.value
+func take_damage(damage_amount) -> void:
+	healthbar.value -= 20
+	if healthbar.value < 0:
+		healthbar.value = 0

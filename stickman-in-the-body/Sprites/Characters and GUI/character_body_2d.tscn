@@ -8,9 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://bsbi72s8m65pt" path="res://Sprites/Characters and GUI/animated_sprite_2d.tscn" id="6_n7jsu"]
 [ext_resource type="Script" uid="uid://cs340asmfb5cc" path="res://Sprites/Characters and GUI/animated_sprite_2d.gd" id="6_xbhyn"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n7jsu"]
-size = Vector2(248, 216)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_peqie"]
 size = Vector2(42, 140.66667)
 
@@ -318,17 +315,14 @@ animations = [{
 "speed": 9.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_n7jsu"]
+radius = 120.0
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1074889554]
 script = ExtResource("1_21c00")
 
 [node name="Slash" parent="." unique_id=768034852 instance=ExtResource("6_n7jsu")]
 position = Vector2(130, 0)
-
-[node name="SlashArea2" type="Area2D" parent="Slash" unique_id=1506186180]
-unique_name_in_owner = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Slash/SlashArea2" unique_id=1723089465]
-shape = SubResource("RectangleShape2D_n7jsu")
 
 [node name="PlayerShape2D" type="CollisionShape2D" parent="." unique_id=1023303441]
 position = Vector2(2, -7.5)
@@ -347,3 +341,14 @@ offset_left = -122.0
 offset_top = -203.0
 offset_right = 152.0
 offset_bottom = -176.0
+
+[node name="SlashArea2" type="Area2D" parent="." unique_id=1506186180]
+unique_name_in_owner = true
+position = Vector2(145, 9)
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlashArea2" unique_id=1723089465]
+position = Vector2(-22, -13.5)
+shape = SubResource("CircleShape2D_n7jsu")
+
+[connection signal="body_entered" from="SlashArea2" to="." method="_on_slash_area_2_body_entered"]

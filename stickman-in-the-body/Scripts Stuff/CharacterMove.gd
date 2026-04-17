@@ -1,7 +1,5 @@
 extends CharacterBody2D
 
-
-
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var character: AnimatedSprite2D = $AnimatedSprite2D
 @onready var healthbar: ProgressBar = $Healthbar
@@ -33,9 +31,10 @@ func _physics_process(delta: float) -> void:
 		if butchering_in_progress == 0:
 			if is_on_floor():
 				butchering_in_progress = 1
-			if is_on_floor():
+				%SlashArea2.monitoring = true
 				character.play("Butcher")
 				await character.animation_finished
+				%SlashArea2.monitoring = false
 			character.play("Idle")
 			await get_tree().create_timer(0.25).timeout
 			butchering_in_progress = 0
@@ -52,8 +51,10 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("Walk Left", "Walk Right")
 	if direction > 0:
 		character.flip_h = false
+		%SlashArea2.position.x = 145
 	elif direction < 0:
 		character.flip_h = true
+		%SlashArea2.position.x = -145
 	
 	if direction == 0 and butchering_in_progress == 0 and bouncing_in_progress == 0:
 		character.play("Idle")
@@ -93,6 +94,12 @@ func _physics_process(delta: float) -> void:
 
 					else:
 						print("Bro you're already dead.")
+
+
+func _on_slash_area_2_body_entered(body: Node2D) -> void:
+	print("Body entering slash: ", body.name)
+	if body.has_method("take_damage"):
+		body.take_damage(damage_value)
 
 
 #End of script

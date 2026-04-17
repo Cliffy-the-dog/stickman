@@ -183,12 +183,6 @@ physics_material_override = SubResource("PhysicsMaterial_dlwnr")
 gravity_scale = 8.0
 script = ExtResource("1_dlwnr")
 
-[node name="DetectionZone" type="Area2D" parent="." unique_id=1527619256]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone" unique_id=141028233]
-scale = Vector2(1.5006018, 1.5006018)
-shape = SubResource("CapsuleShape2D_n4ces")
-
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1519172450]
 scale = Vector2(1.5006018, 1.5006018)
 shape = SubResource("CapsuleShape2D_n4ces")
@@ -207,5 +201,3 @@ offset_bottom = -161.64969
 theme_override_styles/background = SubResource("StyleBoxFlat_kc2dw")
 theme_override_styles/fill = SubResource("StyleBoxFlat_gders")
 metadata/_edit_use_anchors_ = true
-
-[connection signal="body_entered" from="DetectionZone" to="." method="_on_detection_zone_body_entered"]
