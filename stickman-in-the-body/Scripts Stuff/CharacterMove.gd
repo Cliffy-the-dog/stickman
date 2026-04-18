@@ -7,7 +7,7 @@ extends CharacterBody2D
 @onready var slash: AnimatedSprite2D = $Slash
 
 
-
+var pause_Idleanimationforce = 0
 var damage_taken_in_the_past_0point4seconds = 0
 var damage_value = 10
 var butchering_in_progress = 0
@@ -30,11 +30,13 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("Slash"):
 		if butchering_in_progress == 0:
 			if is_on_floor():
+				pause_Idleanimationforce = 1
 				butchering_in_progress = 1
 				%SlashArea2.monitoring = true
 				character.play("Butcher")
 				await character.animation_finished
 				%SlashArea2.monitoring = false
+				pause_Idleanimationforce = 0
 			character.play("Idle")
 			await get_tree().create_timer(0.25).timeout
 			butchering_in_progress = 0
@@ -57,7 +59,7 @@ func _physics_process(delta: float) -> void:
 	
 
 	if is_on_floor():
-		if is_on_floor and direction != 0:
+		if is_on_floor and direction != 0 and pause_Idleanimationforce == 0:
 			character.play("Walking")
 	if not is_on_floor() and character.animation != "Butcher":
 		character.play("Falling")
@@ -65,7 +67,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		character.play("Idle")
+		if pause_Idleanimationforce == 0:
+			character.play("Idle")
 		
 
 
