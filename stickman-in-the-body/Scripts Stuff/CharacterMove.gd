@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var character: AnimatedSprite2D = $AnimatedSprite2D
 @onready var healthbar: ProgressBar = $Healthbar
 @onready var management: Node = %Management
+@onready var slash: AnimatedSprite2D = $Slash
 
 
 
@@ -96,7 +97,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_slash_area_2_body_entered(body: Node2D) -> void:
 	print("Body entering slash: ", body.name)
-	if body.has_method("take_damage"):
+	if body.has_method("take_damage") and slash.animation == "Slash" and slash.is_playing(): 
 		body.take_damage(damage_value)
 
 
