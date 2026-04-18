@@ -23,7 +23,6 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta * 5
-		
 
 	# Handle jump.
 
@@ -40,13 +39,12 @@ func _physics_process(delta: float) -> void:
 			butchering_in_progress = 0
 			await get_tree().create_timer(0.25).timeout
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
-		if butchering_in_progress == 0:
-			velocity.y = JUMP_VELOCITY
-			bouncing_in_progress = 1
-			character.play("Jump")
-			await is_on_floor()
-			character.play("Idle")
-			bouncing_in_progress = 0
+		velocity.y = JUMP_VELOCITY
+		bouncing_in_progress = 1
+		character.play("Jump")
+		await is_on_floor()
+		character.play("Idle")
+		bouncing_in_progress = 0
 	# Get the input direction and handle the movement/deceleration.
 	var direction := Input.get_axis("Walk Left", "Walk Right")
 	if direction > 0:
@@ -56,17 +54,17 @@ func _physics_process(delta: float) -> void:
 		character.flip_h = true
 		%SlashArea2.position.x = -145
 	
-	if direction == 0 and butchering_in_progress == 0 and bouncing_in_progress == 0:
-		character.play("Idle")
-	elif is_on_floor():
-		if butchering_in_progress == 0 and bouncing_in_progress == 0:
+
+	if is_on_floor():
+		if is_on_floor and direction != 0:
 			character.play("Walking")
-	elif not is_on_floor():
+	if not is_on_floor() and character.animation != "Butcher":
 		character.play("Falling")
 	if direction:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+		character.play("Idle")
 		
 
 
