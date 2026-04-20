@@ -42,12 +42,13 @@ func _physics_process(delta: float) -> void:
 			butchering_in_progress = 0
 			await get_tree().create_timer(0.25).timeout
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-		bouncing_in_progress = 1
-		character.play("Jump")
-		await is_on_floor()
-		character.play("Idle")
-		bouncing_in_progress = 0
+		if butchering_in_progress == 0:
+			velocity.y = JUMP_VELOCITY
+			bouncing_in_progress = 1
+			character.play("Jump")
+			await is_on_floor()
+			character.play("Idle")
+			bouncing_in_progress = 0
 	# Get the input direction and handle the movement/deceleration.
 	var direction := Input.get_axis("Walk Left", "Walk Right")
 	if direction > 0:

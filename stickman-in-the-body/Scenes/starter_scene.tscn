@@ -196,7 +196,7 @@ script = ExtResource("1_5arw2")
 
 [node name="Player" parent="Management" unique_id=1074889554 instance=ExtResource("1_j8eka")]
 unique_name_in_owner = true
-position = Vector2(-7, -8)
+position = Vector2(-546, -29)
 collision_layer = 3
 collision_mask = 3
 
@@ -216,4 +216,4 @@ tile_set = SubResource("TileSet_5arw2")
 [node name="Node" type="Node" parent="." unique_id=66587204]
 
 [node name="Enemy" parent="." unique_id=1328572880 instance=ExtResource("3_knupb")]
-position = Vector2(-2490, 145)
+position = Vector2(-3019, 96)
