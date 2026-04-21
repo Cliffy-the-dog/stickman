@@ -11,24 +11,28 @@ var can_move = 1
 var negative_value = 1
 var player = null
 var is_chasing = false
-var detection_range = 1200
+var detection_range = 1100
 
 func _ready():
 	# Find the player by its unique name
 	player = get_tree().root.find_child("Player", true, false)
 
 func _physics_process(delta: float) -> void:
-	if can_move == 1:
-		look_at(target.global_position)
-		velocity = transform.x * sped * negative_value
-		sprite.play("Fly")
-		move_and_slide()
+#Adds music
 	if player:
 		var distance = global_position.distance_to(player.global_position)
 		if distance < detection_range and not is_chasing:
 			is_chasing = true
 			# --- CHANGE THIS NAME TO YOUR AUTOLOAD NAME ---
 			music_manager.start_chase(get_instance_id()) 
+#Moves the enemy
+	if can_move == 1 and is_chasing == true:
+		look_at(target.global_position)
+		velocity = transform.x * sped * negative_value
+		sprite.play("Fly")
+		move_and_slide()
+	if can_move == 1 and is_chasing == false:
+		sprite.play("Idle")
 
 func take_damage(damage_amount) -> void:
 	healthbar.value -= 20
