@@ -4,7 +4,7 @@ extends RigidBody2D
 @export var detection_range = 1000.0
 @onready var music_manager: Node = %MusicManager
 @onready var animatedSprite: AnimatedSprite2D = $AnimatedSprite2D
-
+var multiplier = 1
 var not_dying = 1
 var movable = 1
 var damage_value = 20
@@ -40,7 +40,7 @@ func _physics_process(_delta):
 			var direction = sign(player.global_position.x - global_position.x)
 			
 			# Move the RigidBody
-			linear_velocity.x = direction * speed * movable
+			linear_velocity.x = direction * speed * movable * multiplier
 			
 			# Flip and play animation
 			if sprite and not_dying == 1:
@@ -59,6 +59,9 @@ func _physics_process(_delta):
 
 func take_damage(damage_amount) -> void:
 	healthbar.value -= 20
+	multiplier = -1
+	await get_tree().create_timer(0.15).timeout
+	multiplier = 1
 	if healthbar.value < 0:
 		healthbar.value = 0
 	var direction = 0
