@@ -5,8 +5,9 @@ extends CharacterBody2D
 @onready var healthbar: ProgressBar = $Healthbar
 @onready var management: Node = %Management
 @onready var slash: AnimatedSprite2D = $Slash
+@onready var killzone: Area2D = %Killzone
 
-
+var last_floor_pos: Vector2 = Vector2.ZERO
 var pause_Idleanimationforce = 0
 var damage_taken_in_the_past_0point4seconds = 0
 var damage_value = 10
@@ -71,9 +72,14 @@ func _physics_process(delta: float) -> void:
 		if pause_Idleanimationforce == 0:
 			character.play("Idle")
 		
+	if is_on_floor():
+		last_floor_pos = global_position
+	
+		
 
 
 	move_and_slide()
+	
 	
 	
 	# Check every object the player is currently touching
@@ -94,9 +100,9 @@ func _physics_process(delta: float) -> void:
 							await get_tree().create_timer(0.02).timeout
 						damage_taken_in_the_past_0point4seconds = 0
 						healthbar.damage_bar.value = healthbar.health
-
 					else:
 						print("Bro you're already dead.")
+
 
 
 func _on_slash_area_2_body_entered(body: Node2D) -> void:
@@ -104,5 +110,6 @@ func _on_slash_area_2_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and slash.animation == "Slash" and slash.is_playing(): 
 		body.take_damage(damage_value)
 
-
+func _on_killzone_body_entered(body: Node2D) -> void:
+	global_position = last_floor_pos
 #End of script

@@ -214,6 +214,8 @@ texture_region_size = Vector2i(256, 256)
 tile_size = Vector2i(256, 256)
 sources/0 = SubResource("TileSetAtlasSource_gdo4f")
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gdo4f"]
+
 [node name="Starter Scene" type="Node2D" unique_id=1399042593]
 
 [node name="Management" type="Node" parent="." unique_id=1796274621]
@@ -247,6 +249,15 @@ tile_set = SubResource("TileSet_axxa6")
 
 [node name="Area2D" type="Area2D" parent="Management" unique_id=1117550855]
 
+[node name="Killzone" type="Area2D" parent="Management" unique_id=1330915264]
+unique_name_in_owner = true
+position = Vector2(-1010, 10208)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Management/Killzone" unique_id=1651071563]
+position = Vector2(-4525, 10000)
+scale = Vector2(7.5, 7.5)
+shape = SubResource("WorldBoundaryShape2D_gdo4f")
+
 [node name="Node" type="Node" parent="." unique_id=66587204]
 
 [node name="Enemy" parent="Node" unique_id=1328572880 instance=ExtResource("3_knupb")]
@@ -254,3 +265,5 @@ position = Vector2(-3019, 96)
 
 [node name="CharacterBody2D" parent="Node" unique_id=1036799139 instance=ExtResource("6_gdo4f")]
 position = Vector2(-3400, -439)
+
+[connection signal="body_entered" from="Management/Killzone" to="Management/Player" method="_on_killzone_body_entered"]
