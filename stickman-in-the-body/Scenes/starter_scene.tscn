@@ -253,4 +253,4 @@ tile_set = SubResource("TileSet_axxa6")
 position = Vector2(-3019, 96)
 
 [node name="CharacterBody2D" parent="." unique_id=1036799139 instance=ExtResource("6_gdo4f")]
-position = Vector2(-1532, -19)
+position = Vector2(-474, -2188)

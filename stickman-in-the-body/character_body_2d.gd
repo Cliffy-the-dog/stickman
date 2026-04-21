@@ -2,12 +2,20 @@ extends CharacterBody2D
 @onready var healthbar: ProgressBar = $Healthbar
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var target: CharacterBody2D = %Player
+@onready var music_manager: Node = %MusicManager
 
 var sped = 500
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var can_move = 1
 var negative_value = 1
+var player = null
+var is_chasing = false
+var detection_range = 1200
+
+func _ready():
+	# Find the player by its unique name
+	player = get_tree().root.find_child("Player", true, false)
 
 func _physics_process(delta: float) -> void:
 	if can_move == 1:
@@ -15,6 +23,13 @@ func _physics_process(delta: float) -> void:
 		velocity = transform.x * sped * negative_value
 		sprite.play("Fly")
 		move_and_slide()
+	if player:
+		var distance = global_position.distance_to(player.global_position)
+		if distance < detection_range and not is_chasing:
+			is_chasing = true
+			# --- CHANGE THIS NAME TO YOUR AUTOLOAD NAME ---
+			music_manager.start_chase(get_instance_id()) 
+
 func take_damage(damage_amount) -> void:
 	healthbar.value -= 20
 	if healthbar.value < 0:
