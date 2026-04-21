@@ -315,6 +315,18 @@ animations = [{
 "speed": 9.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7jsu"]
+bg_color = Color(0, 1, 0.735357, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_n7jsu"]
 radius = 120.0
 
@@ -341,6 +353,7 @@ offset_left = -122.0
 offset_top = -203.0
 offset_right = 152.0
 offset_bottom = -176.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_n7jsu")
 
 [node name="SlashArea2" type="Area2D" parent="." unique_id=1506186180]
 unique_name_in_owner = true

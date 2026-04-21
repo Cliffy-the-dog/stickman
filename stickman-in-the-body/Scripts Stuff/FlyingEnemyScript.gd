@@ -25,14 +25,15 @@ func _ready():
 
 func _physics_process(_delta):
 	if playera:
-		var distance = global_position.distance_to(playera.global_position)
+		var distance = position.distance_to(playera.position)
 		if distance < detection_range and not is_chasing:
 			is_chasing = true
 			# --- CHANGE THIS NAME TO YOUR AUTOLOAD NAME ---
 			music_manager.start_chase(get_instance_id()) 
-	var dir = to_local(nav_agent.get_next_path_position()).normalized()
-	velocity = dir * speed
-	move_and_slide()
+	if is_chasing == true:
+			var dir = to_local(nav_agent.get_next_path_position()).normalized()
+			velocity = dir * 1200
+			move_and_slide()
 	
 	
 	if healthbar.value < 0:
@@ -59,12 +60,3 @@ func take_damage(damage_amount) -> void:
 		animatedSprite.play("Die")
 		await animatedSprite.animation_finished
 		queue_free()
-
-
-func makepath() -> void:
-	nav_agent.target_position = player.global_position
-
-
-
-func _on_timer_timeout() -> void:
-	makepath()

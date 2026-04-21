@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://eq1nth1nqlqc" path="res://Music/node.tscn" id="3_dgyv7"]
 [ext_resource type="PackedScene" uid="uid://4jc8ydq23k2q" path="res://Sprites/Characters and GUI/Enemy.tscn" id="3_knupb"]
 [ext_resource type="Texture2D" uid="uid://ijqbj6ftder2" path="res://Tileset/BackgroundTiles/LayeredBackground.png" id="5_kn614"]
+[ext_resource type="PackedScene" uid="uid://cfb1qls6umnq5" path="res://JetpackGit.tscn" id="6_gdo4f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_knupb"]
 texture = ExtResource("2_lhs2h")
@@ -213,8 +214,6 @@ texture_region_size = Vector2i(256, 256)
 tile_size = Vector2i(256, 256)
 sources/0 = SubResource("TileSetAtlasSource_gdo4f")
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kn614"]
-
 [node name="Starter Scene" type="Node2D" unique_id=1399042593]
 
 [node name="Management" type="Node" parent="." unique_id=1796274621]
@@ -248,12 +247,10 @@ tile_set = SubResource("TileSet_axxa6")
 
 [node name="Area2D" type="Area2D" parent="Management" unique_id=1117550855]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Management/Area2D" unique_id=1039225985]
-position = Vector2(-2660, 22104)
-scale = Vector2(20, 20)
-shape = SubResource("WorldBoundaryShape2D_kn614")
-
 [node name="Node" type="Node" parent="." unique_id=66587204]
 
-[node name="Enemy" parent="." unique_id=1328572880 instance=ExtResource("3_knupb")]
+[node name="Enemy" parent="Node" unique_id=1328572880 instance=ExtResource("3_knupb")]
 position = Vector2(-3019, 96)
+
+[node name="CharacterBody2D" parent="." unique_id=1036799139 instance=ExtResource("6_gdo4f")]
+position = Vector2(-1532, -19)
