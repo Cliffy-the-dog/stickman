@@ -111,5 +111,14 @@ func _on_slash_area_2_body_entered(body: Node2D) -> void:
 		body.take_damage(damage_value)
 
 func _on_killzone_body_entered(body: Node2D) -> void:
+	if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0:
+		if healthbar.health - 10 > -1:
+			damage_taken_in_the_past_0point4seconds = 1
+			for a in range(damage_value):
+				healthbar.health = healthbar.health - 1
+				await get_tree().create_timer(0.02).timeout
+			damage_taken_in_the_past_0point4seconds = 0
+			healthbar.damage_bar.value = healthbar.health
 	global_position = last_floor_pos
+	
 #End of script
