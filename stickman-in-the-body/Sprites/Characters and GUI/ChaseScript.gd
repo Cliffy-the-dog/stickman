@@ -33,7 +33,12 @@ func _physics_process(_delta):
 			var direction = sign(player.global_position.x - global_position.x)
 			linear_velocity.x = direction * speed * movable
 			sprite.flip_h = direction < 0
-			sprite.play("Run")
+			if healthbar.value > 0:
+				sprite.play("Run")
+			if healthbar.value < 1:
+				sprite.play("Die")
+				await sprite.animation_finished
+				queue_free()
 
 
 	if healthbar.value < 0:
