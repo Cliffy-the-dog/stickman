@@ -106,10 +106,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ik8o4"]
-radius = 37.0
-height = 284.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4p7tj"]
 bg_color = Color(0, 0, 0, 1)
 border_width_left = 4
@@ -134,18 +130,19 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ik8o4"]
+radius = 37.0
+height = 284.0
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1036799139]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_mu4cg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1449370168]
 scale = Vector2(1.6397516, 1.6397513)
 sprite_frames = SubResource("SpriteFrames_fbl13")
 animation = &"Die"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=854144139]
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_ik8o4")
-debug_color = Color(0, 0.6062106, 0.6546813, 0.41960785)
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("3_w5eb7")]
 offset_left = -133.0
@@ -154,3 +151,8 @@ offset_right = 141.0
 offset_bottom = -108.0
 theme_override_styles/background = SubResource("StyleBoxFlat_4p7tj")
 theme_override_styles/fill = SubResource("StyleBoxFlat_iwb4e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=854144139]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_ik8o4")
+debug_color = Color(0, 0.6062106, 0.6546813, 0.41960785)

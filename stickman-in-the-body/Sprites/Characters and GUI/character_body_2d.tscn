@@ -7,10 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://Sprites/Characters and GUI/healthbar.tscn" id="4_peqie"]
 [ext_resource type="PackedScene" uid="uid://bsbi72s8m65pt" path="res://Sprites/Characters and GUI/animated_sprite_2d.tscn" id="6_n7jsu"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h7lbt"]
-radius = 36.000004
-height = 150.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_53umr"]
 atlas = ExtResource("2_at0vm")
 region = Rect2(0, 189, 239, 189)
@@ -330,19 +326,17 @@ corner_radius_bottom_left = 32
 [sub_resource type="CircleShape2D" id="CircleShape2D_n7jsu"]
 radius = 120.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h7lbt"]
+radius = 24.666666
+height = 150.0
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1074889554]
 collision_layer = 2
-platform_on_leave = 2
-platform_floor_layers = 4294967040
+collision_mask = 2
 script = ExtResource("1_21c00")
 
 [node name="Slash" parent="." unique_id=768034852 instance=ExtResource("6_n7jsu")]
 position = Vector2(130, 0)
-
-[node name="PlayerShape2D" type="CollisionShape2D" parent="." unique_id=1023303441]
-position = Vector2(2, -7.5)
-scale = Vector2(1.5, 1.5)
-shape = SubResource("CapsuleShape2D_h7lbt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=64196167]
 position = Vector2(-1, 0)
@@ -360,10 +354,30 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_n7jsu")
 [node name="SlashArea2" type="Area2D" parent="." unique_id=1506186180]
 unique_name_in_owner = true
 position = Vector2(145, 9)
+collision_layer = 2
+collision_mask = 7
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SlashArea2" unique_id=1723089465]
 position = Vector2(-22, -13.5)
 shape = SubResource("CircleShape2D_n7jsu")
+
+[node name="Fazed Hitbox" type="Area2D" parent="." unique_id=713956515]
+collision_layer = 2
+collision_mask = 7
+
+[node name="Hitbox" type="CollisionShape2D" parent="Fazed Hitbox" unique_id=1023303441]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(2, -7.5)
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CapsuleShape2D_h7lbt")
+
+[node name="Grounder Hitbox" type="CollisionShape2D" parent="." unique_id=589186753]
+light_mask = 2
+visibility_layer = 2
+position = Vector2(2, -7.5)
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CapsuleShape2D_h7lbt")
 
 [connection signal="body_entered" from="SlashArea2" to="." method="_on_slash_area_2_body_entered"]

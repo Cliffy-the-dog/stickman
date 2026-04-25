@@ -185,7 +185,8 @@ texture_region_size = Vector2i(128, 128)
 
 [sub_resource type="TileSet" id="TileSet_5arw2"]
 tile_size = Vector2i(128, 128)
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 255
+physics_layer_0/collision_mask = 255
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_axxa6")
 sources/0 = SubResource("TileSetAtlasSource_knupb")
 
@@ -224,8 +225,6 @@ script = ExtResource("1_5arw2")
 [node name="Player" parent="Management" unique_id=1074889554 instance=ExtResource("1_j8eka")]
 unique_name_in_owner = true
 position = Vector2(-1426, 106)
-collision_layer = 3
-collision_mask = 3
 
 [node name="Camera2D2" type="Camera2D" parent="Management/Player" unique_id=1035022596]
 position = Vector2(7, 8)
