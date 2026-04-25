@@ -223,7 +223,7 @@ script = ExtResource("1_5arw2")
 
 [node name="Player" parent="Management" unique_id=1074889554 instance=ExtResource("1_j8eka")]
 unique_name_in_owner = true
-position = Vector2(-6843, 278)
+position = Vector2(-1426, 106)
 collision_layer = 3
 collision_mask = 3
 
@@ -260,9 +260,6 @@ shape = SubResource("WorldBoundaryShape2D_gdo4f")
 
 [node name="Enemy" parent="Node" unique_id=289849747 instance=ExtResource("3_knupb")]
 position = Vector2(-3019, 96)
-
-[node name="CharacterBody2D" parent="Node" unique_id=2051559948 instance=ExtResource("6_gdo4f")]
-position = Vector2(-3400, -439)
 
 [node name="CharacterBody2D2" parent="Node" unique_id=1113216769 instance=ExtResource("6_gdo4f")]
 position = Vector2(-670, -2711)
