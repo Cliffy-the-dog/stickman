@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var push_force = 100.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var character: AnimatedSprite2D = $AnimatedSprite2D
 @onready var healthbar: ProgressBar = $Healthbar
@@ -114,6 +115,7 @@ func _physics_process(delta: float) -> void:
 						healthbar.damage_bar.value = healthbar.health
 					else:
 						print("Bro you're already dead.")
+
 
 
 
