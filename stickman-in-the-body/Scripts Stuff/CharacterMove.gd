@@ -97,7 +97,7 @@ func _physics_process(delta: float) -> void:
 						damage_taken_in_the_past_0point4seconds = 1
 						for a in range(damage_value):
 							healthbar.health = healthbar.health - 1
-							await get_tree().create_timer(0.02).timeout
+							await get_tree().create_timer(0.07).timeout
 						damage_taken_in_the_past_0point4seconds = 0
 						healthbar.damage_bar.value = healthbar.health
 					else:

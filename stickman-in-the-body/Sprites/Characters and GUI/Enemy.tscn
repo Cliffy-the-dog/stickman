@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://Sprites/Characters and GUI/healthbar.tscn" id="3_kc2dw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dlwnr"]
-friction = 0.0
-bounce = 0.25
+friction = 5.0
+absorbent = true
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n4ces"]
 radius = 25.0
