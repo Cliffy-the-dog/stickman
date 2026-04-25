@@ -13,7 +13,7 @@ var movable = 1
 var damage_value = 20
 var player = null
 var is_chasing = false
-
+var dir = 1
 func _ready():
 	player = get_tree().root.find_child("Player", true, false)
 	lock_rotation = true
@@ -21,6 +21,7 @@ func _ready():
 	max_contacts_reported = 4
 
 func _physics_process(_delta):
+
 	if player:
 		var distance = global_position.distance_to(player.global_position)
 		
@@ -30,16 +31,10 @@ func _physics_process(_delta):
 		
 		if is_chasing:
 			var direction = sign(player.global_position.x - global_position.x)
-			
-			# FIX: If we are close enough to touch, stop the physical shove
-			if distance < 120: 
-				linear_velocity.x = 0
-			else:
-				linear_velocity.x = direction * speed * movable * multiplier
-			
-			if sprite and not_dying == 1:
-				sprite.flip_h = direction < 0
-				sprite.play("Run")
+			linear_velocity.x = direction * speed * movable
+			sprite.flip_h = direction < 0
+			sprite.play("Run")
+
 
 	if healthbar.value < 0:
 		if healthbar.value - 10 > -1:
