@@ -8,12 +8,14 @@ extends CharacterBody2D
 @onready var slash: AnimatedSprite2D = $Slash
 @onready var killzone: Area2D = %Killzone
 
+var attackers: Array[Node2D] = []
 var last_floor_pos: Vector2 = Vector2.ZERO
 var pause_Idleanimationforce = 0
 var damage_taken_in_the_past_0point4seconds = 0
 var damage_value = 10
 var butchering_in_progress = 0
 var bouncing_in_progress = 0
+var being_touched = 0
 
 const SPEED = 1200.0
 const JUMP_VELOCITY = -2200.0
@@ -24,8 +26,8 @@ func _ready():
 
 func flash_red():
 	var tween = create_tween()
-	tween.tween_property(self, "modulate", Color.RED, 0.1)
-	tween.tween_property(self, "modulate", Color.WHITE, 0.2)
+	tween.tween_property(self, "modulate", Color.RED, 0.2)
+	tween.tween_property(self, "modulate", Color.WHITE, 0.4)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -78,27 +80,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
-	for i in get_slide_collision_count():
-		var collision = get_slide_collision(i)
-		if collision:
-			var collider = collision.get_collider()
-		
-			if collider.has_method("take_damage"):
-				# FIX: Stop the RigidBody from pushing by killing its velocity manually
-				if collider is RigidBody2D:
-					collider.linear_velocity = Vector2.ZERO
-				
-				if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0:
-					if healthbar.health - 10 > -1:
-						damage_taken_in_the_past_0point4seconds = 1
-						flash_red()
-						for a in range(damage_value):
-							healthbar.health = healthbar.health - 1
-							await get_tree().create_timer(0.07).timeout
-						damage_taken_in_the_past_0point4seconds = 0
-						healthbar.damage_bar.value = healthbar.health
-					else:
-						print("Bro you're already dead.")
+
 
 func _on_slash_area_2_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and slash.animation == "Slash" and slash.is_playing(): 
@@ -115,3 +97,27 @@ func _on_killzone_body_entered(body: Node2D) -> void:
 			damage_taken_in_the_past_0point4seconds = 0
 			healthbar.damage_bar.value = healthbar.health
 	global_position = last_floor_pos
+
+
+func _on_fazed_hitbox_body_entered(body: Node2D) -> void:
+	if body.has_method("take_damage") and not attackers.has(body):
+		attackers.append(body)
+
+func _on_fazed_hitbox_body_exited(body: Node2D) -> void:
+	if body.has_method("take_damage"):
+		if attackers.has(body):
+			attackers.erase(body)
+
+func _process(delta: float) -> void:
+	if attackers.size() > 0:
+		if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0:
+			if healthbar.health - 10 > -1:
+				damage_taken_in_the_past_0point4seconds = 1
+				flash_red()
+				for a in range(damage_value):
+					healthbar.health = healthbar.health - 1
+					await get_tree().create_timer(0.07).timeout
+				damage_taken_in_the_past_0point4seconds = 0
+				healthbar.damage_bar.value = healthbar.health
+			else:
+				print("Bro you're already dead.")

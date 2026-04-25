@@ -31,7 +31,7 @@ func _physics_process(_delta):
 		
 		if is_chasing:
 			var direction = sign(player.global_position.x - global_position.x)
-			linear_velocity.x = direction * speed * movable
+			linear_velocity.x = direction * speed * movable * multiplier
 			sprite.flip_h = direction < 0
 			if healthbar.value > 0:
 				sprite.play("Run")
