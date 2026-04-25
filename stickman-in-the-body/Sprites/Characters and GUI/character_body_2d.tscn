@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bsbi72s8m65pt" path="res://Sprites/Characters and GUI/animated_sprite_2d.tscn" id="6_n7jsu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h7lbt"]
-radius = 29.333334
+radius = 36.000004
 height = 150.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_53umr"]
@@ -331,6 +331,9 @@ corner_radius_bottom_left = 32
 radius = 120.0
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1074889554]
+collision_layer = 2
+platform_on_leave = 2
+platform_floor_layers = 4294967040
 script = ExtResource("1_21c00")
 
 [node name="Slash" parent="." unique_id=768034852 instance=ExtResource("6_n7jsu")]

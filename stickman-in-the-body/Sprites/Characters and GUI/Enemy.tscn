@@ -5,7 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://Sprites/Characters and GUI/healthbar.tscn" id="3_kc2dw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dlwnr"]
-friction = 5.0
+friction = 0.0
+bounce = 1.0
 absorbent = true
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n4ces"]
@@ -192,6 +193,7 @@ scale = Vector2(1.2775, 1.2775)
 mass = 0.001
 physics_material_override = SubResource("PhysicsMaterial_dlwnr")
 gravity_scale = 8.0
+can_sleep = false
 script = ExtResource("1_dlwnr")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1519172450]
