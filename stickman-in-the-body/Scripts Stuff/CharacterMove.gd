@@ -16,6 +16,17 @@ var bouncing_in_progress = 0
 func _ready():
 	healthbar.health = 100 + 20 * management.health_upgrades
 	butchering_in_progress = 0
+func flash_red():
+	# Create a tween to handle the animation
+	var tween = create_tween()
+	
+	# Flash to red over 0.1 seconds
+	tween.tween_property(self, "modulate", Color.RED, 0.1)
+	
+	# Transition back to white over 0.2 seconds
+	tween.tween_property(self, "modulate", Color.WHITE, 0.2)
+	
+	
 
 const SPEED = 1200.0
 const JUMP_VELOCITY = -2200.0
@@ -95,6 +106,7 @@ func _physics_process(delta: float) -> void:
 				if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0:
 					if healthbar.health - 10 > -1:
 						damage_taken_in_the_past_0point4seconds = 1
+						flash_red()
 						for a in range(damage_value):
 							healthbar.health = healthbar.health - 1
 							await get_tree().create_timer(0.07).timeout
@@ -114,9 +126,11 @@ func _on_killzone_body_entered(body: Node2D) -> void:
 	if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0:
 		if healthbar.health - 10 > -1:
 			damage_taken_in_the_past_0point4seconds = 1
+			flash_red()
 			for a in range(damage_value):
 				healthbar.health = healthbar.health - 1
 				await get_tree().create_timer(0.02).timeout
+				
 			damage_taken_in_the_past_0point4seconds = 0
 			healthbar.damage_bar.value = healthbar.health
 	global_position = last_floor_pos

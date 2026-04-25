@@ -7,8 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://Sprites/Characters and GUI/healthbar.tscn" id="4_peqie"]
 [ext_resource type="PackedScene" uid="uid://bsbi72s8m65pt" path="res://Sprites/Characters and GUI/animated_sprite_2d.tscn" id="6_n7jsu"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_peqie"]
-size = Vector2(42, 140.66667)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h7lbt"]
+radius = 29.333334
+height = 150.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_53umr"]
 atlas = ExtResource("2_at0vm")
@@ -338,13 +339,13 @@ position = Vector2(130, 0)
 [node name="PlayerShape2D" type="CollisionShape2D" parent="." unique_id=1023303441]
 position = Vector2(2, -7.5)
 scale = Vector2(1.5, 1.5)
-shape = SubResource("RectangleShape2D_peqie")
+shape = SubResource("CapsuleShape2D_h7lbt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=64196167]
 position = Vector2(-1, 0)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_uglg6")
-animation = &"Falling"
+animation = &"Hurt"
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("4_peqie")]
 offset_left = -122.0

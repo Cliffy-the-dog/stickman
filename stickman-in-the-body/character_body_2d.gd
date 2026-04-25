@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+
+
 @onready var healthbar: ProgressBar = $Healthbar
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var target: CharacterBody2D = %Player
@@ -31,6 +33,10 @@ func _physics_process(delta: float) -> void:
 		velocity = transform.x * sped * negative_value
 		sprite.play("Fly")
 		move_and_slide()
+		if global_position.distance_to(target.global_position) < 1:
+			negative_value = -1
+			await get_tree().create_timer(0.15).timeout
+			negative_value = 1
 	
 	if can_move == 1 and is_chasing == false:
 		sprite.play("Idle")
