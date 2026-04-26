@@ -316,6 +316,7 @@ position = Vector2(4540.5, -2957)
 position = Vector2(9788, -2889)
 
 [node name="Checkpoint" parent="." unique_id=1697631469 instance=ExtResource("10_pgasi")]
+z_index = 30
 position = Vector2(6780, -4179)
 
 [node name="Blood Hotspring thing2" type="Area2D" parent="Checkpoint" unique_id=1345803260]

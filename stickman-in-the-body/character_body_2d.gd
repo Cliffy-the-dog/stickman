@@ -61,7 +61,6 @@ func take_damage(damage_amount) -> void:
 		music_manager.stop_chase(get_instance_id())
 		
 		can_move = 0
-		$CollisionShape2D.queue_free()
 		sprite.play("Die")
 		await sprite.animation_finished
 		queue_free()

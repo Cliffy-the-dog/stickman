@@ -21,7 +21,7 @@ var butchering_in_progress = 0
 var bouncing_in_progress = 0
 var being_touched = 0
 var health_upgrades = 1
-const SPEED = 1200.0
+var SPEED = 1200.0
 const JUMP_VELOCITY = -2200.0
 
 func _ready():
@@ -133,4 +133,10 @@ func _on_fazed_hitbox_area_entered(area: Area2D) -> void:
 	print("Touching ",area)
 	if area == Gitgud:
 		print("Area is Checkpoint")
-		healthbar.value = healthbar.max_value
+		while healthbar.value != healthbar.max_value:
+			healthbar.value = healthbar.value + 1
+			await get_tree().create_timer(0.02).timeout
+			SPEED = 0
+			if healthbar.value > healthbar.max_value:
+				healthbar.value = healthbar.max_value
+		SPEED = 1200
