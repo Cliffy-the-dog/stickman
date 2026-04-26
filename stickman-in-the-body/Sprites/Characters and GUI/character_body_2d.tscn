@@ -345,11 +345,13 @@ sprite_frames = SubResource("SpriteFrames_uglg6")
 animation = &"Hurt"
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("4_peqie")]
+unique_name_in_owner = true
 offset_left = -122.0
 offset_top = -203.0
 offset_right = 152.0
 offset_bottom = -176.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_n7jsu")
+metadata/_edit_use_anchors_ = true
 
 [node name="SlashArea2" type="Area2D" parent="." unique_id=1506186180]
 unique_name_in_owner = true
@@ -363,7 +365,8 @@ position = Vector2(-22, -13.5)
 shape = SubResource("CircleShape2D_n7jsu")
 
 [node name="Fazed Hitbox" type="Area2D" parent="." unique_id=713956515]
-collision_layer = 2
+position = Vector2(1, 0)
+collision_layer = 7
 collision_mask = 7
 
 [node name="Hitbox" type="CollisionShape2D" parent="Fazed Hitbox" unique_id=1023303441]
@@ -381,5 +384,6 @@ scale = Vector2(1.5, 1.5)
 shape = SubResource("CapsuleShape2D_h7lbt")
 
 [connection signal="body_entered" from="SlashArea2" to="." method="_on_slash_area_2_body_entered"]
+[connection signal="area_entered" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_area_entered"]
 [connection signal="body_entered" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_body_entered"]
 [connection signal="body_exited" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_body_exited"]

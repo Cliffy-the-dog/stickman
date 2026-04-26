@@ -7,6 +7,10 @@ extends CharacterBody2D
 @onready var management: Node = %Management
 @onready var slash: AnimatedSprite2D = $Slash
 @onready var killzone: Area2D = %Killzone
+@onready var Gitgud: Area2D = $"../../Checkpoint/Blood Hotspring thing2"
+
+
+
 
 var attackers: Array[Node2D] = []
 var last_floor_pos: Vector2 = Vector2.ZERO
@@ -16,7 +20,7 @@ var damage_value = 10
 var butchering_in_progress = 0
 var bouncing_in_progress = 0
 var being_touched = 0
-
+var health_upgrades = 1
 const SPEED = 1200.0
 const JUMP_VELOCITY = -2200.0
 
@@ -86,6 +90,8 @@ func _on_slash_area_2_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and slash.animation == "Slash" and slash.is_playing(): 
 		body.take_damage(damage_value)
 
+		
+
 func _on_killzone_body_entered(body: Node2D) -> void:
 	if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0:
 		if healthbar.health - 10 > -1:
@@ -121,3 +127,10 @@ func _process(delta: float) -> void:
 				healthbar.damage_bar.value = healthbar.health
 			else:
 				print("Bro you're already dead.")
+
+
+func _on_fazed_hitbox_area_entered(area: Area2D) -> void:
+	print("Touching ",area)
+	if area == Gitgud:
+		print("Area is Checkpoint")
+		healthbar.value = healthbar.max_value
