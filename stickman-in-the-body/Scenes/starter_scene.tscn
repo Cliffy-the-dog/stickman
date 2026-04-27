@@ -236,6 +236,9 @@ physics_layer_0/collision_layer = 255
 physics_layer_0/collision_mask = 2
 sources/0 = SubResource("TileSetAtlasSource_pgasi")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3lej0"]
+size = Vector2(512, 128)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pgasi"]
 size = Vector2(512, 128)
 
@@ -270,6 +273,8 @@ tile_set = SubResource("TileSet_axxa6")
 [node name="Killzone" type="Area2D" parent="Management" unique_id=1330915264]
 unique_name_in_owner = true
 position = Vector2(-1010, 10208)
+collision_layer = 255
+collision_mask = 255
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Management/Killzone" unique_id=1651071563]
 position = Vector2(-4525, 10000)
@@ -315,26 +320,50 @@ position = Vector2(4540.5, -2957)
 [node name="StaticBody2D2" parent="." unique_id=1350520660 instance=ExtResource("8_axxa6")]
 position = Vector2(9788, -2889)
 
-[node name="Checkpoint" parent="." unique_id=1697631469 instance=ExtResource("10_pgasi")]
-z_index = 30
-position = Vector2(6780, -4179)
+[node name="Checkpoint folder" type="Node" parent="." unique_id=33694318]
 
-[node name="Blood Hotspring thing2" type="Area2D" parent="Checkpoint" unique_id=1345803260]
+[node name="Checkpoint2" parent="Checkpoint folder" unique_id=1697631469 instance=ExtResource("10_pgasi")]
+position = Vector2(-11394, -210)
+
+[node name="Blood Hotspring thing2" type="Area2D" parent="Checkpoint folder/Checkpoint2" unique_id=553925117]
 collision_layer = 255
 collision_mask = 255
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint/Blood Hotspring thing2" unique_id=165903895]
-shape = SubResource("RectangleShape2D_pgasi")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint folder/Checkpoint2/Blood Hotspring thing2" unique_id=1524541171]
+shape = SubResource("RectangleShape2D_3lej0")
 
-[node name="Ramps2" type="StaticBody2D" parent="Checkpoint" unique_id=1039667286]
+[node name="Ramps2" type="StaticBody2D" parent="Checkpoint folder/Checkpoint2" unique_id=2036411484]
 position = Vector2(-384, 64)
 collision_layer = 255
 collision_mask = 255
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Checkpoint/Ramps2" unique_id=1906246023]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Checkpoint folder/Checkpoint2/Ramps2" unique_id=915218101]
 polygon = PackedVector2Array(0, -10, 117, -128, 128, -128, 128, 0, 0, 0)
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Checkpoint/Ramps2" unique_id=778280080]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Checkpoint folder/Checkpoint2/Ramps2" unique_id=2069837409]
+position = Vector2(500, 30)
+polygon = PackedVector2Array(268, -35, 150, -158, 140, -158, 140, -30, 267, -30)
+
+[node name="Checkpoint" parent="Checkpoint folder" unique_id=300294465 instance=ExtResource("10_pgasi")]
+z_index = 30
+position = Vector2(6780, -4179)
+
+[node name="Blood Hotspring thing2" type="Area2D" parent="Checkpoint folder/Checkpoint" unique_id=1345803260]
+collision_layer = 255
+collision_mask = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint folder/Checkpoint/Blood Hotspring thing2" unique_id=165903895]
+shape = SubResource("RectangleShape2D_pgasi")
+
+[node name="Ramps2" type="StaticBody2D" parent="Checkpoint folder/Checkpoint" unique_id=1039667286]
+position = Vector2(-384, 64)
+collision_layer = 255
+collision_mask = 255
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Checkpoint folder/Checkpoint/Ramps2" unique_id=1906246023]
+polygon = PackedVector2Array(0, -10, 117, -128, 128, -128, 128, 0, 0, 0)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Checkpoint folder/Checkpoint/Ramps2" unique_id=778280080]
 position = Vector2(500, 30)
 polygon = PackedVector2Array(268, -35, 150, -158, 140, -158, 140, -30, 267, -30)
 

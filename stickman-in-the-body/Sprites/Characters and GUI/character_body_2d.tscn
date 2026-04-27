@@ -346,10 +346,10 @@ animation = &"Hurt"
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("4_peqie")]
 unique_name_in_owner = true
-offset_left = -122.0
-offset_top = -203.0
-offset_right = 152.0
-offset_bottom = -176.0
+offset_left = -1369.0
+offset_top = -737.0
+offset_right = -869.0
+offset_bottom = -710.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_n7jsu")
 metadata/_edit_use_anchors_ = true
 
@@ -381,7 +381,7 @@ light_mask = 2
 visibility_layer = 2
 position = Vector2(2, -7.5)
 scale = Vector2(1.5, 1.5)
-shape = SubResource("CapsuleShape2D_h7lbt")
+ddddddddshape = SubResource("CapsuleShape2D_h7lbt")
 
 [connection signal="body_entered" from="SlashArea2" to="." method="_on_slash_area_2_body_entered"]
 [connection signal="area_entered" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_area_entered"]

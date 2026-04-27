@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://djwipdng1fao7" path="res://Tileset/PhysicsTiles/Checkpoint.png" id="1_ryr8l"]
 [ext_resource type="Script" uid="uid://hckmp4ws0ebv" path="res://tile_map_layer.gd" id="2_8ha5i"]
+[ext_resource type="Script" uid="uid://5prkgw6rk2o7" path="res://Scenes/Identifierscript.gd" id="3_pwwfq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ly2qt"]
 size = Vector2(512, 128)
@@ -13,6 +14,7 @@ script = ExtResource("2_8ha5i")
 [node name="Blood Hotspring thing" type="Area2D" parent="." unique_id=1076904271]
 collision_layer = 255
 collision_mask = 255
+script = ExtResource("3_pwwfq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Blood Hotspring thing" unique_id=101936578]
 shape = SubResource("RectangleShape2D_ly2qt")

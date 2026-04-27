@@ -7,11 +7,10 @@ extends CharacterBody2D
 @onready var management: Node = %Management
 @onready var slash: AnimatedSprite2D = $Slash
 @onready var killzone: Area2D = %Killzone
-@onready var Gitgud: Area2D = $"../../Checkpoint/Blood Hotspring thing2"
 
 
 
-
+var last_checkpoint
 var attackers: Array[Node2D] = []
 var last_floor_pos: Vector2 = Vector2.ZERO
 var pause_Idleanimationforce = 0
@@ -68,8 +67,10 @@ func _physics_process(delta: float) -> void:
 		%SlashArea2.position.x = -145
 
 	if is_on_floor():
+		last_floor_pos = global_position
 		if direction != 0 and pause_Idleanimationforce == 0:
 			character.play("Walking")
+			last_floor_pos = global_position
 		last_floor_pos = global_position
 	
 	if not is_on_floor() and character.animation != "Butcher":
@@ -102,7 +103,10 @@ func _on_killzone_body_entered(body: Node2D) -> void:
 				await get_tree().create_timer(0.02).timeout
 			damage_taken_in_the_past_0point4seconds = 0
 			healthbar.damage_bar.value = healthbar.health
-	global_position = last_floor_pos
+	if healthbar.health != 0:
+		global_position = last_floor_pos
+	if healthbar.health == 0:
+		global_position = last_checkpoint
 
 
 func _on_fazed_hitbox_body_entered(body: Node2D) -> void:
@@ -125,18 +129,22 @@ func _process(delta: float) -> void:
 					await get_tree().create_timer(0.07).timeout
 				damage_taken_in_the_past_0point4seconds = 0
 				healthbar.damage_bar.value = healthbar.health
-			else:
-				print("Bro you're already dead.")
+	if healthbar.value < 1:
+		global_position = last_checkpoint
+		healthbar.value = healthbar.max_value
+		healthbar.health = healthbar.max_value
 
 
 func _on_fazed_hitbox_area_entered(area: Area2D) -> void:
 	print("Touching ",area)
-	if area == Gitgud:
+	if area.has_method("AreaIdentifier"):
 		print("Area is Checkpoint")
 		while healthbar.value != healthbar.max_value:
 			healthbar.value = healthbar.value + 1
 			await get_tree().create_timer(0.02).timeout
 			SPEED = 0
+			
 			if healthbar.value > healthbar.max_value:
 				healthbar.value = healthbar.max_value
 		SPEED = 1200
+		last_checkpoint = global_position
