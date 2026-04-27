@@ -381,7 +381,7 @@ light_mask = 2
 visibility_layer = 2
 position = Vector2(2, -7.5)
 scale = Vector2(1.5, 1.5)
-ddddddddshape = SubResource("CapsuleShape2D_h7lbt")
+shape = SubResource("CapsuleShape2D_h7lbt")
 
 [connection signal="body_entered" from="SlashArea2" to="." method="_on_slash_area_2_body_entered"]
 [connection signal="area_entered" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_area_entered"]
