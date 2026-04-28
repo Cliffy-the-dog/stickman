@@ -20,8 +20,9 @@ var butchering_in_progress = 0
 var bouncing_in_progress = 0
 var being_touched = 0
 var health_upgrades = 1
-var SPEED = 1200.0
+var SPEED = 0.0
 const JUMP_VELOCITY = -2200.0
+var healthpause = 0
 
 func _ready():
 	healthbar.health = 100 + 20 * management.health_upgrades
@@ -29,7 +30,7 @@ func _ready():
 
 func flash_red():
 	var tween = create_tween()
-	tween.tween_property(self, "modulate", Color.RED, 0.2)
+	tween.tween_property(self, "modulate", Color.DARK_RED, 0.2)
 	tween.tween_property(self, "modulate", Color.WHITE, 0.4)
 
 func _physics_process(delta: float) -> void:
@@ -37,19 +38,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta * 5
 
 	if Input.is_action_just_pressed("Slash"):
-		if butchering_in_progress == 0:
-			if is_on_floor():
-				pause_Idleanimationforce = 1
-				butchering_in_progress = 1
-				%SlashArea2.monitoring = true
-				character.play("Butcher")
-				await character.animation_finished
-				%SlashArea2.monitoring = false
-				pause_Idleanimationforce = 0
-			character.play("Idle")
-			await get_tree().create_timer(0.25).timeout
-			butchering_in_progress = 0
-			await get_tree().create_timer(0.25).timeout
+		Cleave()
 
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		if butchering_in_progress == 0:
@@ -65,16 +54,22 @@ func _physics_process(delta: float) -> void:
 	elif direction < 0:
 		character.flip_h = true
 		%SlashArea2.position.x = -145
-
-	if is_on_floor():
-		last_floor_pos = global_position
-		if direction != 0 and pause_Idleanimationforce == 0:
-			character.play("Walking")
+	if pause_Idleanimationforce == 0:
+		if is_on_floor():
 			last_floor_pos = global_position
-		last_floor_pos = global_position
-	
-	if not is_on_floor() and character.animation != "Butcher":
-		character.play("Falling")
+			if direction != 0 and pause_Idleanimationforce == 0 and is_on_floor():
+				character.play("Walking")
+				last_floor_pos = global_position
+		if not is_on_floor() and character.animation != "Butcher":
+			if direction == 0:
+				character.play("Falling")
+			if direction != 0:
+				character.play("Leap")
+		elif direction == 0 and is_on_floor():
+			character.play("Idle")
+		
+
+
 
 	if direction:
 		velocity.x = direction * SPEED
@@ -120,7 +115,7 @@ func _on_fazed_hitbox_body_exited(body: Node2D) -> void:
 
 func _process(delta: float) -> void:
 	if attackers.size() > 0:
-		if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0:
+		if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0 and healthpause == 0:
 			if healthbar.health - 10 > -1:
 				damage_taken_in_the_past_0point4seconds = 1
 				flash_red()
@@ -130,9 +125,16 @@ func _process(delta: float) -> void:
 				damage_taken_in_the_past_0point4seconds = 0
 				healthbar.damage_bar.value = healthbar.health
 	if healthbar.value < 1:
+		healthpause = 1
+		SPEED = 0
+		pause_Idleanimationforce = 1
+		character.play("Die")
+		await character.animation_finished
+		pause_Idleanimationforce = 0
+		healthpause = 0
+		SPEED = 1200
 		global_position = last_checkpoint
-		healthbar.value = healthbar.max_value
-		healthbar.health = healthbar.max_value
+		Cleave()
 
 
 func _on_fazed_hitbox_area_entered(area: Area2D) -> void:
@@ -140,11 +142,29 @@ func _on_fazed_hitbox_area_entered(area: Area2D) -> void:
 	if area.has_method("AreaIdentifier"):
 		print("Area is Checkpoint")
 		while healthbar.value != healthbar.max_value:
+			character.play("Idle")
 			healthbar.value = healthbar.value + 1
+			healthbar.health = healthbar.health + 1
 			await get_tree().create_timer(0.02).timeout
 			SPEED = 0
-			
+		
 			if healthbar.value > healthbar.max_value:
 				healthbar.value = healthbar.max_value
+				healthbar.health = healthbar.max_value
 		SPEED = 1200
 		last_checkpoint = global_position
+		character.play("Idle")
+func Cleave():
+	if butchering_in_progress == 0:
+		if is_on_floor():
+			pause_Idleanimationforce = 1
+			butchering_in_progress = 1
+			%SlashArea2.monitoring = true
+			character.play("Butcher")
+			await character.animation_finished
+			%SlashArea2.monitoring = false
+			pause_Idleanimationforce = 0
+		character.play("Idle")
+		await get_tree().create_timer(0.25).timeout
+		butchering_in_progress = 0
+		await get_tree().create_timer(0.25).timeout
