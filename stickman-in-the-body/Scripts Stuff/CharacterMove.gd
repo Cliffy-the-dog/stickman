@@ -135,22 +135,21 @@ func _process(delta: float) -> void:
 		SPEED = 1200
 		global_position = last_checkpoint
 		Cleave()
+	healthbar.health = healthbar.value
 
 
 func _on_fazed_hitbox_area_entered(area: Area2D) -> void:
 	print("Touching ",area)
 	if area.has_method("AreaIdentifier"):
 		print("Area is Checkpoint")
+		SPEED = 0
 		while healthbar.value != healthbar.max_value:
-			character.play("Idle")
 			healthbar.value = healthbar.value + 1
 			healthbar.health = healthbar.health + 1
 			await get_tree().create_timer(0.02).timeout
-			SPEED = 0
-		
-			if healthbar.value > healthbar.max_value:
-				healthbar.value = healthbar.max_value
-				healthbar.health = healthbar.max_value
+
+		healthbar.health = healthbar.max_value
+		healthbar.value = healthbar.max_value
 		SPEED = 1200
 		last_checkpoint = global_position
 		character.play("Idle")

@@ -537,7 +537,7 @@ position = Vector2(-1, 0)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_uglg6")
 animation = &"Leap"
-frame_progress = 0.35605115
+frame_progress = 0.12208921
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("4_peqie")]
 unique_name_in_owner = true
