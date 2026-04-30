@@ -541,10 +541,10 @@ frame_progress = 0.12208921
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("4_peqie")]
 unique_name_in_owner = true
-offset_left = -1369.0
-offset_top = -737.0
-offset_right = -869.0
-offset_bottom = -710.0
+offset_left = -1764.0
+offset_top = -999.0
+offset_right = -1264.0
+offset_bottom = -972.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_n7jsu")
 metadata/_edit_use_anchors_ = true
 

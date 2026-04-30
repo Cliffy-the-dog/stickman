@@ -84,7 +84,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_slash_area_2_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and slash.animation == "Slash" and slash.is_playing(): 
-		body.take_damage(damage_value)
+		body.take_damage()
 
 		
 

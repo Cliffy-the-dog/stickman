@@ -1,12 +1,8 @@
 [gd_scene format=3 uid="uid://dk6sy1o7yy53t"]
 
-[ext_resource type="Script" uid="uid://jterpb1n4bjc" path="res://HoardScript.gd" id="1_44cfe"]
+[ext_resource type="Script" uid="uid://3mo6xnvh30y8" path="res://Hoard.gd" id="1_ghijl"]
 [ext_resource type="Texture2D" uid="uid://v8dnkvwrlweg" path="res://Scripts Stuff/Hoard SpriteSheet.png" id="1_ij6vw"]
-[ext_resource type="Texture2D" uid="uid://dstc8vp4ijjud" path="res://Scripts Stuff/Head Projectile.svg" id="2_ghijl"]
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://Sprites/Characters and GUI/healthbar.tscn" id="4_dd465"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_44cfe"]
-radius = 102.48902
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dd465"]
 atlas = ExtResource("1_ij6vw")
@@ -243,6 +239,11 @@ animations = [{
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhvu3"]
 bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
@@ -260,24 +261,33 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_44cfe"]
+radius = 61.073727
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1337968123]
-script = ExtResource("1_44cfe")
+script = ExtResource("1_ghijl")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2140533429]
-shape = SubResource("CircleShape2D_44cfe")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1403449012]
+[node name="Character" type="AnimatedSprite2D" parent="." unique_id=1403449012]
+scale = Vector2(0.6727272, 0.6727273)
 sprite_frames = SubResource("SpriteFrames_1rslu")
-animation = &"Idle"
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1429481041]
-z_index = -1
-texture = ExtResource("2_ghijl")
+animation = &"Zeal"
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("4_dd465")]
-offset_left = -214.0
-offset_top = -184.0
-offset_right = 214.0
-offset_bottom = -157.0
+offset_left = -129.5
+offset_top = -168.0
+offset_right = 129.5
+offset_bottom = -149.0
 theme_override_styles/background = SubResource("StyleBoxFlat_lhvu3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4sjlk")
+max_value = 800.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2133525355]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2140533429]
+shape = SubResource("CircleShape2D_44cfe")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=668398199]
+position = Vector2(-1, 0)
+shape = SubResource("CircleShape2D_44cfe")
