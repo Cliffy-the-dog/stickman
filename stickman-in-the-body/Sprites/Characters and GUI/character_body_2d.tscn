@@ -524,7 +524,7 @@ radius = 120.0
 radius = 24.666666
 height = 150.0
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1074889554]
+[node name="Jimmy Bobbington" type="CharacterBody2D" unique_id=1074889554]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_21c00")
@@ -541,6 +541,7 @@ frame_progress = 0.12208921
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("4_peqie")]
 unique_name_in_owner = true
+z_index = 12
 offset_left = -1764.0
 offset_top = -999.0
 offset_right = -1264.0

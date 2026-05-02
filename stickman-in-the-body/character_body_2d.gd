@@ -41,7 +41,7 @@ func _physics_process(delta: float) -> void:
 	if can_move == 1 and is_chasing == false:
 		sprite.play("Idle")
 
-func take_damage(damage_amount) -> void:
+func take_damage() -> void:
 	healthbar.value -= 20
 	if healthbar.value < 0:
 		healthbar.value = 0

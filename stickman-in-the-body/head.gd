@@ -1,16 +1,19 @@
 extends CharacterBody2D
-@onready var CHARACTER: CharacterBody2D = $"."
 
+var move_dir = Vector2.ZERO
+var speed = 1400.0
 
+func launch(dir):
+	move_dir = dir
 
-func _ready() -> void:
-	look_at(CHARACTER.global_position)
-
-func _physics_process(_delta: float):
-	# move_and_slide() returns true if it hits a wall/body
-	var collided = move_and_slide()
-	
-	if collided:
-		queue_free()
-func take_damage():
-	queue_free()
+func _physics_process(delta):
+	if move_dir != Vector2.ZERO:
+		# Use move_and_collide to detect collisions
+		var collision = move_and_collide(move_dir * speed * delta)
+		
+		# Identify the object hit
+		if collision:
+			var hit_object = collision.get_collider()
+			if hit_object.has_method("_on_fazed_hitbox_area_entered"):
+				hit_object._on_fazed_hitbox_area_entered()
+			queue_free() # Destroy projectile

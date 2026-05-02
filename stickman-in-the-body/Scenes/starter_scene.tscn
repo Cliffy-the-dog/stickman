@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://ijqbj6ftder2" path="res://Tileset/BackgroundTiles/LayeredBackground.png" id="5_kn614"]
 [ext_resource type="Texture2D" uid="uid://djwipdng1fao7" path="res://Tileset/PhysicsTiles/Checkpoint.png" id="6_fhiad"]
 [ext_resource type="PackedScene" uid="uid://cfb1qls6umnq5" path="res://JetpackGit.tscn" id="6_gdo4f"]
-[ext_resource type="Texture2D" uid="uid://d0oxfkik6t6kn" path="res://Tileset/PhysicsTiles/Onewaywall.png" id="7_3lej0"]
 [ext_resource type="PackedScene" uid="uid://boje3j3b0xq2t" path="res://Tileset/one_way_wall.tscn" id="8_axxa6"]
 [ext_resource type="PackedScene" uid="uid://dk6sy1o7yy53t" path="res://character_body_2d.tscn" id="8_bt04q"]
 [ext_resource type="PackedScene" uid="uid://bf0epoh12vxwq" path="res://Scenes/CheckpointV3.tscn" id="10_pgasi"]
@@ -258,7 +257,7 @@ script = ExtResource("1_5arw2")
 
 [node name="Player" parent="Management" unique_id=1074889554 instance=ExtResource("1_j8eka")]
 unique_name_in_owner = true
-position = Vector2(6775, -4704)
+position = Vector2(6761, -4399)
 
 [node name="Camera2D2" type="Camera2D" parent="Management/Player" unique_id=1035022596]
 position = Vector2(7, 8)
@@ -292,12 +291,6 @@ shape = SubResource("WorldBoundaryShape2D_gdo4f")
 [node name="TileMapLayer" type="TileMapLayer" parent="Management" unique_id=211846518]
 position = Vector2(0, -10)
 tile_set = SubResource("TileSet_3lej0")
-
-[node name="Onewaywall" type="Sprite2D" parent="Management" unique_id=1788479410]
-z_index = -1
-position = Vector2(3517, -5642)
-rotation = 1.5707964
-texture = ExtResource("7_3lej0")
 
 [node name="Area2D" type="Area2D" parent="Management" unique_id=956529435]
 
@@ -345,8 +338,11 @@ position = Vector2(9399, -2814)
 [node name="CharacterBody2D9" parent="Enemy Folder" unique_id=881316146 instance=ExtResource("6_gdo4f")]
 position = Vector2(7490, -2906)
 
-[node name="StaticBody2D" parent="." unique_id=115562366 instance=ExtResource("8_axxa6")]
+[node name="StaticBody" parent="." unique_id=115562366 instance=ExtResource("8_axxa6")]
 position = Vector2(4540.5, -2957)
+
+[node name="StaticBody2" parent="." unique_id=1751250017 instance=ExtResource("8_axxa6")]
+position = Vector2(3515.0002, -5586)
 
 [node name="StaticBody2D2" parent="." unique_id=1350520660 instance=ExtResource("8_axxa6")]
 position = Vector2(9788, -2889)

@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var character: AnimatedSprite2D = $AnimatedSprite2D
 @onready var healthbar: ProgressBar = $Healthbar
+@onready var PhD: Area2D = $Damage
 @onready var management: Node = %Management
 @onready var slash: AnimatedSprite2D = $Slash
 @onready var killzone: Area2D = %Killzone
@@ -86,7 +87,6 @@ func _on_slash_area_2_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and slash.animation == "Slash" and slash.is_playing(): 
 		body.take_damage()
 
-		
 
 func _on_killzone_body_entered(body: Node2D) -> void:
 	if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0:
@@ -140,6 +140,28 @@ func _process(delta: float) -> void:
 
 func _on_fazed_hitbox_area_entered(area: Area2D) -> void:
 	print("Touching ",area)
+	if area.name == "Damage":
+		if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0 and healthpause == 0:
+			if healthbar.health - 10 > -1:
+				damage_taken_in_the_past_0point4seconds = 1
+				flash_red()
+				for a in range(damage_value):
+					healthbar.health = healthbar.health - 1
+					await get_tree().create_timer(0.07).timeout
+				damage_taken_in_the_past_0point4seconds = 0
+				healthbar.damage_bar.value = healthbar.health
+	if healthbar.value < 1:
+		healthpause = 1
+		SPEED = 0
+		pause_Idleanimationforce = 1
+		character.play("Die")
+		await character.animation_finished
+		pause_Idleanimationforce = 0
+		healthpause = 0
+		SPEED = 1200
+		global_position = last_checkpoint
+		Cleave()
+	healthbar.health = healthbar.value
 	if area.has_method("AreaIdentifier"):
 		print("Area is Checkpoint")
 		SPEED = 0

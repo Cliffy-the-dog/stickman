@@ -48,8 +48,7 @@ func _physics_process(_delta):
 				await get_tree().create_timer(0.02).timeout
 				healthbar.damage_bar.value = healthbar.value
 
-@warning_ignore("unused_parameter")
-func take_damage(damage_amount) -> void:
+func take_damage() -> void:
 	healthbar.value -= 20
 	multiplier = -1
 	await get_tree().create_timer(0.15).timeout

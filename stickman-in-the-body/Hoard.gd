@@ -14,12 +14,13 @@ var awakened = 0
 var side
 
 # 1. Preload the "Head" scene
-var head_scene = preload("res://Head.tscn")
+var head_scene = load("res://head.tscn")
 
 func _ready() -> void:
 	velocity.x = 0
 	velocity.y = 0
 	healthbar.value = healthbar.max_value
+	character.play("Unawakened")
 
 func _physics_process(delta: float) -> void:
 	# Vector from you to target
@@ -61,15 +62,18 @@ func Jump():
 
 func Projectile(target_node: Node2D):
 	var head_instance = head_scene.instantiate()
-	add_child(head_instance)
+	
+	# Add to the world (parent) so it doesn't move with the boss
+	get_parent().add_child(head_instance)
 	head_instance.global_position = global_position
-	var speed = 1400.0 
-	var dist = global_position.distance_to(target_node.global_position)
-	var duration = dist / speed
-	var tween = create_tween()
-	tween.tween_property(head_instance, "global_position", target_node.global_position, duration)
-	tween.tween_callback(head_instance.queue_free)
-
+	
+	# Calculate direction toward player
+	var direction = (target_node.global_position - global_position).normalized()
+	
+	# Tell the head which way to go (requires variables in head script)
+	if head_instance.has_method("launch"):
+		head_instance.launch(direction)
+		
 func Dash():
 	velocity.x = SPEED * side
 	await get_tree().create_timer(0.3).timeout
@@ -96,3 +100,5 @@ func Fight():
 
 func take_damage():
 	healthbar.value -= 20
+	if healthbar.value == 0:
+		queue_free()
