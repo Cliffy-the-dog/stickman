@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://3mo6xnvh30y8" path="res://Hoard.gd" id="1_ghijl"]
 [ext_resource type="Texture2D" uid="uid://v8dnkvwrlweg" path="res://Scripts Stuff/Hoard SpriteSheet.png" id="1_ij6vw"]
+[ext_resource type="VideoStream" uid="uid://dubqefnppbs53" path="res://Scenes/hoardKillUpscalesd.ogv" id="4_44cfe"]
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://Sprites/Characters and GUI/healthbar.tscn" id="4_dd465"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dd465"]
@@ -279,7 +280,7 @@ offset_right = 129.5
 offset_bottom = -149.0
 theme_override_styles/background = SubResource("StyleBoxFlat_lhvu3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4sjlk")
-max_value = 800.0
+max_value = 400.0
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2133525355]
 collision_layer = 2
@@ -291,3 +292,17 @@ shape = SubResource("CircleShape2D_44cfe")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=668398199]
 position = Vector2(-1, 0)
 shape = SubResource("CircleShape2D_44cfe")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=360007200]
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="CanvasLayer" unique_id=1666789769]
+process_mode = 3
+z_index = 13
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("4_44cfe")
+speed_scale = 7.5
+expand = true

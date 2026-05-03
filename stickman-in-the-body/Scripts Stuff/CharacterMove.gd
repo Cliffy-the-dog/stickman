@@ -10,7 +10,7 @@ extends CharacterBody2D
 @onready var killzone: Area2D = %Killzone
 
 
-
+var damage = 400
 var last_checkpoint
 var attackers: Array[Node2D] = []
 var last_floor_pos: Vector2 = Vector2.ZERO
@@ -85,7 +85,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_slash_area_2_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and slash.animation == "Slash" and slash.is_playing(): 
-		body.take_damage()
+		body.take_damage(damage)
 
 
 func _on_killzone_body_entered(body: Node2D) -> void:

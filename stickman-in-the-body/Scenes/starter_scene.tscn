@@ -257,7 +257,7 @@ script = ExtResource("1_5arw2")
 
 [node name="Player" parent="Management" unique_id=1074889554 instance=ExtResource("1_j8eka")]
 unique_name_in_owner = true
-position = Vector2(6761, -4399)
+position = Vector2(6670, -4922)
 
 [node name="Camera2D2" type="Camera2D" parent="Management/Player" unique_id=1035022596]
 position = Vector2(7, 8)
@@ -299,11 +299,11 @@ position = Vector2(6725, -6960)
 shape = SubResource("CircleShape2D_bt04q")
 
 [node name="Hoard" parent="Management" unique_id=1337968123 instance=ExtResource("8_bt04q")]
-position = Vector2(6837, -5814)
+position = Vector2(6850, -5610)
 scale = Vector2(3.3999977, 3.3999977)
 
 [node name="Area2D2" type="Area2D" parent="Management" unique_id=439343355]
-position = Vector2(6846, -5833)
+position = Vector2(6849, -5616)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Management/Area2D2" unique_id=1928234325]
 position = Vector2(6841, -5507)

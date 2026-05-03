@@ -4,73 +4,139 @@ extends CharacterBody2D
 @onready var healthbar: ProgressBar = $Healthbar
 @onready var Respawnpoint: Area2D = $"../Area2D2"
 @onready var character: AnimatedSprite2D = $Character
+@onready var video_stream_player: VideoStreamPlayer = $CanvasLayer/VideoStreamPlayer
+@onready var MusicManager: Node = %MusicManager
 
+enum BossState { ASLEEP, WAKING, AWAKENED, DEAD }
+var current_state = BossState.ASLEEP
 
 var cooldown = 0
 const SPEED = 1200.0
 const JUMP_VELOCITY = -1800.0
 var distance
-var awakened = 0
 var side
-
-# 1. Preload the "Head" scene
 var head_scene = load("res://head.tscn")
 
 func _ready() -> void:
-	velocity.x = 0
-	velocity.y = 0
+	velocity = Vector2.ZERO
 	healthbar.value = healthbar.max_value
 	character.play("Unawakened")
+	video_stream_player.hide()
 
 func _physics_process(delta: float) -> void:
-	# Vector from you to target
-	var to_target = Target.global_position - global_position
+	# 1. Stop all logic if dead
+	if current_state == BossState.DEAD:
+		return
+		
+	distance = global_position.distance_to(Target.global_position)
+	
+	match current_state:
+		BossState.ASLEEP:
+			if distance < 1200:
+				trigger_awakening()
+			else:
+				character.play("Unawakened")
+				
+		BossState.WAKING:
+			# FIX: We removed the reset-to-sleep code from here.
+			# Let the trigger_awakening function handle the logic.
+			pass
+				
+		BossState.AWAKENED:
+			combat_loop(delta)
 
-	# 'transform.x' is your local right vector in 2D
+func trigger_awakening():
+	# If we are already waking up, don't start the process again
+	if current_state == BossState.WAKING: return
+	
+	current_state = BossState.WAKING
+	character.play("Awakening")
+	
+	# Wait for the animation to fully complete
+	await character.animation_finished
+	
+	# After animation, check if player is STILL in range
+	# This is the "proper" place to decide whether to fight or sleep
+	if distance < 1200:
+		current_state = BossState.AWAKENED
+		MusicManager.start_chase(self.name, true)
+	else:
+		current_state = BossState.ASLEEP
+		character.play("Unawakened")
+
+func combat_loop(delta):
+	var to_target = Target.global_position - global_position
 	side = sign(transform.x.dot(to_target))
 	
-	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	distance = global_position.distance_to(Target.global_position)
-	
-	# Awakening logic
-	if not distance < 1200 and awakened == 0:
-		character.play("Unawakened")
-	
-	if distance < 1200 and awakened == 0:
-		character.play("Awakening")
-		await character.animation_finished
-		awakened = 1
-	
-	# Start Fight logic
-	if awakened == 1 and cooldown == 0:
+	if cooldown == 0:
 		cooldown = 1
 		Fight()
 		character.play("Idle")
+	
 	move_and_slide()
-	if Target.healthbar.value == 0:
-		healthbar.value = healthbar.max_value
-		awakened = 0
-		global_position = Respawnpoint.global_position
-		character.play("Unawakened")
+	
+	if Target.healthbar.value <= 0:
+		reset_boss()
 
+func reset_boss():
+	current_state = BossState.ASLEEP
+	healthbar.value = healthbar.max_value
+	global_position = Respawnpoint.global_position
+	character.play("Unawakened")
+	MusicManager.stop_chase(self.name, true)
+
+func take_damage(damage):
+	# FIX: Gate prevents the video from playing twice
+	if current_state == BossState.DEAD:
+		return
+
+	healthbar.value -= damage
+	if healthbar.value <= 0:
+		current_state = BossState.DEAD # Set state immediately
+		die_and_play_video()
+
+func die_and_play_video():
+	MusicManager.stop_chase(self.name, true)
+	
+	character.hide()
+	healthbar.hide()
+	
+	# Safety check for collisions
+	for child in get_children():
+		if child is CollisionShape2D or child is CollisionPolygon2D:
+			child.set_deferred("disabled", true)
+	
+	# FIX: Ensure full screen UI anchors
+	video_stream_player.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	video_stream_player.expand = true
+	
+	# Play during pause
+	video_stream_player.process_mode = Node.PROCESS_MODE_ALWAYS
+	get_tree().paused = true
+	
+	video_stream_player.show()
+	video_stream_player.play()
+	
+	if not video_stream_player.finished.is_connected(_on_video_finished):
+		video_stream_player.finished.connect(_on_video_finished)
+
+func _on_video_finished():
+	get_tree().paused = false
+	queue_free()
+
+# -- Attack Functions --
 func Jump():
 	velocity.y = JUMP_VELOCITY
 	velocity.x = randi_range(-100,100)
 
 func Projectile(target_node: Node2D):
 	var head_instance = head_scene.instantiate()
-	
-	# Add to the world (parent) so it doesn't move with the boss
 	get_parent().add_child(head_instance)
 	head_instance.global_position = global_position
-	
-	# Calculate direction toward player
 	var direction = (target_node.global_position - global_position).normalized()
-	
-	# Tell the head which way to go (requires variables in head script)
 	if head_instance.has_method("launch"):
 		head_instance.launch(direction)
 		
@@ -81,24 +147,14 @@ func Dash():
 
 func Fight():
 	var RNG = randi_range(1, 5)
-	
 	if RNG == 1 or RNG == 2:
 		Dash()
 	elif RNG == 3 or RNG == 4:
 		Projectile(Target)
 	elif RNG == 5:
 		Jump()
-		# Wait a tiny bit so is_on_floor() becomes false after leaving the ground
 		await get_tree().create_timer(0.1).timeout 
 		while not is_on_floor():
 			await get_tree().process_frame 
-	
-	# Wait the 3 seconds AFTER the action is done
 	await get_tree().create_timer(0.3).timeout
-	# Now the next Fight() can't start until this is reached
 	cooldown = 0
-
-func take_damage():
-	healthbar.value -= 20
-	if healthbar.value == 0:
-		queue_free()

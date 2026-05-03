@@ -48,8 +48,8 @@ func _physics_process(_delta):
 				await get_tree().create_timer(0.02).timeout
 				healthbar.damage_bar.value = healthbar.value
 
-func take_damage() -> void:
-	healthbar.value -= 20
+func take_damage(damage) -> void:
+	healthbar.value -= damage
 	multiplier = -1
 	await get_tree().create_timer(0.15).timeout
 	multiplier = 1
