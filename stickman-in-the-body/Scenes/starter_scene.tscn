@@ -216,3 +216,12 @@ tile_set = SubResource("TileSet_5arw2")
 
 [node name="Enemy" parent="." unique_id=1328572880 instance=ExtResource("3_knupb")]
 position = Vector2(-2490, 145)
+
+[node name="Enemy2" parent="." unique_id=1003441407 instance=ExtResource("3_knupb")]
+position = Vector2(-2253, 156)
+
+[node name="Enemy3" parent="." unique_id=1900781291 instance=ExtResource("3_knupb")]
+position = Vector2(-3033, 91)
+
+[node name="Enemy4" parent="." unique_id=53591723 instance=ExtResource("3_knupb")]
+position = Vector2(-2043, 91)
