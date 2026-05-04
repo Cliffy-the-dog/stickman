@@ -2,10 +2,13 @@
 
 [ext_resource type="Script" path="res://Scenes/FaliureManagement.gd" id="1_5arw2"]
 [ext_resource type="PackedScene" uid="uid://gnmp0yh0cmhe" path="res://Sprites/Characters and GUI/character_body_2d.tscn" id="1_j8eka"]
+[ext_resource type="Script" uid="uid://db3ysd2kfpwtk" path="res://Scenes/starter_scene.gd" id="1_x63nd"]
 [ext_resource type="Texture2D" uid="uid://11c74briycgi" path="res://Tileset/GeneralTilesetV3.png" id="2_lhs2h"]
 [ext_resource type="PackedScene" uid="uid://eq1nth1nqlqc" path="res://Music/node.tscn" id="3_dgyv7"]
 [ext_resource type="PackedScene" uid="uid://4jc8ydq23k2q" path="res://Sprites/Characters and GUI/Enemy.tscn" id="3_knupb"]
+[ext_resource type="PackedScene" uid="uid://21i06xop7j7q" path="res://Scenes/pause_menu.tscn" id="4_xr7e8"]
 [ext_resource type="Texture2D" uid="uid://ijqbj6ftder2" path="res://Tileset/BackgroundTiles/LayeredBackground.png" id="5_kn614"]
+[ext_resource type="Script" uid="uid://bf303e138oju8" path="res://Scenes/color_rect.gd" id="5_xr7e8"]
 [ext_resource type="Texture2D" uid="uid://djwipdng1fao7" path="res://Tileset/PhysicsTiles/Checkpoint.png" id="6_fhiad"]
 [ext_resource type="PackedScene" uid="uid://cfb1qls6umnq5" path="res://JetpackGit.tscn" id="6_gdo4f"]
 [ext_resource type="PackedScene" uid="uid://boje3j3b0xq2t" path="res://Tileset/one_way_wall.tscn" id="8_axxa6"]
@@ -250,6 +253,7 @@ size = Vector2(512, 128)
 size = Vector2(512, 128)
 
 [node name="Starter Scene" type="Node2D" unique_id=1399042593]
+script = ExtResource("1_x63nd")
 
 [node name="Management" type="Node" parent="." unique_id=1796274621]
 unique_name_in_owner = true
@@ -263,6 +267,26 @@ position = Vector2(6670, -4922)
 position = Vector2(7, 8)
 zoom = Vector2(0.3, 0.3)
 limit_bottom = 12000
+
+[node name="PauseMenu" parent="Management/Player/Camera2D2" unique_id=1392100631 instance=ExtResource("4_xr7e8")]
+z_index = 1000
+z_as_relative = false
+offset_left = -122.0
+offset_top = -92.0
+offset_right = -122.0
+offset_bottom = -92.0
+scale = Vector2(2, 2)
+
+[node name="ColorRect" type="ColorRect" parent="Management/Player/Camera2D2" unique_id=761315978]
+z_index = 99
+z_as_relative = false
+offset_left = -1924.0
+offset_top = -1081.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.5019608)
+script = ExtResource("5_xr7e8")
 
 [node name="MusicManager" parent="Management/Player" unique_id=533816560 instance=ExtResource("3_dgyv7")]
 unique_name_in_owner = true

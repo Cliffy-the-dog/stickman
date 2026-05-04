@@ -10,7 +10,7 @@ extends CharacterBody2D
 @onready var killzone: Area2D = %Killzone
 
 
-var damage = 400
+var damage = 20
 var last_checkpoint
 var attackers: Array[Node2D] = []
 var last_floor_pos: Vector2 = Vector2.ZERO
