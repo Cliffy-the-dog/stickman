@@ -1,8 +1,13 @@
 extends Node2D
 
-@onready var pause_menu: Control = $Management/Player/Camera2D2/PauseMenu
+@onready var pause_menu: Control = $CanvasModulate/Management/Player/Camera2D2/PauseMenu
+
+
 
 var paused = false
+
+
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -10,7 +15,7 @@ func _process(delta: float) -> void:
 		pauseMenu()
 
 func pauseMenu():
-	if paused:
+	if paused == true:
 		pause_menu.hide()
 		Engine.time_scale = 1
 	else:

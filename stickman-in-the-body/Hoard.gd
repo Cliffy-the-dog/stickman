@@ -32,7 +32,7 @@ func _physics_process(delta: float) -> void:
 	
 	match current_state:
 		BossState.ASLEEP:
-			if distance < 1200:
+			if distance < 800:
 				trigger_awakening()
 			else:
 				character.play("Unawakened")
@@ -57,7 +57,7 @@ func trigger_awakening():
 	
 	# After animation, check if player is STILL in range
 	# This is the "proper" place to decide whether to fight or sleep
-	if distance < 1200:
+	if distance < 800:
 		current_state = BossState.AWAKENED
 		MusicManager.start_chase(self.name, true)
 	else:
