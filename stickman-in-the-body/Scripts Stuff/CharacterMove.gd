@@ -7,11 +7,11 @@ extends CharacterBody2D
 @onready var PhD: Area2D = $Damage
 @onready var management: Node = %Management
 @onready var slash: AnimatedSprite2D = $Slash
+@onready var pause_menu: Control = $Camera2D2/PauseMenu
 @onready var killzone: Area2D = %Killzone
 
-
 var damage = 20
-var last_checkpoint
+var last_checkpoint: Vector2 = Vector2.ZERO 
 var attackers: Array[Node2D] = []
 var last_floor_pos: Vector2 = Vector2.ZERO
 var pause_Idleanimationforce = 0
@@ -21,11 +21,12 @@ var butchering_in_progress = 0
 var bouncing_in_progress = 0
 var being_touched = 0
 var health_upgrades = 1
-var SPEED = 0.0
+var SPEED = 1200.0
 const JUMP_VELOCITY = -2200.0
 var healthpause = 0
 
 func _ready():
+	pause_menu.load_game()
 	healthbar.health = 100 + 20 * management.health_upgrades
 	butchering_in_progress = 0
 
@@ -44,9 +45,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		if butchering_in_progress == 0:
 			velocity.y = JUMP_VELOCITY
-			bouncing_in_progress = 1
 			character.play("Jump")
-			bouncing_in_progress = 0
 
 	var direction := Input.get_axis("Walk Left", "Walk Right")
 	if direction > 0:
@@ -55,126 +54,95 @@ func _physics_process(delta: float) -> void:
 	elif direction < 0:
 		character.flip_h = true
 		%SlashArea2.position.x = -145
+	
 	if pause_Idleanimationforce == 0:
 		if is_on_floor():
 			last_floor_pos = global_position
-			if direction != 0 and pause_Idleanimationforce == 0 and is_on_floor():
-				character.play("Walking")
-				last_floor_pos = global_position
-		if not is_on_floor() and character.animation != "Butcher":
-			if direction == 0:
-				character.play("Falling")
 			if direction != 0:
-				character.play("Leap")
+				character.play("Walking")
+		if not is_on_floor() and character.animation != "Butcher":
+			character.play("Falling" if direction == 0 else "Leap")
 		elif direction == 0 and is_on_floor():
 			character.play("Idle")
-		
 
-
-
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		if pause_Idleanimationforce == 0:
-			character.play("Idle")
-
+	velocity.x = direction * SPEED if direction else move_toward(velocity.x, 0, SPEED)
 	move_and_slide()
-	
-
 
 func _on_slash_area_2_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and slash.animation == "Slash" and slash.is_playing(): 
 		body.take_damage(damage)
 
-
-func _on_killzone_body_entered(body: Node2D) -> void:
+func _on_killzone_body_entered(_body: Node2D) -> void:
 	if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0:
-		if healthbar.health - 10 > -1:
-			damage_taken_in_the_past_0point4seconds = 1
-			flash_red()
-			for a in range(10):
-				healthbar.health = healthbar.health - 1
-				await get_tree().create_timer(0.02).timeout
-			damage_taken_in_the_past_0point4seconds = 0
-			healthbar.damage_bar.value = healthbar.health
-	if healthbar.health != 0:
+		apply_damage(10)
+	
+	if healthbar.health > 0:
 		global_position = last_floor_pos
-	if healthbar.health == 0:
+	else:
+		respawn_logic()
+
+func respawn_logic():
+	if last_checkpoint != Vector2.ZERO:
 		global_position = last_checkpoint
+	else:
+		get_tree().reload_current_scene()
 
+func _process(_delta: float) -> void:
+	# Handle continuous damage from overlapping attackers
+	if attackers.size() > 0:
+		if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0 and healthpause == 0:
+			apply_damage(damage_value)
 
+	if healthbar.health < 1 and healthpause == 0:
+		die_sequence()
+	
+	healthbar.health = healthbar.value
+
+# Helper function to ensure damage is applied consistently
+func apply_damage(val):
+	damage_taken_in_the_past_0point4seconds = 1
+	flash_red()
+	healthbar.health -= val
+	healthbar.damage_bar.value = healthbar.health
+	await get_tree().create_timer(0.4).timeout
+	damage_taken_in_the_past_0point4seconds = 0
+
+func die_sequence():
+	healthpause = 1
+	SPEED = 0
+	pause_Idleanimationforce = 1
+	character.play("Die")
+	await character.animation_finished
+	pause_Idleanimationforce = 0
+	healthpause = 0
+	SPEED = 1200
+	respawn_logic()
+	healthbar.health = healthbar.max_value
+
+# Signals for handling enemy detection
 func _on_fazed_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and not attackers.has(body):
 		attackers.append(body)
 
 func _on_fazed_hitbox_body_exited(body: Node2D) -> void:
-	if body.has_method("take_damage"):
-		if attackers.has(body):
-			attackers.erase(body)
-
-func _process(delta: float) -> void:
-	if attackers.size() > 0:
-		if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0 and healthpause == 0:
-			if healthbar.health - 10 > -1:
-				damage_taken_in_the_past_0point4seconds = 1
-				flash_red()
-				for a in range(damage_value):
-					healthbar.health = healthbar.health - 1
-					await get_tree().create_timer(0.07).timeout
-				damage_taken_in_the_past_0point4seconds = 0
-				healthbar.damage_bar.value = healthbar.health
-	if healthbar.value < 1:
-		healthpause = 1
-		SPEED = 0
-		pause_Idleanimationforce = 1
-		character.play("Die")
-		await character.animation_finished
-		pause_Idleanimationforce = 0
-		healthpause = 0
-		SPEED = 1200
-		global_position = last_checkpoint
-		Cleave()
-	healthbar.health = healthbar.value
-
+	if attackers.has(body):
+		attackers.erase(body)
 
 func _on_fazed_hitbox_area_entered(area: Area2D) -> void:
-	print("Touching ",area)
 	if area.name == "Damage":
 		if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0 and healthpause == 0:
-			if healthbar.health - 10 > -1:
-				damage_taken_in_the_past_0point4seconds = 1
-				flash_red()
-				for a in range(damage_value):
-					healthbar.health = healthbar.health - 1
-					await get_tree().create_timer(0.07).timeout
-				damage_taken_in_the_past_0point4seconds = 0
-				healthbar.damage_bar.value = healthbar.health
-	if healthbar.value < 1:
-		healthpause = 1
-		SPEED = 0
-		pause_Idleanimationforce = 1
-		character.play("Die")
-		await character.animation_finished
-		pause_Idleanimationforce = 0
-		healthpause = 0
-		SPEED = 1200
-		global_position = last_checkpoint
-		Cleave()
-	healthbar.health = healthbar.value
+			apply_damage(damage_value)
+	
 	if area.has_method("AreaIdentifier"):
-		print("Area is Checkpoint")
 		SPEED = 0
-		while healthbar.value != healthbar.max_value:
-			healthbar.value = healthbar.value + 1
-			healthbar.health = healthbar.health + 1
+		while healthbar.value < healthbar.max_value:
+			healthbar.value += 1
 			await get_tree().create_timer(0.02).timeout
-
 		healthbar.health = healthbar.max_value
-		healthbar.value = healthbar.max_value
 		SPEED = 1200
 		last_checkpoint = global_position
-		character.play("Idle")
+		pause_menu.save_game()
+
 func Cleave():
 	if butchering_in_progress == 0:
 		if is_on_floor():
@@ -182,10 +150,10 @@ func Cleave():
 			butchering_in_progress = 1
 			%SlashArea2.monitoring = true
 			character.play("Butcher")
+			if slash: slash.play("Slash")
 			await character.animation_finished
 			%SlashArea2.monitoring = false
 			pause_Idleanimationforce = 0
 		character.play("Idle")
 		await get_tree().create_timer(0.25).timeout
 		butchering_in_progress = 0
-		await get_tree().create_timer(0.25).timeout

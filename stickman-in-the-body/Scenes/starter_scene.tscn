@@ -241,9 +241,6 @@ physics_layer_0/collision_layer = 255
 physics_layer_0/collision_mask = 2
 sources/0 = SubResource("TileSetAtlasSource_pgasi")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bt04q"]
-radius = 123.66487
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_x63nd"]
 radius = 51.971146
 
@@ -298,10 +295,11 @@ offset_bottom = -190.0
 scale = Vector2(2, 2)
 
 [node name="Control" parent="CanvasModulate/Management/Player/Camera2D2" unique_id=545469593 instance=ExtResource("7_4roa6")]
-offset_left = -2716.9993
-offset_top = -2028.0001
-offset_right = -2716.9993
-offset_bottom = -2028.0001
+z_index = 20
+offset_left = 902.0001
+offset_top = -60.000004
+offset_right = 902.0001
+offset_bottom = -60.000004
 scale = Vector2(5.9200196, 5.9200196)
 
 [node name="MusicManager" parent="CanvasModulate/Management/Player" unique_id=533816560 instance=ExtResource("3_dgyv7")]
@@ -331,12 +329,6 @@ shape = SubResource("WorldBoundaryShape2D_gdo4f")
 [node name="TileMapLayer" type="TileMapLayer" parent="CanvasModulate/Management" unique_id=211846518]
 position = Vector2(0, -10)
 tile_set = SubResource("TileSet_3lej0")
-
-[node name="Area2D" type="Area2D" parent="CanvasModulate/Management" unique_id=956529435]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasModulate/Management/Area2D" unique_id=158296326]
-position = Vector2(6725, -6960)
-shape = SubResource("CircleShape2D_bt04q")
 
 [node name="Hoard" parent="CanvasModulate/Management" unique_id=1337968123 instance=ExtResource("8_bt04q")]
 position = Vector2(6850, -5610)

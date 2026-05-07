@@ -1,17 +1,15 @@
 extends Control
 
 @onready var canvas_modulate: CanvasModulate = $"../../../.."
-@onready var volume: HSlider = $Control/Volume
-@onready var brightness: HSlider = $Control/Brightness
+@onready var brightness: HSlider = $Control/VBoxContainer/Brightness
+@onready var volume: HSlider = $Control/VBoxContainer/Volume
 @onready var music_manager: Node = %MusicManager
-@onready var button: Button = $Control/Button
 
 
 var notshown = false
 
 func _ready() -> void:
 	hide()
-	canvas_modulate.color = Color(1,1,1)
 	brightness.value = 1
 	volume.value = 1
 
