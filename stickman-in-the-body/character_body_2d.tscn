@@ -280,7 +280,7 @@ offset_right = 129.5
 offset_bottom = -149.0
 theme_override_styles/background = SubResource("StyleBoxFlat_lhvu3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4sjlk")
-max_value = 400.0
+max_value = 300.0
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2133525355]
 collision_layer = 2

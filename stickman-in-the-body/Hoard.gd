@@ -96,6 +96,7 @@ func take_damage(damage):
 	healthbar.value -= damage
 	if healthbar.value <= 0:
 		current_state = BossState.DEAD # Set state immediately
+		await get_tree().create_timer(0.01).timeout
 		die_and_play_video()
 
 func die_and_play_video():

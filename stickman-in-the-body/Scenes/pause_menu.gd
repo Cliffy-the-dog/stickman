@@ -14,7 +14,8 @@ func save_game():
 	var save_data = {
 		"checkpoint_x": player.last_checkpoint.x,
 		"checkpoint_y": player.last_checkpoint.y,
-		"health_upgrades": management.health_upgrades
+		"health_upgrades": management.health_upgrades,
+		"Sword_Damage": player.damage
 	}
 	
 	var json_string = JSON.stringify(save_data)
@@ -51,6 +52,10 @@ func load_game():
 			if data.has("health_upgrades"):
 				management.health_upgrades = data["health_upgrades"]
 				print("DEBUG: Upgrades loaded: ", management.health_upgrades)
+
+			if data.has("Sword_Damage"):
+				player.damage = data["Sword_Damage"]
+				print("DEBUG: Upgrades loaded: ", player.damage)
 		else:
 			print("DEBUG: Unexpected data format in save file.")
 	else:
