@@ -142,6 +142,11 @@ func _on_fazed_hitbox_area_entered(area: Area2D) -> void:
 		SPEED = 1200
 		last_checkpoint = global_position
 		pause_menu.save_game()
+	
+	if area.has_method("GITGUD"):
+		SPEED = 700
+		await get_tree().create_timer(0.2).timeout
+		SPEED = 1200
 
 func Cleave():
 	if butchering_in_progress == 0:

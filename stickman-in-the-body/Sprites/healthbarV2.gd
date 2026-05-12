@@ -5,10 +5,10 @@ extends ProgressBar
 @onready var damage_bar: ProgressBar = $DamageBar
 
 
-var health = 0 : set = _set_health
+var health = max_value : set = _set_health
 
 func _ready() -> void:
-	value = 100
+	value = max_value
 
 func _set_health(new_health):
 	var prev_health = health
