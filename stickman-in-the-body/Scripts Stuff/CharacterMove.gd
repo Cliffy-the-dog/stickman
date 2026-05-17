@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@onready var bloodbar: ProgressBar = $Bloodbar
 @export var push_force = 100.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var character: AnimatedSprite2D = $AnimatedSprite2D
@@ -30,6 +31,7 @@ func _ready():
 	pause_menu.load_game()
 	healthbar.health = 100 + 20 * management.health_upgrades
 	butchering_in_progress = 0
+	bloodbar.value = 0
 
 func flash_red():
 	var tween = create_tween()
@@ -39,6 +41,12 @@ func flash_red():
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta * 5
+
+	if is_on_floor() and Input.is_action_just_pressed("Heal"):
+		while bloodbar.value > 0:
+			bloodbar.value -= 1
+			healthbar.value += 1
+			await get_tree().create_timer(0.01).timeout
 
 	if Input.is_action_just_pressed("Slash"):
 		Cleave()
@@ -70,6 +78,7 @@ func _physics_process(delta: float) -> void:
 func _on_slash_area_2_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and slash.animation == "Slash" and slash.is_playing(): 
 		body.take_damage(damage)
+		bloodbar.value += 1
 
 func _on_killzone_body_entered(_body: Node2D) -> void:
 	if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0:
@@ -113,10 +122,14 @@ func die_sequence():
 func _on_fazed_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and not attackers.has(body):
 		attackers.append(body)
-
+	if body.has_method("passage"):
+		savegroundpos = 1
 func _on_fazed_hitbox_body_exited(body: Node2D) -> void:
 	if attackers.has(body):
 		attackers.erase(body)
+
+	if body.has_method("passage"):
+		savegroundpos = 0
 
 func _on_fazed_hitbox_area_entered(area: Area2D) -> void:
 	if area.name == "Damage":
@@ -138,14 +151,9 @@ func _on_fazed_hitbox_area_entered(area: Area2D) -> void:
 		await get_tree().create_timer(0.2).timeout
 		SPEED = 1200
 	
-	if area.name == "TEMPLATFORM":
-		savegroundpos = 0
 
 
 
-func _on_fazed_hitbox_area_exited(area: Area2D) -> void:
-	if area.name == "TEMPLATFORM":
-		savegroundpos = 1
 
 
 

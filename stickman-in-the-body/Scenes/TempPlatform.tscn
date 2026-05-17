@@ -27,6 +27,7 @@ position = Vector2(0, -64)
 tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 254, 255, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_tto40")
 script = ExtResource("2_8cujs")
+StandDuration = 0.1
 
 [node name="Floor Hitbox" type="StaticBody2D" parent="." unique_id=640738494]
 collision_layer = 255
