@@ -24,6 +24,7 @@ var health_upgrades = 1
 var SPEED = 1200.0
 const JUMP_VELOCITY = -2200.0
 var healthpause = 0
+var savegroundpos = 1
 
 func _ready():
 	pause_menu.load_game()
@@ -56,9 +57,7 @@ func _physics_process(delta: float) -> void:
 		%SlashArea2.position.x = -145
 	
 	if pause_Idleanimationforce == 0:
-		if is_on_floor():
-			last_floor_pos = global_position
-			if direction != 0:
+		if direction != 0 and is_on_floor():
 				character.play("Walking")
 		if not is_on_floor() and character.animation != "Butcher":
 			character.play("Falling" if direction == 0 else "Leap")
@@ -87,16 +86,7 @@ func respawn_logic():
 	else:
 		get_tree().reload_current_scene()
 
-func _process(_delta: float) -> void:
-	# Handle continuous damage from overlapping attackers
-	if attackers.size() > 0:
-		if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0 and healthpause == 0:
-			apply_damage(damage_value)
 
-	if healthbar.health < 1 and healthpause == 0:
-		die_sequence()
-	
-	healthbar.health = healthbar.value
 
 # Helper function to ensure damage is applied consistently
 func apply_damage(val):
@@ -147,6 +137,17 @@ func _on_fazed_hitbox_area_entered(area: Area2D) -> void:
 		SPEED = 700
 		await get_tree().create_timer(0.2).timeout
 		SPEED = 1200
+	
+	if area.name == "TEMPLATFORM":
+		savegroundpos = 0
+
+
+
+func _on_fazed_hitbox_area_exited(area: Area2D) -> void:
+	if area.name == "TEMPLATFORM":
+		savegroundpos = 1
+
+
 
 func Cleave():
 	if butchering_in_progress == 0:
@@ -162,3 +163,17 @@ func Cleave():
 		character.play("Idle")
 		await get_tree().create_timer(0.25).timeout
 		butchering_in_progress = 0
+
+
+func _process(_delta: float) -> void:
+	# Handle continuous damage from overlapping attackers
+	if attackers.size() > 0:
+		if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0 and healthpause == 0:
+			apply_damage(damage_value)
+
+	if healthbar.health < 1 and healthpause == 0:
+		die_sequence()
+	
+	healthbar.health = healthbar.value
+	if is_on_floor() and savegroundpos == 1:
+		last_floor_pos = global_position

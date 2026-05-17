@@ -5,11 +5,13 @@ extends CharacterBody2D
 @onready var Respawnpoint: Area2D = $"../Area2D2"
 @onready var character: AnimatedSprite2D = $Character
 @onready var video_stream_player: VideoStreamPlayer = $CanvasLayer/VideoStreamPlayer
+@onready var pause_menu: Control = $"../Player/Camera2D2/PauseMenu"
 @onready var MusicManager: Node = %MusicManager
 
 enum BossState { ASLEEP, WAKING, AWAKENED, DEAD }
 var current_state = BossState.ASLEEP
 
+var exists_in_previous_save
 var cooldown = 0
 const SPEED = 1200.0
 const JUMP_VELOCITY = -1800.0
@@ -18,6 +20,8 @@ var side
 var head_scene = load("res://head.tscn")
 
 func _ready() -> void:
+	if not exists_in_previous_save:
+		queue_free()
 	velocity = Vector2.ZERO
 	healthbar.value = healthbar.max_value
 	character.play("Unawakened")

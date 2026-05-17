@@ -1,5 +1,6 @@
 extends Control
 
+@onready var hoard: CharacterBody2D = $"../../../Hoard"
 @onready var management: Node = %Management
 @onready var color_rect: ColorRect = $"../ColorRect"
 @onready var starter_scene: Node2D = $"../../../../.."
@@ -15,7 +16,8 @@ func save_game():
 		"checkpoint_x": player.last_checkpoint.x,
 		"checkpoint_y": player.last_checkpoint.y,
 		"health_upgrades": management.health_upgrades,
-		"Sword_Damage": player.damage
+		"Sword_Damage": player.damage,
+		"Hoard_exists": is_instance_valid(hoard)
 	}
 	
 	var json_string = JSON.stringify(save_data)
@@ -52,6 +54,9 @@ func load_game():
 			if data.has("health_upgrades"):
 				management.health_upgrades = data["health_upgrades"]
 				print("DEBUG: Upgrades loaded: ", management.health_upgrades)
+
+			if data.has("Hoard_exists"):
+				hoard.exists_in_previous_save = data["Hoard_exists"]
 
 			if data.has("Sword_Damage"):
 				player.damage = data["Sword_Damage"]

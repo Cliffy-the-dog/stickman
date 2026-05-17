@@ -1,6 +1,7 @@
 extends Control
 
-@onready var canvas_modulate: CanvasModulate = $"../../../.."
+@onready var Sun: DirectionalLight2D = $"../../../.."
+
 @onready var brightness: HSlider = $Control/VBoxContainer/Brightness
 @onready var volume: HSlider = $Control/VBoxContainer/Volume
 @onready var music_manager: Node = %MusicManager
@@ -10,7 +11,8 @@ var notshown = false
 
 func _ready() -> void:
 	hide()
-	brightness.value = 1
+	brightness.value = 0
+	Sun.color = Color(0,0,0)
 	volume.value = 1
 
 var local_brightness
@@ -34,4 +36,4 @@ func _on_volume_value_changed(value: float) -> void:
 
 func _on_brightness_value_changed(value: float) -> void:
 	local_brightness = brightness.value
-	canvas_modulate.color = Color(local_brightness,local_brightness , local_brightness)
+	Sun.color = Color(brightness.value, brightness.value, brightness.value)

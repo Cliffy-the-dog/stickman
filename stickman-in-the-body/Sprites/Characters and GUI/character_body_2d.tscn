@@ -581,5 +581,6 @@ shape = SubResource("CapsuleShape2D_h7lbt")
 
 [connection signal="body_entered" from="SlashArea2" to="." method="_on_slash_area_2_body_entered"]
 [connection signal="area_entered" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_area_entered"]
+[connection signal="area_exited" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_area_exited"]
 [connection signal="body_entered" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_body_entered"]
 [connection signal="body_exited" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_body_exited"]
