@@ -9,6 +9,12 @@ extends CharacterBody2D
 @onready var management: Node = %Management
 @onready var slash: AnimatedSprite2D = $Slash
 @onready var pause_menu: Control = $Camera2D2/PauseMenu
+@onready var Particle1: CPUParticles2D = $Node2D/CPUParticles2D
+@onready var Particle2: CPUParticles2D = $Node2D/CPUParticles2D4
+@onready var Particle3: CPUParticles2D = $Node2D/CPUParticles2D6
+@onready var Particle4: CPUParticles2D = $Node2D/CPUParticles2D5
+@onready var node_2d: Node2D = $Node2D
+
 @onready var killzone: Area2D = %Killzone
 
 var abletoheal = 1
@@ -24,7 +30,7 @@ var bouncing_in_progress = 0
 var being_touched = 0
 var health_upgrades = 1
 var SPEED = 1200.0
-const JUMP_VELOCITY = -2200.0 #-2200.0
+const JUMP_VELOCITY = -2200.0
 var healthpause = 0
 var savegroundpos = 1
 
@@ -33,6 +39,15 @@ func _ready():
 	healthbar.health = 100 + 20 * management.health_upgrades
 	butchering_in_progress = 0
 	bloodbar.value = 0
+	# Ensure particles start off
+	Particle1.emitting = false
+	Particle2.emitting = false
+	Particle3.emitting = false
+	Particle4.emitting = false
+	Particle1.show()
+	Particle2.show()
+	Particle3.show()
+	Particle4.show()
 
 func flash_red():
 	var tween = create_tween()
@@ -40,21 +55,46 @@ func flash_red():
 	tween.tween_property(self, "modulate", Color.WHITE, 0.4)
 
 func _physics_process(delta: float) -> void:
+	node_2d.global_position = global_position
 	if not is_on_floor():
 		velocity += get_gravity() * delta * 5
+		
 
 	if is_on_floor() and Input.is_action_just_pressed("Heal"):
-		while bloodbar.value > 0 and healthbar.value < 100:
-			SPEED = 0
-			bloodbar.value -= 1
-			healthbar.value += 1
-			if abletoheal == 0:
-				break
-			healthbar.health += 1
-			await get_tree().create_timer(0.01).timeout
-			if abletoheal == 0:
-				break
-		SPEED = 1200
+		# Ensure they are visible AND forced to start from scratch
+
+		if not healthbar.value == 100:
+			while bloodbar.value > 0:
+				Particle1.emitting = true
+				Particle2.emitting = true
+				Particle3.emitting = true
+				Particle4.emitting = true
+				SPEED = 0
+				bloodbar.value -= 0.25
+				healthbar.value += 0.25
+				if healthbar.value == 100:
+					break
+				if bloodbar.value == 0:
+					break
+				if abletoheal == 0:
+					break
+				await get_tree().create_timer(0.02).timeout
+				healthbar.health += 0.25
+
+				if healthbar.value == 100:
+					break
+				if bloodbar.value == 0:
+					break
+				if abletoheal == 0:
+					break
+
+					
+			SPEED = 1200
+			# Stop them when healing ends
+			Particle1.emitting = false
+			Particle2.emitting = false
+			Particle3.emitting = false
+			Particle4.emitting = false
 
 	if Input.is_action_just_pressed("Slash"):
 		Cleave()
@@ -103,9 +143,6 @@ func respawn_logic():
 	else:
 		get_tree().reload_current_scene()
 
-
-
-# Helper function to ensure damage is applied consistently
 func apply_damage(val):
 	abletoheal = 0
 	damage_taken_in_the_past_0point4seconds = 1
@@ -115,6 +152,7 @@ func apply_damage(val):
 	await get_tree().create_timer(0.4).timeout
 	damage_taken_in_the_past_0point4seconds = 0
 	abletoheal = 1
+
 func die_sequence():
 	healthpause = 1
 	SPEED = 0
@@ -127,16 +165,15 @@ func die_sequence():
 	respawn_logic()
 	healthbar.health = healthbar.max_value
 
-# Signals for handling enemy detection
 func _on_fazed_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and not attackers.has(body):
 		attackers.append(body)
 	if body.has_method("passage"):
 		savegroundpos = 1
+
 func _on_fazed_hitbox_body_exited(body: Node2D) -> void:
 	if attackers.has(body):
 		attackers.erase(body)
-
 	if body.has_method("passage"):
 		savegroundpos = 0
 
@@ -159,12 +196,6 @@ func _on_fazed_hitbox_area_entered(area: Area2D) -> void:
 		SPEED = 700
 		await get_tree().create_timer(0.2).timeout
 		SPEED = 1200
-	
-
-
-
-
-
 
 func Cleave():
 	if butchering_in_progress == 0:
@@ -181,9 +212,7 @@ func Cleave():
 		await get_tree().create_timer(0.25).timeout
 		butchering_in_progress = 0
 
-
 func _process(_delta: float) -> void:
-	# Handle continuous damage from overlapping attackers
 	if attackers.size() > 0:
 		if healthbar.health > 0 and damage_taken_in_the_past_0point4seconds == 0 and healthpause == 0:
 			apply_damage(damage_value)
