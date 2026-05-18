@@ -11,6 +11,7 @@ extends CharacterBody2D
 @onready var pause_menu: Control = $Camera2D2/PauseMenu
 @onready var killzone: Area2D = %Killzone
 
+var abletoheal = 1
 var damage = 20
 var last_checkpoint: Vector2 = Vector2.ZERO 
 var attackers: Array[Node2D] = []
@@ -23,7 +24,7 @@ var bouncing_in_progress = 0
 var being_touched = 0
 var health_upgrades = 1
 var SPEED = 1200.0
-const JUMP_VELOCITY = -2200.0
+const JUMP_VELOCITY = -2200.0 #-2200.0
 var healthpause = 0
 var savegroundpos = 1
 
@@ -43,10 +44,17 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta * 5
 
 	if is_on_floor() and Input.is_action_just_pressed("Heal"):
-		while bloodbar.value > 0:
+		while bloodbar.value > 0 and healthbar.value < 100:
+			SPEED = 0
 			bloodbar.value -= 1
 			healthbar.value += 1
+			if abletoheal == 0:
+				break
+			healthbar.health += 1
 			await get_tree().create_timer(0.01).timeout
+			if abletoheal == 0:
+				break
+		SPEED = 1200
 
 	if Input.is_action_just_pressed("Slash"):
 		Cleave()
@@ -99,13 +107,14 @@ func respawn_logic():
 
 # Helper function to ensure damage is applied consistently
 func apply_damage(val):
+	abletoheal = 0
 	damage_taken_in_the_past_0point4seconds = 1
 	flash_red()
 	healthbar.health -= val
 	healthbar.damage_bar.value = healthbar.health
 	await get_tree().create_timer(0.4).timeout
 	damage_taken_in_the_past_0point4seconds = 0
-
+	abletoheal = 1
 func die_sequence():
 	healthpause = 1
 	SPEED = 0
