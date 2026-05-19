@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var pause_menu: Control = $Camera2D2/PauseMenu
 @onready var node_2d: Node2D = $Node2D
 @onready var particles = [$Node2D/CPUParticles2D, $Node2D/CPUParticles2D4, $Node2D/CPUParticles2D6, $Node2D/CPUParticles2D5]
+@onready var dust_particles: GPUParticles2D = $GPUParticles2D
 @onready var slash_area_2: Area2D = %SlashArea2
 
 @export var push_force = 100.0
@@ -31,6 +32,16 @@ func flash_red():
 	t.tween_property(self, "modulate", Color.WHITE, 0.4)
 
 func _physics_process(delta):
+	
+	if character.flip_h == true:
+		dust_particles.position.x = 44
+	if character.flip_h == false:
+		dust_particles.position.x = -44
+	
+	var is_moving = abs(velocity.x) > 10
+	var on_ground = is_on_floor()
+	dust_particles.emitting = is_moving and on_ground
+	
 	node_2d.global_position = global_position
 	if not is_on_floor(): velocity += get_gravity() * delta * 5
 	if is_on_floor() and Input.is_action_just_pressed("Heal") and healthbar.value < 100:

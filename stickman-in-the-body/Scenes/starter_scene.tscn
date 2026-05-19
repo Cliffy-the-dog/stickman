@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://bf0epoh12vxwq" path="res://Scenes/CheckpointV3.tscn" id="10_pgasi"]
 [ext_resource type="Script" uid="uid://bboybgcomr2fu" path="res://Scenes/once_dead_wall.gd" id="10_vshu3"]
 [ext_resource type="Texture2D" uid="uid://benjnxbd0layw" path="res://Tileset/PhysicsTiles/Swamp Biome Tileset.png" id="12_83h8q"]
+[ext_resource type="Texture2D" uid="uid://bahkxvetoi1hk" path="res://Sprites/Dusgt.png" id="13_uds5j"]
 [ext_resource type="PackedScene" uid="uid://djv72irkalgai" path="res://Sprites/slimyboi.tscn" id="16_83h8q"]
 [ext_resource type="PackedScene" uid="uid://bmokuk76jjpav" path="res://Scenes/TempPlatform.tscn" id="17_4roa6"]
 [ext_resource type="Texture2D" uid="uid://bb3hei1mnar8j" path="res://Tileset/BackgroundTiles/BackgroundThing.png" id="19_w3ulh"]
@@ -28,6 +29,37 @@
 offsets = PackedFloat32Array(0, 0.2, 0.7, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_mkd5k"]
+_data = [Vector2(0, 0.50329983), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_cgehh"]
+curve = SubResource("Curve_mkd5k")
+
+[sub_resource type="Curve" id="Curve_tbhji"]
+_data = [Vector2(0, 0.20979512), 0.0, 0.0, 0, 0, Vector2(1, 0.08336234), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4v6u3"]
+curve = SubResource("Curve_tbhji")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qayqj"]
+particle_flag_disable_z = true
+angle_min = -44.99999
+angle_max = 45.00001
+direction = Vector3(-1.5, -1, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+angular_velocity_min = -45.000015
+angular_velocity_max = 44.999985
+gravity = Vector3(0, -50, 0)
+damping_min = 5.0
+damping_max = 10.0
+scale_min = 0.79999995
+scale_max = 1.1999999
+scale_curve = SubResource("CurveTexture_4v6u3")
+alpha_curve = SubResource("CurveTexture_cgehh")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gdo4f"]
 distance = 1336.4
@@ -684,6 +716,16 @@ scale_amount_max = 0.1
 color = Color(0, 1, 0.50318396, 1)
 color_ramp = SubResource("Gradient_eexro")
 script = ExtResource("8_eex8d")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="DirectionalLight2D/Management/Player" unique_id=695817328]
+position = Vector2(-44, 96)
+rotation = -0.0025686622
+scale = Vector2(0.2, 0.2)
+amount = 16
+texture = ExtResource("13_uds5j")
+lifetime = 1.5
+speed_scale = 4.0
+process_material = SubResource("ParticleProcessMaterial_qayqj")
 
 [node name="Killzone" type="Area2D" parent="DirectionalLight2D/Management" unique_id=1330915264]
 unique_name_in_owner = true
