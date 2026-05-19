@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://duf52tidmmvom" path="res://character_body_2d.gd" id="1_mu4cg"]
 [ext_resource type="Texture2D" uid="uid://c51d5kh5yu52m" path="res://Sprites/Characters and GUI/Jetpack Cell.png" id="2_n7lfv"]
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://Sprites/Characters and GUI/healthbar.tscn" id="3_w5eb7"]
+[ext_resource type="Texture2D" uid="uid://jfej87b3ipkp" path="res://Orange Particle.png" id="4_7nx82"]
+[ext_resource type="Texture2D" uid="uid://cas4me878o1ck" path="res://Sprites/Checkpoint Effect.png" id="5_hg1v4"]
+[ext_resource type="Texture2D" uid="uid://cgxfanee1dovg" path="res://Yellow Particle.svg" id="6_1j068"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7nx82"]
 atlas = ExtResource("2_n7lfv")
@@ -134,6 +137,15 @@ corner_radius_bottom_left = 32
 radius = 37.0
 height = 284.0
 
+[sub_resource type="Curve" id="Curve_rwl1e"]
+_limits = [-500.0, 500.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_7nx82"]
+offsets = PackedFloat32Array(0, 0.7012987, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1036799139]
 collision_layer = 4
 collision_mask = 4
@@ -156,3 +168,288 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_iwb4e")
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_ik8o4")
 debug_color = Color(0, 0.6062106, 0.6546813, 0.41960785)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1903997936]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("4_7nx82")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="." unique_id=1073733822]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("4_7nx82")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="." unique_id=1676023164]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("5_hg1v4")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.08
+scale_amount_max = 0.08
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D4" type="CPUParticles2D" parent="." unique_id=1314906625]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("6_1j068")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.01
+scale_amount_max = 0.03
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D5" type="CPUParticles2D" parent="." unique_id=1727007526]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("6_1j068")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.01
+scale_amount_max = 0.03
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D6" type="CPUParticles2D" parent="." unique_id=360061967]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("4_7nx82")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D7" type="CPUParticles2D" parent="." unique_id=56666113]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("4_7nx82")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D8" type="CPUParticles2D" parent="." unique_id=2059111977]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("5_hg1v4")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.08
+scale_amount_max = 0.08
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D9" type="CPUParticles2D" parent="." unique_id=1120166887]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("6_1j068")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.01
+scale_amount_max = 0.03
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D10" type="CPUParticles2D" parent="." unique_id=458176281]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("6_1j068")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.01
+scale_amount_max = 0.03
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D11" type="CPUParticles2D" parent="." unique_id=518306765]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("4_7nx82")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D12" type="CPUParticles2D" parent="." unique_id=761709555]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("4_7nx82")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D13" type="CPUParticles2D" parent="." unique_id=34399045]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("5_hg1v4")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.08
+scale_amount_max = 0.08
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D14" type="CPUParticles2D" parent="." unique_id=843340518]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("6_1j068")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.01
+scale_amount_max = 0.03
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D15" type="CPUParticles2D" parent="." unique_id=1235320134]
+z_index = 10
+position = Vector2(23, -50)
+amount = 19
+texture = ExtResource("6_1j068")
+lifetime = 0.75
+local_coords = true
+gravity = Vector2(-900, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+orbit_velocity_curve = SubResource("Curve_rwl1e")
+angle_min = 720.0
+angle_max = 720.0
+scale_amount_min = 0.01
+scale_amount_max = 0.03
+color_ramp = SubResource("Gradient_7nx82")
+hue_variation_min = 1.0
+hue_variation_max = 1.0

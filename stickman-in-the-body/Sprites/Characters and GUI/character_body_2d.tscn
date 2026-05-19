@@ -520,16 +520,18 @@ corner_radius_bottom_left = 32
 [sub_resource type="CircleShape2D" id="CircleShape2D_n7jsu"]
 radius = 120.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h7lbt"]
-radius = 24.666666
-height = 150.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbhyn"]
+size = Vector2(49.333332, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tvrmd"]
+size = Vector2(49.333336, 150)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xbhyn"]
 bg_color = Color(0, 0, 0, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
 border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
@@ -538,10 +540,10 @@ corner_radius_bottom_left = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvrmd"]
 bg_color = Color(0.6, 0, 0, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
 border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 32
 corner_radius_top_right = 32
@@ -564,7 +566,7 @@ frame_progress = 0.12208921
 
 [node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("4_peqie")]
 unique_name_in_owner = true
-z_index = 12
+z_index = 4096
 offset_left = -1764.0
 offset_top = -999.0
 offset_right = -1264.0
@@ -592,20 +594,21 @@ light_mask = 2
 visibility_layer = 2
 position = Vector2(2, -7.5)
 scale = Vector2(1.5, 1.5)
-shape = SubResource("CapsuleShape2D_h7lbt")
+shape = SubResource("RectangleShape2D_xbhyn")
 
 [node name="Grounder Hitbox" type="CollisionShape2D" parent="." unique_id=589186753]
 light_mask = 2
 visibility_layer = 2
 position = Vector2(2, -7.5)
 scale = Vector2(1.5, 1.5)
-shape = SubResource("CapsuleShape2D_h7lbt")
+shape = SubResource("RectangleShape2D_tvrmd")
 
 [node name="Bloodbar" type="ProgressBar" parent="." unique_id=1770813219]
+z_index = 4096
 offset_left = -1764.0
-offset_top = -947.0
+offset_top = -949.0
 offset_right = -1264.0
-offset_bottom = -920.0
+offset_bottom = -918.0
 theme_override_styles/background = SubResource("StyleBoxFlat_xbhyn")
 theme_override_styles/fill = SubResource("StyleBoxFlat_tvrmd")
 value = 75.0
@@ -613,6 +616,5 @@ show_percentage = false
 
 [connection signal="body_entered" from="SlashArea2" to="." method="_on_slash_area_2_body_entered"]
 [connection signal="area_entered" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_area_entered"]
-[connection signal="area_exited" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_area_exited"]
 [connection signal="body_entered" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_body_entered"]
 [connection signal="body_exited" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_body_exited"]

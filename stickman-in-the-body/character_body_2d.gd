@@ -1,6 +1,11 @@
 extends CharacterBody2D
 
-
+@onready var particles: Array = [
+	$CPUParticles2D, $CPUParticles2D2, $CPUParticles2D3, $CPUParticles2D4,
+	$CPUParticles2D5, $CPUParticles2D6, $CPUParticles2D7, $CPUParticles2D8,
+	$CPUParticles2D9, $CPUParticles2D10, $CPUParticles2D11, $CPUParticles2D12,
+	$CPUParticles2D13, $CPUParticles2D14, $CPUParticles2D15
+]
 
 @onready var healthbar: ProgressBar = $Healthbar
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -18,14 +23,15 @@ var detection_range = 1100
 
 func _ready():
 	player = get_tree().root.find_child("Player", true, false)
+	set_particles_emitting(false) # Start with particles off
 
 func _physics_process(delta: float) -> void:
 	if player:
 		var distance = global_position.distance_to(player.global_position)
 		
-		# Triggers music once when entering range
 		if distance < detection_range and not is_chasing:
 			is_chasing = true
+			set_particles_emitting(true) # Turn on when chasing starts
 			music_manager.start_chase(get_instance_id()) 
 
 	if can_move == 1 and is_chasing == true:
@@ -40,6 +46,11 @@ func _physics_process(delta: float) -> void:
 	
 	if can_move == 1 and is_chasing == false:
 		sprite.play("Idle")
+		set_particles_emitting(false) # Ensure off if not chasing
+
+func set_particles_emitting(emit: bool) -> void:
+	for p in particles:
+		if p: p.emitting = emit
 
 func take_damage(damage) -> void:
 	healthbar.value -= damage
@@ -50,16 +61,9 @@ func take_damage(damage) -> void:
 	await get_tree().create_timer(0.15).timeout
 	negative_value = 1
 	
-	var direction = 0
-	if sprite.flip_h == true:
-		direction = 1
-	elif sprite.flip_h == false:
-		direction = -1
-		
 	if healthbar.value == 0:
-		# Tells Music Manager this specific enemy is no longer chasing
+		set_particles_emitting(false) # Turn off on death
 		music_manager.stop_chase(get_instance_id())
-		
 		can_move = 0
 		sprite.play("Die")
 		await sprite.animation_finished
