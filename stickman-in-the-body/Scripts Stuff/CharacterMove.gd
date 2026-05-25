@@ -10,9 +10,13 @@ extends CharacterBody2D
 @onready var particles = [$Node2D/CPUParticles2D, $Node2D/CPUParticles2D4, $Node2D/CPUParticles2D6, $Node2D/CPUParticles2D5]
 @onready var dust_particles: GPUParticles2D = $GPUParticles2D
 @onready var slash_area_2: Area2D = %SlashArea2
-
+@export var particle_node: GPUParticles2D # or GPUParticles2D
 @export var push_force = 100.0
+@onready var process_mat = particle_node.process_material as ParticleProcessMaterial
+
 const JUMP_VELOCITY = -2200.0
+var money = 0
+var skins = 0
 var abletoheal = 1; var damage = 20; var last_checkpoint = Vector2.ZERO; var attackers: Array[Node2D] = []
 var last_floor_pos = Vector2.ZERO; var pause_Idleanimationforce = 0; var damage_taken_in_the_past_0point4seconds = 0
 var damage_value = 10; var butchering_in_progress = 0; var bouncing_in_progress = 0; var being_touched = 0
@@ -35,8 +39,10 @@ func _physics_process(delta):
 	
 	if character.flip_h == true:
 		dust_particles.position.x = 44
+		process_mat.direction.x = 5
 	if character.flip_h == false:
 		dust_particles.position.x = -44
+		process_mat.direction.x = -5
 	
 	var is_moving = abs(velocity.x) > 10
 	var on_ground = is_on_floor()

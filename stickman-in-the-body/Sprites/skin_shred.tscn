@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cj1jcbo8yntk7"]
+
+[ext_resource type="Script" uid="uid://bbl7p511dqepv" path="res://Sprites/skin_shred.gd" id="1_56e7p"]
+[ext_resource type="Texture2D" uid="uid://c8q4vfq1j2ty1" path="res://Sprites/Skin Shred.svg" id="1_nbyuj"]
+
+[node name="Node2D" type="Node2D" unique_id=2073578284]
+script = ExtResource("1_56e7p")
+
+[node name="SkinShred" type="Sprite2D" parent="." unique_id=1455505136]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_nbyuj")
+
+[node name="Area2D" type="Area2D" parent="SkinShred" unique_id=1927482666]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SkinShred/Area2D" unique_id=1494450326]
+polygon = PackedVector2Array(-88, 66, -32, 32, -48, 62, -44, 68, -16, 56, -14, 56, -26, 82, 62, 56, 90, -22, 62, -44, 54, -26, 46, -46, 26, -38, 26, -82, -2, -76, -72, -8)
+
+[connection signal="area_entered" from="SkinShred/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="SkinShred/Area2D" to="." method="_on_area_2d_body_entered"]

@@ -15,6 +15,7 @@ func save_game():
 	var save_data = {
 		"checkpoint_x": player.last_checkpoint.x,
 		"checkpoint_y": player.last_checkpoint.y,
+		"skinshreds": player.skins,
 		"health_upgrades": management.health_upgrades,
 		"Sword_Damage": player.damage,
 		"Hoard_exists": is_instance_valid(hoard)
@@ -54,6 +55,10 @@ func load_game():
 			if data.has("health_upgrades"):
 				management.health_upgrades = data["health_upgrades"]
 				print("DEBUG: Upgrades loaded: ", management.health_upgrades)
+
+			if data.has("skinshreds"):
+				player.skins = data["skinshreds"]
+				print("DEBUG: Upgrades loaded: ", player.skinshreds)
 
 			if data.has("Hoard_exists"):
 				hoard.exists_in_previous_save = data["Hoard_exists"]
