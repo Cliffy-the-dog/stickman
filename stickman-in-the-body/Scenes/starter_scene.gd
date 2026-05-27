@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var pause_menu: Control = $DirectionalLight2D/Management/Player/Camera2D2/PauseMenu
 
-@onready var canvas_modulate: CanvasModulate = $CanvasModulate
+
 
 
 

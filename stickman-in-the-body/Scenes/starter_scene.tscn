@@ -21,9 +21,11 @@
 [ext_resource type="Script" uid="uid://bboybgcomr2fu" path="res://Scenes/once_dead_wall.gd" id="10_vshu3"]
 [ext_resource type="Texture2D" uid="uid://benjnxbd0layw" path="res://Tileset/PhysicsTiles/Swamp Biome Tileset.png" id="12_83h8q"]
 [ext_resource type="Texture2D" uid="uid://bahkxvetoi1hk" path="res://Sprites/Dusgt.png" id="13_uds5j"]
+[ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://Scripts Stuff/Quadrillion Sb It.otf" id="14_cgehh"]
 [ext_resource type="PackedScene" uid="uid://djv72irkalgai" path="res://Sprites/slimyboi.tscn" id="16_83h8q"]
 [ext_resource type="PackedScene" uid="uid://bmokuk76jjpav" path="res://Scenes/TempPlatform.tscn" id="17_4roa6"]
 [ext_resource type="Texture2D" uid="uid://bb3hei1mnar8j" path="res://Tileset/BackgroundTiles/BackgroundThing.png" id="19_w3ulh"]
+[ext_resource type="PackedScene" uid="uid://uskuwl044xek" path="res://Sprites/collecter.tscn" id="21_mkd5k"]
 
 [sub_resource type="Gradient" id="Gradient_eexro"]
 offsets = PackedFloat32Array(0, 0.2, 0.7, 1)
@@ -695,7 +697,7 @@ offset_left = -1924.0
 offset_top = -1081.0
 offset_right = 1920.0
 offset_bottom = 1080.0
-mouse_filter = 2
+mouse_filter = 1
 color = Color(0, 0, 0, 0.5019608)
 script = ExtResource("5_xr7e8")
 metadata/_edit_use_anchors_ = true
@@ -724,6 +726,17 @@ offset_right = 902.0001
 offset_bottom = -60.000004
 scale = Vector2(5.9200196, 5.9200196)
 metadata/_edit_use_anchors_ = true
+
+[node name="Money" type="Label" parent="DirectionalLight2D/Management/Player/Camera2D2" unique_id=2114290569]
+light_mask = 2
+offset_left = -1213.0
+offset_top = -1010.0
+offset_right = -1173.0
+offset_bottom = -987.0
+theme_override_colors/font_color = Color(0.24273571, 0.9999998, 0.62976444, 1)
+theme_override_fonts/font = ExtResource("14_cgehh")
+theme_override_font_sizes/font_size = 50
+text = "$999"
 
 [node name="MusicManager" parent="DirectionalLight2D/Management/Player" unique_id=533816560 instance=ExtResource("3_dgyv7")]
 unique_name_in_owner = true
@@ -799,11 +812,91 @@ script = ExtResource("8_eex8d")
 position = Vector2(-44, 96)
 rotation = -0.0025686622
 scale = Vector2(0.2, 0.2)
+emitting = false
 amount = 128
 texture = ExtResource("13_uds5j")
 lifetime = 2.0
 speed_scale = 64.0
 process_material = SubResource("ParticleProcessMaterial_qayqj")
+
+[node name="ColorRect" type="ColorRect" parent="DirectionalLight2D/Management/Player" unique_id=1871366020]
+offset_left = -1776.0
+offset_top = -856.0
+offset_right = 1776.0
+offset_bottom = -246.0
+color = Color(0, 0, 0, 0.75000006)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DirectionalLight2D/Management/Player/ColorRect" unique_id=1459918704]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("14_cgehh")
+theme_override_font_sizes/normal_font_size = 50
+text = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz"
+
+[node name="Press Space to Continue" type="Label" parent="DirectionalLight2D/Management/Player/ColorRect" unique_id=491474226]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -346.5
+offset_top = 1.0
+offset_right = 346.5
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("14_cgehh")
+theme_override_font_sizes/font_size = 50
+text = "Press Space to continue"
+
+[node name="Accept" type="Button" parent="DirectionalLight2D/Management/Player/ColorRect" unique_id=1282087739]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 425.5
+offset_top = -69.0
+offset_right = 574.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_pressed_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_hover_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_fonts/font = ExtResource("14_cgehh")
+theme_override_font_sizes/font_size = 50
+text = "Accept"
+
+[node name="Decline" type="Button" parent="DirectionalLight2D/Management/Player/ColorRect" unique_id=1310459424]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -574.5
+offset_top = -69.0
+offset_right = -425.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_pressed_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_hover_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_fonts/font = ExtResource("14_cgehh")
+theme_override_font_sizes/font_size = 50
+text = "Decline"
 
 [node name="Killzone" type="Area2D" parent="DirectionalLight2D/Management" unique_id=1330915264]
 unique_name_in_owner = true
@@ -918,8 +1011,11 @@ position = Vector2(-29, 6)
 tile_map_data = PackedByteArray("AACRASgAAQAHAAIAAACRAScAAQAHAAIAAACRASYAAQAHAAIAAACRASUAAQAHAAIAAACRASQAAQAHAAIAAACRASMAAQAHAAIAAAA=")
 tile_set = SubResource("TileSet_cgehh")
 
-[node name="CharacterBody2D" parent="DirectionalLight2D/Management" unique_id=55306146 instance=ExtResource("16_83h8q")]
-position = Vector2(48949, 939)
+[node name="Collecter" parent="DirectionalLight2D/Management" unique_id=1682216211 instance=ExtResource("21_mkd5k")]
+z_index = 4096
+position = Vector2(49604, 4267.931)
+scale = Vector2(1.567593, 1.5675929)
+autoplay = "Anim"
 
 [node name="One Way Walls" type="Node" parent="DirectionalLight2D" unique_id=514713053]
 
@@ -967,6 +1063,9 @@ position = Vector2(16194, -6739)
 [node name="CharacterBody2D5" parent="DirectionalLight2D/Enemy Folder" unique_id=767790895 instance=ExtResource("16_83h8q")]
 position = Vector2(20816, -2120)
 
+[node name="CharacterBody2D6" parent="DirectionalLight2D/Enemy Folder" unique_id=55306146 instance=ExtResource("16_83h8q")]
+position = Vector2(48949, 939)
+
 [node name="Checkpoint folder" type="Node" parent="DirectionalLight2D" unique_id=33694318]
 
 [node name="Checkpoint2" parent="DirectionalLight2D/Checkpoint folder" unique_id=116846298 instance=ExtResource("10_pgasi")]
@@ -996,7 +1095,7 @@ position = Vector2(12288, -5695)
 [node name="Checkpoint4" parent="DirectionalLight2D/Checkpoint folder" unique_id=1697631469 instance=ExtResource("10_pgasi")]
 position = Vector2(28671, -831)
 
-[node name="Checkpoint" parent="." unique_id=2056671719 instance=ExtResource("10_pgasi")]
+[node name="Checkpoint5" parent="DirectionalLight2D/Checkpoint folder" unique_id=2056671719 instance=ExtResource("10_pgasi")]
 position = Vector2(50944, 1088)
 
 [connection signal="body_entered" from="DirectionalLight2D/Management/Killzone" to="DirectionalLight2D/Management/Player" method="_on_killzone_body_entered"]

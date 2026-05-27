@@ -18,6 +18,7 @@ func save_game():
 		"skinshreds": player.skins,
 		"health_upgrades": management.health_upgrades,
 		"Sword_Damage": player.damage,
+		"money": player.money,
 		"Hoard_exists": is_instance_valid(hoard)
 	}
 	
@@ -56,9 +57,13 @@ func load_game():
 				management.health_upgrades = data["health_upgrades"]
 				print("DEBUG: Upgrades loaded: ", management.health_upgrades)
 
+			if data.has("money"):
+				player.money = data["money"]
+				print("DEBUG: Upgrades loaded: ", player.money)
+
 			if data.has("skinshreds"):
 				player.skins = data["skinshreds"]
-				print("DEBUG: Upgrades loaded: ", player.skinshreds)
+				print("DEBUG: Upgrades loaded: ", player.skins)
 
 			if data.has("Hoard_exists"):
 				hoard.exists_in_previous_save = data["Hoard_exists"]
@@ -80,5 +85,6 @@ func _on_resume_pressed() -> void:
 
 func _on_quit_to_menu_pressed() -> void:
 	save_game()
-	get_tree().change_scene_to_file("res://Scenes/control.tscn")
+	get_tree().paused = false # <-- ADD THIS HERE
 	Engine.time_scale = 1
+	get_tree().change_scene_to_file("res://Scenes/control.tscn")

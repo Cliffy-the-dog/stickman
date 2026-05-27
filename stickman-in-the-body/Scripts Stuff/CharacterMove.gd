@@ -12,10 +12,11 @@ extends CharacterBody2D
 @onready var slash_area_2: Area2D = %SlashArea2
 @export var particle_node: GPUParticles2D # or GPUParticles2D
 @export var push_force = 100.0
+@onready var moneyLabel: Label = $Camera2D2/Money
 @onready var process_mat = particle_node.process_material as ParticleProcessMaterial
 
 const JUMP_VELOCITY = -2200.0
-var money = 0
+var money = 0.0
 var skins = 0
 var abletoheal = 1; var damage = 20; var last_checkpoint = Vector2.ZERO; var attackers: Array[Node2D] = []
 var last_floor_pos = Vector2.ZERO; var pause_Idleanimationforce = 0; var damage_taken_in_the_past_0point4seconds = 0
@@ -36,7 +37,7 @@ func flash_red():
 	t.tween_property(self, "modulate", Color.WHITE, 0.4)
 
 func _physics_process(delta):
-	
+	moneyLabel.text = "$" + str(money)
 	if character.flip_h == true:
 		dust_particles.position.x = 44
 		process_mat.direction.x = 5
@@ -44,9 +45,8 @@ func _physics_process(delta):
 		dust_particles.position.x = -44
 		process_mat.direction.x = -5
 	
-	var is_moving = abs(velocity.x) > 10
-	var on_ground = is_on_floor()
-	dust_particles.emitting = is_moving and on_ground
+
+	dust_particles.emitting = false
 	
 	node_2d.global_position = global_position
 	if not is_on_floor(): velocity += get_gravity() * delta * 5
