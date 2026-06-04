@@ -134,13 +134,13 @@ func start_dialogue() -> void:
 				player.set("max_health", current_max + hp_increase)
 				player.set("max_hp", current_max + hp_increase)
 				healthbar.value = healthbar.max_value
-				healthbar.health = healthbar.max_value
+				healthbar.health = healthbar.value
 			
 			Txt.text = "Pleasure doing business. Try not to get yourself killed with that."
 			healthbar.value = healthbar.max_value
 			management.health_upgrades += 1
 			print(management.health_upgrades)
-			healthbar.health = healthbar.max_value
+			healthbar.health = healthbar.value
 			print(health_upgrade_bought)
 			await get_tree().create_timer(0.1).timeout
 			await interact_pressed

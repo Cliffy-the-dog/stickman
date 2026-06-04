@@ -39,3 +39,4 @@ func _on_timer_timeout() -> void:
 	damage_bar.value = value
 func _process(delta: float) -> void:
 	rotation = 0
+	damage_bar.value = value
