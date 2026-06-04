@@ -6,7 +6,7 @@ extends Control
 @onready var healer: AnimatedSprite2D = $"../../../Collecter2"
 @onready var starter_scene: Node2D = $"../../../../.."
 @onready var player: CharacterBody2D = %Player
-
+@onready var healthbar: ProgressBar = $"../../Healthbar"
 const SAVE_PATH = "user://savegame.json"
 
 func _ready() -> void:
@@ -57,7 +57,9 @@ func load_game():
 			
 			if data.has("health_upgrades"):
 				management.health_upgrades = data["health_upgrades"]
-				print("DEBUG: Upgrades loaded: ", management.health_upgrades)
+				print("DEBUG: Health Upgrades loaded: ", management.health_upgrades)
+				healthbar.max_value = 100 + 20 * data["health_upgrades"]
+				
 
 			if data.has("health_upgrade_bought"):
 				healer.health_upgrade_bought = data["health_upgrade_bought"]

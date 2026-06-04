@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b6d7sxddtno0j"]
 
 [ext_resource type="Texture2D" uid="uid://b8uwlug5hlpu5" path="res://Sprites/Characters and GUI/HealerSpritesheet.png" id="1_tl7ob"]
-[ext_resource type="Script" uid="uid://df368tx6utii1" path="res://Sprites/collecter.gd" id="2_cawh0"]
+[ext_resource type="Script" uid="uid://blpx4ecsjerk4" path="res://healer.gd" id="2_tl7ob"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://Scripts Stuff/Quadrillion Sb It.otf" id="3_rinsy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cawh0"]
@@ -60,8 +60,8 @@ size = Vector2(129, 160)
 [node name="Collecter" type="AnimatedSprite2D" unique_id=1682216211]
 sprite_frames = SubResource("SpriteFrames_ng0ge")
 animation = &"Anim"
-frame_progress = 0.8249156
-script = ExtResource("2_cawh0")
+frame_progress = 0.8899016
+script = ExtResource("2_tl7ob")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2041901945]
 collision_layer = 255

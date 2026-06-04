@@ -1,6 +1,5 @@
 extends AnimatedSprite2D
 
-@onready var management: Node = %Management
 @onready var DetectionZone: Area2D = $Area2D
 @onready var label: Label = $Area2D/CollisionShape2D/Label
 @onready var TxtBg: ColorRect = $"../Player/ColorRect"
@@ -8,37 +7,23 @@ extends AnimatedSprite2D
 @onready var player: CharacterBody2D = %Player
 @onready var accept: Button = $"../Player/ColorRect/Accept"
 @onready var decline: Button = $"../Player/ColorRect/Decline"
-@onready var button_3: Button = $"../Player/ColorRect/Button3"
-@onready var button_4: Button = $"../Player/ColorRect/Button4"
-@onready var button_5: Button = $"../Player/ColorRect/Button5"
-
-# CHANGED: This is now an export variable so you can assign it in the Inspector
-var healthbar: ProgressBar
 
 var animationlock = 0
 var indialog = 0
 var colliding = 0
 var must_leave_area = false 
-var health_upgrade_bought = false
 
 signal interact_pressed
-# Changed from bool to String to handle 3 different button choices
-signal choice_made(choice: String)
+signal choice_made(accepted: bool)
 
 func _ready() -> void:
-	healthbar = get_tree().get_first_node_in_group("main_healthbar")
 	Txt.hide()
 	TxtBg.hide()
 	accept.hide()
 	decline.hide()
-	button_3.hide()
-	button_4.hide()
-	button_5.hide()
 	
-	# Pass a string corresponding to the action
-	accept.pressed.connect(func(): choice_made.emit("heal"))
-	decline.pressed.connect(func(): choice_made.emit("decline"))
-	button_5.pressed.connect(func(): choice_made.emit("upgrade"))
+	accept.pressed.connect(func(): choice_made.emit(true))
+	decline.pressed.connect(func(): choice_made.emit(false))
 
 func _input(event: InputEvent) -> void:
 	# Handle ALL spacebar inputs here to prevent frame-bleeding loops
@@ -70,76 +55,39 @@ func start_dialogue() -> void:
 	TxtBg.show()
 	
 	# --- PAGE 1 ---
-	Txt.text = "Oi, you there. Scrawny. You look beat up. Don't expect yourself to last much longer in your condition."
-	
-	await get_tree().create_timer(0.1).timeout 
-	await interact_pressed 
-	
-	Txt.text = "I've got some stuff you might last longer off. Take a look. If you're interested, tell me. I'll give it to you for the right price."
+	Txt.text = "Hello young warrior! You don't by any chance have any interesting things on you? I'll buy them off you for a good price!"
 	
 	await get_tree().create_timer(0.1).timeout 
 	await interact_pressed 
 	
 	# --- PAGE 2 ---
-	Txt.text = "Hurry it up."
+	Txt.text = "Well then, lets make a deal. You give me all your enemy parts, and I'll give you a good price!"
 	accept.show()
 	decline.show()
 	
-	if health_upgrade_bought:
-		button_5.hide()
-	else:
-		button_5.show()
-		
-	decline.text = "Nevermind"
-	accept.text = "Heal"
-	button_5.text = "Health Upgrade"
+	var accepted = await choice_made
 	
-	var choice = await choice_made
-	
-	# Hide buttons as soon as a choice is made
 	accept.hide()
 	decline.hide()
-	button_5.hide()
 	
 	# --- PAGE 3 (Outcomes) ---
-	if choice == "heal":
-		var health_missing = healthbar.max_value - healthbar.value
-		var heal_cost = health_missing * 1 # 1 dollar per missing HP
+	if accepted:
+		Txt.text = "Here you go! You sold me " + str(player.skins) + " skins, so here is " + str(player.skins * 20) + " dollars!"
+		var total_given = player.skins * 20
+		await get_tree().create_timer(0.1).timeout
+		await interact_pressed # Closes dialogue safely now!
+		player.money += total_given
+		player.skins = 0
+		await interact_pressed
+		# OPTIONAL: If you want them to leave the area after accepting too, 
+		# uncomment the line below:
+		# must_leave_area = true
 		
-		if health_missing <= 0:
-			Txt.text = "You're already at full health. Quit wasting my time."
-			await get_tree().create_timer(0.1).timeout
-			await interact_pressed
-		elif player.money >= heal_cost:
-			player.money -= heal_cost
-			healthbar.health = healthbar.max_value
-			healthbar.value = healthbar.max_value
-			Txt.text = "Alright, patched you up. That'll be " + str(heal_cost) + " dollars."
-			await get_tree().create_timer(0.1).timeout
-			await interact_pressed
-		else:
-			Txt.text = "You don't have enough money! You need " + str(heal_cost) + " dollars to fully heal."
-			await get_tree().create_timer(0.1).timeout
-			await interact_pressed
-			
-	elif choice == "upgrade":
-		if player.money >= 500:
-			player.money -= 500
-			health_upgrade_bought = true
-			management.health_upgrades += 1
-			Txt.text = "Pleasure doing business. Try not to get yourself killed with that."
-			await get_tree().create_timer(0.1).timeout
-			await interact_pressed
-		else:
-			Txt.text = "You need 500 dollars for this upgrade. Come back when you're not broke."
-			await get_tree().create_timer(0.1).timeout
-			await interact_pressed
-
-	# --- WRAP UP PART ---
-	Txt.text = "Well then, if you think you can survive the roads ahead, go on! By all means, don't come back to me crying when you've bled yourself half to death"
-	await get_tree().create_timer(0.1).timeout
-	await interact_pressed 
-	must_leave_area = true 
+	else:
+		Txt.text = "Oh alright then, tell me if you change your mind"
+		await get_tree().create_timer(0.1).timeout
+		await interact_pressed 
+		must_leave_area = true 
 	
 	# Clean up and reset states
 	Txt.hide()

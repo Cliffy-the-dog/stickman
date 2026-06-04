@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://Sprites/Characters and GUI/healthbar.tscn" id="4_peqie"]
 [ext_resource type="PackedScene" uid="uid://bsbi72s8m65pt" path="res://Sprites/Characters and GUI/animated_sprite_2d.tscn" id="6_n7jsu"]
 [ext_resource type="Texture2D" uid="uid://goiub63ndlpc" path="res://Leaping Spritesheet.png" id="7_xbhyn"]
+[ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://Scripts Stuff/Quadrillion Sb It.otf" id="9_53umr"]
+[ext_resource type="Script" uid="uid://ceifqnw8gna1l" path="res://Sprites/Characters and GUI/Max.gd" id="10_eceog"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_53umr"]
 atlas = ExtResource("2_at0vm")
@@ -573,6 +575,17 @@ offset_right = -1264.0
 offset_bottom = -972.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_n7jsu")
 metadata/_edit_use_anchors_ = true
+
+[node name="Health" type="Label" parent="Healthbar" unique_id=1185595611]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 30.0
+offset_right = 202.0
+offset_bottom = 91.0
+theme_override_fonts/font = ExtResource("9_53umr")
+theme_override_font_sizes/font_size = 50
+text = "Health"
+script = ExtResource("10_eceog")
 
 [node name="SlashArea2" type="Area2D" parent="." unique_id=1506186180]
 unique_name_in_owner = true
