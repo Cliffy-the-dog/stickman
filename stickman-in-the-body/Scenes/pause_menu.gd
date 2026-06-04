@@ -3,6 +3,7 @@ extends Control
 @onready var hoard: CharacterBody2D = $"../../../Hoard"
 @onready var management: Node = %Management
 @onready var color_rect: ColorRect = $"../ColorRect"
+@onready var healer: AnimatedSprite2D = $"../../../Collecter2"
 @onready var starter_scene: Node2D = $"../../../../.."
 @onready var player: CharacterBody2D = %Player
 
@@ -17,6 +18,7 @@ func save_game():
 		"checkpoint_y": player.last_checkpoint.y,
 		"skinshreds": player.skins,
 		"health_upgrades": management.health_upgrades,
+		"health_upgrade_bought": healer.health_upgrade_bought,
 		"Sword_Damage": player.damage,
 		"money": player.money,
 		"Hoard_exists": is_instance_valid(hoard)
@@ -56,6 +58,10 @@ func load_game():
 			if data.has("health_upgrades"):
 				management.health_upgrades = data["health_upgrades"]
 				print("DEBUG: Upgrades loaded: ", management.health_upgrades)
+
+			if data.has("health_upgrade_bought"):
+				healer.health_upgrade_bought = data["health_upgrade_bought"]
+
 
 			if data.has("money"):
 				player.money = data["money"]

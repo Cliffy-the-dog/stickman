@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://b6d7sxddtno0j"]
+
+[ext_resource type="Texture2D" uid="uid://b8uwlug5hlpu5" path="res://Sprites/Characters and GUI/HealerSpritesheet.png" id="1_tl7ob"]
+[ext_resource type="Script" uid="uid://df368tx6utii1" path="res://Sprites/collecter.gd" id="2_cawh0"]
+[ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://Scripts Stuff/Quadrillion Sb It.otf" id="3_rinsy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cawh0"]
+atlas = ExtResource("1_tl7ob")
+region = Rect2(146, 113, 73, 113)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rinsy"]
+atlas = ExtResource("1_tl7ob")
+region = Rect2(73, 113, 73, 113)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwvfx"]
+atlas = ExtResource("1_tl7ob")
+region = Rect2(0, 113, 73, 113)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2m5o"]
+atlas = ExtResource("1_tl7ob")
+region = Rect2(146, 0, 73, 113)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_enb0y"]
+atlas = ExtResource("1_tl7ob")
+region = Rect2(73, 0, 73, 113)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjnhp"]
+atlas = ExtResource("1_tl7ob")
+region = Rect2(0, 0, 73, 113)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ng0ge"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cawh0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rinsy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwvfx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2m5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_enb0y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjnhp")
+}],
+"loop": true,
+"name": &"Anim",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mcapq"]
+size = Vector2(129, 160)
+
+[node name="Collecter" type="AnimatedSprite2D" unique_id=1682216211]
+sprite_frames = SubResource("SpriteFrames_ng0ge")
+animation = &"Anim"
+frame_progress = 0.8249156
+script = ExtResource("2_cawh0")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2041901945]
+collision_layer = 255
+collision_mask = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=56370090]
+position = Vector2(1.5, -24)
+shape = SubResource("RectangleShape2D_mcapq")
+
+[node name="Label" type="Label" parent="Area2D/CollisionShape2D" unique_id=765808273]
+offset_left = -20.5
+offset_top = -61.0
+offset_right = 17.5
+offset_bottom = -41.0
+theme_override_fonts/font = ExtResource("3_rinsy")
+text = "Talk"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

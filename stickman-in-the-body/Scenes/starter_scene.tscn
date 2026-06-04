@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://dqeeidq7t2drx"]
 
-[ext_resource type="Script" path="res://Scenes/FaliureManagement.gd" id="1_5arw2"]
+[ext_resource type="Script" uid="uid://c3cver7fnu5ca" path="res://Scenes/FaliureManagement.gd" id="1_5arw2"]
 [ext_resource type="PackedScene" uid="uid://gnmp0yh0cmhe" path="res://Sprites/Characters and GUI/character_body_2d.tscn" id="1_j8eka"]
 [ext_resource type="Script" uid="uid://db3ysd2kfpwtk" path="res://Scenes/starter_scene.gd" id="1_x63nd"]
 [ext_resource type="Texture2D" uid="uid://11c74briycgi" path="res://Tileset/GeneralTilesetV3.png" id="2_lhs2h"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://bmokuk76jjpav" path="res://Scenes/TempPlatform.tscn" id="17_4roa6"]
 [ext_resource type="Texture2D" uid="uid://bb3hei1mnar8j" path="res://Tileset/BackgroundTiles/BackgroundThing.png" id="19_w3ulh"]
 [ext_resource type="PackedScene" uid="uid://uskuwl044xek" path="res://Sprites/collecter.tscn" id="21_mkd5k"]
+[ext_resource type="PackedScene" uid="uid://b6d7sxddtno0j" path="res://Healer.tscn" id="22_tbhji"]
 
 [sub_resource type="Gradient" id="Gradient_eexro"]
 offsets = PackedFloat32Array(0, 0.2, 0.7, 1)
@@ -877,6 +878,72 @@ theme_override_fonts/font = ExtResource("14_cgehh")
 theme_override_font_sizes/font_size = 50
 text = "Accept"
 
+[node name="Button3" type="Button" parent="DirectionalLight2D/Management/Player/ColorRect" unique_id=193919134]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 395.0
+offset_top = 50.0
+offset_right = 605.0
+offset_bottom = 119.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_pressed_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_hover_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_fonts/font = ExtResource("14_cgehh")
+theme_override_font_sizes/font_size = 50
+text = "Accept"
+
+[node name="Button4" type="Button" parent="DirectionalLight2D/Management/Player/ColorRect" unique_id=348701186]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -609.5
+offset_top = 50.0
+offset_right = -390.5
+offset_bottom = 119.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_pressed_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_hover_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_fonts/font = ExtResource("14_cgehh")
+theme_override_font_sizes/font_size = 50
+text = "Decline"
+
+[node name="Button5" type="Button" parent="DirectionalLight2D/Management/Player/ColorRect" unique_id=1828810324]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = 50.0
+offset_right = 139.0
+offset_bottom = 119.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_pressed_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_hover_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+theme_override_fonts/font = ExtResource("14_cgehh")
+theme_override_font_sizes/font_size = 50
+text = "Decline"
+
 [node name="Decline" type="Button" parent="DirectionalLight2D/Management/Player/ColorRect" unique_id=1310459424]
 layout_mode = 1
 anchors_preset = 7
@@ -1006,9 +1073,10 @@ z_index = -4096
 position = Vector2(24, 66)
 tile_set = SubResource("TileSet_mkd5k")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="DirectionalLight2D/Management/TileMap" unique_id=1927205412]
+[node name="Fake wall" type="TileMapLayer" parent="DirectionalLight2D/Management/TileMap" unique_id=1927205412]
+z_index = -100
 position = Vector2(-29, 6)
-tile_map_data = PackedByteArray("AACRASgAAQAHAAIAAACRAScAAQAHAAIAAACRASYAAQAHAAIAAACRASUAAQAHAAIAAACRASQAAQAHAAIAAACRASMAAQAHAAIAAAA=")
+tile_map_data = PackedByteArray("AACRASgAAQAHAAIAAACRAScAAQAHAAIAAACRASYAAQAHAAIAAACRASUAAQAHAAIAAACRASQAAQAHAAIAAACRASMAAQAHAAIAAACIASEAAQAAAAMAAGCIASAAAQAAAAMAAGCIAR8AAQAAAAMAAGCIAR4AAQAAAAMAAGCIAR0AAQAAAAMAAGCIARwAAQAAAAMAAGCIARsAAQAAAAMAAGA=")
 tile_set = SubResource("TileSet_cgehh")
 
 [node name="Collecter" parent="DirectionalLight2D/Management" unique_id=1682216211 instance=ExtResource("21_mkd5k")]
@@ -1016,6 +1084,10 @@ z_index = 4096
 position = Vector2(49604, 4267.931)
 scale = Vector2(1.567593, 1.5675929)
 autoplay = "Anim"
+
+[node name="Collecter2" parent="DirectionalLight2D/Management" unique_id=324237069 instance=ExtResource("22_tbhji")]
+position = Vector2(50753.25, 4271.8438)
+scale = Vector2(1.445206, 1.4452063)
 
 [node name="One Way Walls" type="Node" parent="DirectionalLight2D" unique_id=514713053]
 
