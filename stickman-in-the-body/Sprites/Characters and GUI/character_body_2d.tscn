@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://goiub63ndlpc" path="res://Leaping Spritesheet.png" id="7_xbhyn"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://Scripts Stuff/Quadrillion Sb It.otf" id="9_53umr"]
 [ext_resource type="Script" uid="uid://ceifqnw8gna1l" path="res://Sprites/Characters and GUI/Max.gd" id="10_eceog"]
+[ext_resource type="Texture2D" uid="uid://ca8dx783grj26" path="res://Reeling.png" id="10_x6ao1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_whk18"]
 atlas = ExtResource("4_i0bwr")
@@ -258,8 +259,8 @@ atlas = ExtResource("7_xbhyn")
 region = Rect2(402, 354, 134, 177)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b0tv4"]
-atlas = ExtResource("4_i0bwr")
-region = Rect2(362, 322, 181, 161)
+atlas = ExtResource("10_x6ao1")
+region = Rect2(0, 0, 93, 158)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qtbjv"]
 atlas = ExtResource("2_21c00")
@@ -679,9 +680,7 @@ position = Vector2(130, 0)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=64196167]
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_uglg6")
-animation = &"Bloodpunch"
-frame = 6
-frame_progress = 1.0
+animation = &"Reeling"
 
 [node name="Healthbar" parent="." unique_id=213354145 groups=["main_healthbar"] instance=ExtResource("4_peqie")]
 unique_name_in_owner = true
