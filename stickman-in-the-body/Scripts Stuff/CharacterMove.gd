@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var projectile_scene: PackedScene 
 @onready var bloodbar: ProgressBar = $Bloodbar
 @onready var character: AnimatedSprite2D = $AnimatedSprite2D
 @onready var healthbar: ProgressBar = $Healthbar
@@ -10,11 +11,13 @@ extends CharacterBody2D
 @onready var particles = [$Node2D/CPUParticles2D, $Node2D/CPUParticles2D4, $Node2D/CPUParticles2D6, $Node2D/CPUParticles2D5]
 @onready var dust_particles: GPUParticles2D = $GPUParticles2D
 @onready var slash_area_2: Area2D = %SlashArea2
-@export var particle_node: GPUParticles2D # or GPUParticles2D
+@export var particle_node: GPUParticles2D 
 @export var push_force = 100.0
 @onready var moneyLabel: Label = $Camera2D2/Money
 @onready var process_mat = particle_node.process_material as ParticleProcessMaterial
 
+var hasbloodbind = false
+var bootson = true
 const JUMP_VELOCITY = -2200.0
 var money = 0.0
 var skins = 0
@@ -23,11 +26,17 @@ var last_floor_pos = Vector2.ZERO; var pause_Idleanimationforce = 0; var damage_
 var damage_value = 10; var butchering_in_progress = 0; var bouncing_in_progress = 0; var being_touched = 0
 var health_upgrades = 1; var SPEED = 1200.0; var healthpause = 0; var is_safe_ground = true
 
+# --- NEW: Added a lock for the Bloodbind state ---
+var bloodbind_in_progress = 0 
+var goo_spawn_cooldown = 0.0
+
 func _ready():
 	slash_area_2.hide()
 	pause_menu.load_game()
-	healthbar.health = 100 + 20 * management.health_upgrades
-	bloodbar.value = 0; butchering_in_progress = 0
+	healthbar.max_value = 100 + 20 * management.health_upgrades
+	healthbar.value = healthbar.max_value
+	healthbar.health = healthbar.max_value
+	bloodbar.value = 100; butchering_in_progress = 0
 	for p in particles: 
 		p.show(); p.emitting = false
 
@@ -45,22 +54,26 @@ func _physics_process(delta):
 		dust_particles.position.x = -44
 		process_mat.direction.x = -5
 	
-
 	dust_particles.emitting = false
 	
 	node_2d.global_position = global_position
 	if not is_on_floor(): velocity += get_gravity() * delta * 5
-	if is_on_floor() and Input.is_action_just_pressed("Heal") and healthbar.value < 100:
-		while bloodbar.value > 0 and healthbar.value < 100 and abletoheal:
+	
+	if is_on_floor() and Input.is_action_just_pressed("Heal") and healthbar.value < healthbar.max_value:
+		while bloodbar.value > 0 and healthbar.value < healthbar.max_value and abletoheal:
 			for p in particles: p.emitting = true
-			SPEED = 0; bloodbar.value -= 0.5; healthbar.value += 0.5
+			SPEED = 0
+			bloodbar.value -= 1.0 
+			healthbar.value += 1.0 
 			await get_tree().create_timer(0.02).timeout
 			healthbar.health = healthbar.value
 		SPEED = 1200
 		for p in particles: p.emitting = false
 
 	if Input.is_action_just_pressed("Slash"): Cleave()
-	if Input.is_action_just_pressed("Jump") and is_on_floor() and not butchering_in_progress:
+	
+	# Updated jump check so you can't jump while casting bloodbind
+	if Input.is_action_just_pressed("Jump") and is_on_floor() and not butchering_in_progress and not bloodbind_in_progress:
 		velocity.y = JUMP_VELOCITY
 
 	var d := Input.get_axis("Walk Left", "Walk Right")
@@ -75,23 +88,17 @@ func _physics_process(delta):
 
 	velocity.x = d * SPEED if d else move_toward(velocity.x, 0, SPEED)
 	
-	# 1. Execute movement
 	move_and_slide()
-
-	# 2. Update our knowledge of the ground state ONLY when a collision occurs
+	
 	if is_on_floor():
 		for i in get_slide_collision_count():
 			var collision = get_slide_collision(i)
-			
-			# Check if the collision normal is pointing UP (meaning it's a floor surface)
 			if collision.get_normal().y < -0.5:
 				var collider = collision.get_collider()
 				if collider:
-					# It's a temporary platform if the collider OR its parent has "passage"
 					var is_temporary = collider.has_method("passage") or (collider.get_parent() and collider.get_parent().has_method("passage"))
 					is_safe_ground = not is_temporary
 					
-		# 3. Always save position as long as our cached ground state says it's safe
 		if is_safe_ground:
 			last_floor_pos = global_position
 
@@ -150,3 +157,41 @@ func _process(_delta):
 	if attackers.size() > 0 and healthbar.health > 0 and not damage_taken_in_the_past_0point4seconds and not healthpause: apply_damage(damage_value)
 	if healthbar.health < 1 and not healthpause: die_sequence()
 	healthbar.health = healthbar.value
+	
+	# Updated to prevent spamming while already in the Bloodbind sequence
+	if Input.is_action_just_pressed("BloodSpell") and not bloodbind_in_progress: 
+		if bloodbar.value >= 5.0: 
+			bloodbar.value -= 5.0 
+			shoot_projectile()     
+
+func shoot_projectile() -> void:
+	if projectile_scene == null:
+		push_error("Projectile scene is not assigned in the inspector!")
+		return
+		
+	# --- NEW: Lock the player and play Launch animation ---
+	bloodbind_in_progress = 1
+	pause_Idleanimationforce = 1
+	SPEED = 0
+	character.play("BloodbindLaunch")
+	# ------------------------------------------------------
+		
+	var proj = projectile_scene.instantiate()
+	
+	proj.is_flipped = character.flip_h
+	proj.global_position = global_position
+	proj.player_ref = self
+	
+	if character.flip_h == true:
+		proj.direction = Vector2.LEFT
+	else:
+		proj.direction = Vector2.RIGHT
+		
+	get_tree().current_scene.add_child(proj)
+
+# --- NEW: Function to safely unlock the player when the spell ends ---
+func finish_bloodbind() -> void:
+	bloodbind_in_progress = 0
+	pause_Idleanimationforce = 0
+	SPEED = 1200
+	character.play("Idle")

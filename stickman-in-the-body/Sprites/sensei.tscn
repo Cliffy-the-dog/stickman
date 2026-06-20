@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://bpopyf8bngc5k"]
+
+[ext_resource type="Texture2D" uid="uid://b0rh0cwjj8irk" path="res://Sprites/Sensei Git.png" id="1_h1hag"]
+[ext_resource type="Script" uid="uid://ch6hw15d4j7gb" path="res://Sensei.gd" id="2_dyu8d"]
+[ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://Scripts Stuff/Quadrillion Sb It.otf" id="3_uyfve"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0irxf"]
+atlas = ExtResource("1_h1hag")
+region = Rect2(0, 0, 73, 171)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3epx"]
+atlas = ExtResource("1_h1hag")
+region = Rect2(73, 0, 73, 171)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1w54"]
+atlas = ExtResource("1_h1hag")
+region = Rect2(146, 0, 73, 171)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11uct"]
+atlas = ExtResource("1_h1hag")
+region = Rect2(219, 0, 73, 171)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2mq5"]
+atlas = ExtResource("1_h1hag")
+region = Rect2(292, 0, 73, 171)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0l7ur"]
+atlas = ExtResource("1_h1hag")
+region = Rect2(365, 0, 73, 171)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_66e0a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0irxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3epx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1w54")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11uct")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2mq5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0l7ur")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mcapq"]
+size = Vector2(129, 160)
+
+[node name="Sensei" type="AnimatedSprite2D" unique_id=1682216211]
+sprite_frames = SubResource("SpriteFrames_66e0a")
+frame_progress = 0.30614698
+script = ExtResource("2_dyu8d")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2041901945]
+collision_layer = 255
+collision_mask = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=56370090]
+position = Vector2(1.5, -24)
+shape = SubResource("RectangleShape2D_mcapq")
+
+[node name="Label" type="Label" parent="Area2D/CollisionShape2D" unique_id=765808273]
+offset_left = -20.5
+offset_top = -61.0
+offset_right = 17.5
+offset_bottom = -41.0
+theme_override_fonts/font = ExtResource("3_uyfve")
+text = "Talk"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

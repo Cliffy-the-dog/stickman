@@ -3,13 +3,67 @@
 [ext_resource type="Script" uid="uid://c6c7bqdistc0g" path="res://Scripts Stuff/CharacterMove.gd" id="1_21c00"]
 [ext_resource type="Texture2D" uid="uid://dtfntlflbm2cu" path="res://Sprites/spritesheet.png" id="2_21c00"]
 [ext_resource type="Texture2D" uid="uid://ptyne2oam0cp" path="res://Sprites/Characters and GUI/SlashesSpritesheetV2.png" id="2_at0vm"]
+[ext_resource type="PackedScene" uid="uid://ch8qce1vi8c6e" path="res://Sprites/Projectile.tscn" id="2_eceog"]
 [ext_resource type="Texture2D" uid="uid://btxrb8x3d73gi" path="res://FullSpriteSheet.png" id="3_b8g2h"]
+[ext_resource type="Texture2D" uid="uid://bkrn7wv1dk35" path="res://Sprites/Bloodbind.png" id="4_i0bwr"]
 [ext_resource type="Texture2D" uid="uid://4yj45joodosl" path="res://Sprites/Characters and GUI/Death.png" id="4_n7jsu"]
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://Sprites/Characters and GUI/healthbar.tscn" id="4_peqie"]
 [ext_resource type="PackedScene" uid="uid://bsbi72s8m65pt" path="res://Sprites/Characters and GUI/animated_sprite_2d.tscn" id="6_n7jsu"]
 [ext_resource type="Texture2D" uid="uid://goiub63ndlpc" path="res://Leaping Spritesheet.png" id="7_xbhyn"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://Scripts Stuff/Quadrillion Sb It.otf" id="9_53umr"]
 [ext_resource type="Script" uid="uid://ceifqnw8gna1l" path="res://Sprites/Characters and GUI/Max.gd" id="10_eceog"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whk18"]
+atlas = ExtResource("4_i0bwr")
+region = Rect2(362, 161, 181, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2euby"]
+atlas = ExtResource("4_i0bwr")
+region = Rect2(543, 161, 181, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqkkv"]
+atlas = ExtResource("4_i0bwr")
+region = Rect2(724, 161, 181, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kb1lx"]
+atlas = ExtResource("4_i0bwr")
+region = Rect2(0, 322, 181, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qa0n"]
+atlas = ExtResource("4_i0bwr")
+region = Rect2(181, 322, 181, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7f8nf"]
+atlas = ExtResource("4_i0bwr")
+region = Rect2(362, 322, 181, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tar1"]
+atlas = ExtResource("4_i0bwr")
+region = Rect2(0, 0, 181, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tiuqx"]
+atlas = ExtResource("4_i0bwr")
+region = Rect2(181, 0, 181, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ltbl"]
+atlas = ExtResource("4_i0bwr")
+region = Rect2(362, 0, 181, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmrus"]
+atlas = ExtResource("4_i0bwr")
+region = Rect2(543, 0, 181, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3gc1"]
+atlas = ExtResource("4_i0bwr")
+region = Rect2(724, 0, 181, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tal5c"]
+atlas = ExtResource("4_i0bwr")
+region = Rect2(0, 161, 181, 161)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtve1"]
+atlas = ExtResource("4_i0bwr")
+region = Rect2(181, 161, 181, 161)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_53umr"]
 atlas = ExtResource("2_at0vm")
@@ -203,6 +257,10 @@ region = Rect2(268, 354, 134, 177)
 atlas = ExtResource("7_xbhyn")
 region = Rect2(402, 354, 134, 177)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0tv4"]
+atlas = ExtResource("4_i0bwr")
+region = Rect2(362, 322, 181, 161)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_qtbjv"]
 atlas = ExtResource("2_21c00")
 region = Rect2(447, 810, 149, 162)
@@ -269,6 +327,55 @@ region = Rect2(149, 322, 149, 161)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uglg6"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whk18")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2euby")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqkkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kb1lx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0qa0n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7f8nf")
+}],
+"loop": false,
+"name": &"BloodbindLaunch",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tar1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tiuqx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ltbl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmrus")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3gc1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tal5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtve1")
+}],
+"loop": false,
+"name": &"Bloodpunch",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_53umr")
@@ -450,6 +557,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_b0tv4")
+}],
+"loop": false,
+"name": &"Reeling",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qtbjv")
 }, {
 "duration": 1.0,
@@ -556,6 +671,7 @@ corner_radius_bottom_left = 32
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_21c00")
+projectile_scene = ExtResource("2_eceog")
 
 [node name="Slash" parent="." unique_id=768034852 instance=ExtResource("6_n7jsu")]
 position = Vector2(130, 0)
@@ -563,8 +679,9 @@ position = Vector2(130, 0)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=64196167]
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_uglg6")
-animation = &"Leap"
-frame_progress = 0.12208921
+animation = &"Bloodpunch"
+frame = 6
+frame_progress = 1.0
 
 [node name="Healthbar" parent="." unique_id=213354145 groups=["main_healthbar"] instance=ExtResource("4_peqie")]
 unique_name_in_owner = true
@@ -624,7 +741,7 @@ offset_right = -1264.0
 offset_bottom = -861.0
 theme_override_styles/background = SubResource("StyleBoxFlat_xbhyn")
 theme_override_styles/fill = SubResource("StyleBoxFlat_tvrmd")
-value = 75.0
+value = 100.0
 show_percentage = false
 
 [connection signal="body_entered" from="SlashArea2" to="." method="_on_slash_area_2_body_entered"]

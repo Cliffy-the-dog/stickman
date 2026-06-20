@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://ch8qce1vi8c6e"]
+
+[ext_resource type="Script" uid="uid://clhwwc8aorrdy" path="res://Projectile.gd" id="1_sijcv"]
+[ext_resource type="Texture2D" uid="uid://cfqcvngqaguko" path="res://Sprites/Projectile.svg" id="2_nb8br"]
+[ext_resource type="Texture2D" uid="uid://uv2twx26babl" path="res://Chain.svg" id="3_nb8br"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2las"]
+size = Vector2(68, 20)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_nb8br"]
+diffuse_texture = ExtResource("3_nb8br")
+
+[node name="Area2D" type="Area2D" unique_id=1289386665]
+scale = Vector2(2, 2)
+collision_layer = 255
+collision_mask = 255
+script = ExtResource("1_sijcv")
+speed = 8888.0
+max_distance = 1200.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1067212764]
+z_index = 4096
+texture = ExtResource("2_nb8br")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=863057940]
+shape = SubResource("RectangleShape2D_y2las")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=1598410120]
+texture_repeat = 2
+width = 20.0
+texture = SubResource("CanvasTexture_nb8br")
+texture_mode = 1
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

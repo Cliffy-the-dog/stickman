@@ -7,7 +7,6 @@ extends RigidBody2D
 @onready var animatedSprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var sprite = $AnimatedSprite2D 
 
-# 1. Update this path to exactly where your new .tscn file is located!
 var skinshred_scene = preload("res://Sprites/skin_shred.tscn") 
 
 var multiplier = 1
@@ -19,11 +18,21 @@ var is_chasing = false
 var dir = 1
 var is_dead = false 
 
+# --- NEW STUN VARIABLE ---
+var is_stunned: bool = false
+
 func _ready():
 	player = get_tree().root.find_child("Player", true, false)
 	lock_rotation = true
 	contact_monitor = true
 	max_contacts_reported = 4
+
+# --- NEW KNOCKBACK FUNCTION ---
+func apply_knockback(force: Vector2) -> void:
+	linear_velocity = force
+	is_stunned = true
+	await get_tree().create_timer(0.5).timeout
+	is_stunned = false
 
 func _physics_process(_delta):
 	if player and not is_dead:
@@ -33,12 +42,14 @@ func _physics_process(_delta):
 			is_chasing = true
 			music_manager.start_chase(get_instance_id()) 
 		
-		if is_chasing:
-			var direction = sign(player.global_position.x - global_position.x)
-			linear_velocity.x = direction * speed * movable * multiplier
-			sprite.flip_h = direction < 0
-			if healthbar.value > 0:
-				sprite.play("Run")
+		# --- UPDATED MOVEMENT LOGIC ---
+		if not is_stunned:
+			if is_chasing:
+				var direction = sign(player.global_position.x - global_position.x)
+				linear_velocity.x = direction * speed * movable * multiplier
+				sprite.flip_h = direction < 0
+				if healthbar.value > 0:
+					sprite.play("Run")
 
 func take_damage(damage) -> void:
 	if is_dead:
@@ -59,7 +70,6 @@ func die() -> void:
 	movable = 0
 	not_dying = 0
 	
-	# 2. Instantiate the PackedScene instead of creating a Sprite2D class
 	if skinshred_scene:
 		var shred = skinshred_scene.instantiate()
 		shred.global_position = global_position

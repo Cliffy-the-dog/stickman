@@ -12,10 +12,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Walk Left"):
 		position = Vector2(-130, 0) 
-		flip_h = true
+		flip_h = false
 	if Input.is_action_just_pressed("Walk Right"):
 		position = Vector2(130, 0) 
-		flip_h = false
+		flip_h = true
 	
 	if Input.is_action_just_pressed("Slash"):
 		if get_parent().is_on_floor():

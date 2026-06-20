@@ -4,7 +4,6 @@ extends Area2D
 @onready var Slime: AnimatedSprite2D = $AnimatedSprite2D
 @export var lifetime: float = 1.5
 
-
 var GOOINSTANCE = preload("res://Sprites/Goo.tscn")
 var slowed_speed = 700
 var xpos = position.x
@@ -16,8 +15,6 @@ func _ready() -> void:
 	queue_free()
 
 func _process(delta: float) -> void:
-	Slime.flip_h = animated_sprite_2d.flip_h
-	# Subtract elapsed frame time from the lifetime
 	lifetime -= delta
 	
 	# Remove the goo from the game when time runs out
@@ -25,13 +22,12 @@ func _process(delta: float) -> void:
 		queue_free()
 
 func _on_area_entered(area: Area2D) -> void:
-	if "SPEED" in area:
-		area.SPEED = slowed_speed
-
+	if area.has_method("take_damage") and not area.has_method("flash_red"):
+		area.speed = slowed_speed
 
 func _on_area_exited(area: Area2D) -> void:
-	if "SPEED" in area:
-		area.SPEED = 1200
+	if area.has_method("take_damage") and not area.has_method("flash_red"):
+		area.speed = 1200
 
 func GITGUD():
 	pass
