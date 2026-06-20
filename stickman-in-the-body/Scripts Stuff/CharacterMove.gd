@@ -26,7 +26,6 @@ var last_floor_pos = Vector2.ZERO; var pause_Idleanimationforce = 0; var damage_
 var damage_value = 10; var butchering_in_progress = 0; var bouncing_in_progress = 0; var being_touched = 0
 var health_upgrades = 1; var SPEED = 1200.0; var healthpause = 0; var is_safe_ground = true
 
-# --- NEW: Added a lock for the Bloodbind state ---
 var bloodbind_in_progress = 0 
 var goo_spawn_cooldown = 0.0
 
@@ -57,7 +56,12 @@ func _physics_process(delta):
 	dust_particles.emitting = false
 	
 	node_2d.global_position = global_position
-	if not is_on_floor(): velocity += get_gravity() * delta * 5
+	
+	# --- PREVENT GRAVITY WHILE BLOODINDING ---
+	if not is_on_floor() and not bloodbind_in_progress: 
+		velocity += get_gravity() * delta * 5
+	elif bloodbind_in_progress:
+		velocity = Vector2.ZERO
 	
 	if is_on_floor() and Input.is_action_just_pressed("Heal") and healthbar.value < healthbar.max_value:
 		while bloodbar.value > 0 and healthbar.value < healthbar.max_value and abletoheal:
@@ -72,11 +76,14 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed("Slash"): Cleave()
 	
-	# Updated jump check so you can't jump while casting bloodbind
 	if Input.is_action_just_pressed("Jump") and is_on_floor() and not butchering_in_progress and not bloodbind_in_progress:
 		velocity.y = JUMP_VELOCITY
 
-	var d := Input.get_axis("Walk Left", "Walk Right")
+	# --- PREVENT WALKING INPUTS WHILE BLOODINDING ---
+	var d := 0.0
+	if not bloodbind_in_progress:
+		d = Input.get_axis("Walk Left", "Walk Right")
+	
 	if d: 
 		character.flip_h = d < 0
 		%SlashArea2.position.x = 145 if d > 0 else -145
@@ -86,7 +93,11 @@ func _physics_process(delta):
 		elif not is_on_floor() and character.animation != "Butcher": character.play("Falling" if d == 0 else "Leap")
 		elif d == 0 and is_on_floor(): character.play("Idle")
 
-	velocity.x = d * SPEED if d else move_toward(velocity.x, 0, SPEED)
+	# --- FORCE VELOCITY TO ZERO IF CASTING ---
+	if bloodbind_in_progress:
+		velocity = Vector2.ZERO
+	else:
+		velocity.x = d * SPEED if d else move_toward(velocity.x, 0, SPEED)
 	
 	move_and_slide()
 	
@@ -158,10 +169,9 @@ func _process(_delta):
 	if healthbar.health < 1 and not healthpause: die_sequence()
 	healthbar.health = healthbar.value
 	
-	# Updated to prevent spamming while already in the Bloodbind sequence
 	if Input.is_action_just_pressed("BloodSpell") and not bloodbind_in_progress: 
-		if bloodbar.value >= 5.0: 
-			bloodbar.value -= 5.0 
+		if bloodbar.value >= 10.0: 
+			bloodbar.value -= 10.0 
 			shoot_projectile()     
 
 func shoot_projectile() -> void:
@@ -169,12 +179,10 @@ func shoot_projectile() -> void:
 		push_error("Projectile scene is not assigned in the inspector!")
 		return
 		
-	# --- NEW: Lock the player and play Launch animation ---
 	bloodbind_in_progress = 1
 	pause_Idleanimationforce = 1
 	SPEED = 0
 	character.play("BloodbindLaunch")
-	# ------------------------------------------------------
 		
 	var proj = projectile_scene.instantiate()
 	
@@ -189,7 +197,6 @@ func shoot_projectile() -> void:
 		
 	get_tree().current_scene.add_child(proj)
 
-# --- NEW: Function to safely unlock the player when the spell ends ---
 func finish_bloodbind() -> void:
 	bloodbind_in_progress = 0
 	pause_Idleanimationforce = 0
