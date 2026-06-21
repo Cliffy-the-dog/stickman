@@ -740,6 +740,8 @@ theme_override_fonts/font = ExtResource("14_cgehh")
 theme_override_font_sizes/font_size = 50
 text = "$999"
 
+[node name="Attach inventory here" type="Node" parent="DirectionalLight2D/Management/Player/Camera2D2" unique_id=617955570]
+
 [node name="MusicManager" parent="DirectionalLight2D/Management/Player" unique_id=533816560 instance=ExtResource("3_dgyv7")]
 unique_name_in_owner = true
 

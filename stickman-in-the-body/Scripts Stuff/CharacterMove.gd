@@ -15,6 +15,7 @@ extends CharacterBody2D
 @export var push_force = 100.0
 @onready var moneyLabel: Label = $Camera2D2/Money
 @onready var process_mat = particle_node.process_material as ParticleProcessMaterial
+const CHAIN_TOSS = preload("uid://cvoqnry8ssqo6")
 
 var hasbloodbind = false
 var bootson = true
@@ -202,3 +203,17 @@ func finish_bloodbind() -> void:
 	pause_Idleanimationforce = 0
 	SPEED = 1200
 	character.play("Idle")
+func trigger_endlag_punishment() -> void:
+	
+	$AudioStreamPlayer2D.play()
+	# Keep bloodbind_in_progress = 1 and pause_Idleanimationforce = 1 active
+	# This keeps your movement, jump inputs, and gravity completely frozen
+	character.position.y = -100
+	character.play("Endlag")
+
+	# Wait until the animation completely finishes playing
+	await character.animation_finished
+	character.position.y = 0
+	$AudioStreamPlayer2D.playing = false
+	# Safely unlock the player now that the punishment duration is over
+	finish_bloodbind()

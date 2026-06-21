@@ -1,81 +1,14 @@
 [gd_scene format=3 uid="uid://dc168mjnfmkid"]
 
-[ext_resource type="Script" uid="uid://c63ans2wp046p" path="res://inventory.gd" id="1_5tt2m"]
-[ext_resource type="Texture2D" uid="uid://cvf4k88golxgw" path="res://Sprites/T-Pose.svg" id="1_pohso"]
-[ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://Scripts Stuff/Quadrillion Sb It.otf" id="2_mrqgh"]
-
-[node name="Inventory" type="Control" unique_id=128764734]
+[node name="Control" type="Control" unique_id=2111155329]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_5tt2m")
 
-[node name="InventoryScreen" type="ColorRect" parent="." unique_id=1024053863]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.5)
-
-[node name="Inventory" type="Control" parent="InventoryScreen" unique_id=1189349227]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="InventoryLabel" type="Label" parent="InventoryScreen/Inventory" unique_id=1200717872]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_mrqgh")
-theme_override_font_sizes/font_size = 50
-text = "Inventory"
-
-[node name="MapScreen" type="ColorRect" parent="." unique_id=442351609]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1152.0
-offset_right = 1152.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.5)
-
-[node name="Map" type="Control" parent="MapScreen" unique_id=1229757064]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MapLabel" type="Label" parent="MapScreen/Map" unique_id=1289640947]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -59.0
-offset_right = 59.0
-offset_bottom = 61.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_mrqgh")
-theme_override_font_sizes/font_size = 50
-text = "Map"
-
-[node name="Build Screen" type="ColorRect" parent="." unique_id=871505685]
+[node name="Built-In upgrades(Health upgrades, blood abilities(Such as bloodhook))" type="ColorRect" parent="." unique_id=166144787]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -84,56 +17,37 @@ offset_left = -1152.0
 offset_right = -1152.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.5)
+color = Color(0, 0, 0, 0.5019608)
 
-[node name="Build" type="Control" parent="Build Screen" unique_id=960394592]
+[node name="Inventory(Where you see all the things like enemy parts, quests etc_)" type="ColorRect" parent="." unique_id=1859725518]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
 
-[node name="TextureRect" type="TextureRect" parent="Build Screen/Build" unique_id=998231571]
-z_index = 3
+[node name="Stuff you pick up(Also plz design tool you can pick up_))" type="ColorRect" parent="." unique_id=1694350978]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05272484
-anchor_top = 0.11869134
-anchor_right = 0.39149305
-anchor_bottom = 0.8813087
-grow_vertical = 2
-texture = ExtResource("1_pohso")
-metadata/_edit_use_anchors_ = true
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Build Screen/Build" unique_id=855096263]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -650.0
-offset_top = -282.0
-offset_right = -24.0
-offset_bottom = 282.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Build Screen/Build/ScrollContainer" unique_id=663750950]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="BuildLabel" type="Label" parent="Build Screen/Build" unique_id=1419408081]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -69.0
-offset_right = 69.0
-offset_bottom = 61.0
+anchor_bottom = 1.0
+offset_left = 1152.0
+offset_right = 1152.0
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("2_mrqgh")
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+
+[node name="Label" type="Label" parent="." unique_id=1069178012]
+layout_mode = 0
+offset_left = -594.0
+offset_top = -803.0
+offset_right = 1789.0
+offset_bottom = -446.0
 theme_override_font_sizes/font_size = 50
-text = "Build"
+text = "Requirements:
+1. B, M and N represent built in upgrades, inventory and stuff you pick up repsectively, so that pressing B will take you to built in upgrades, M will take you to inventory, etc.
+2. The inventory must update itself based on what the player has in their inventory.
+3. The inventory must be accessible at any time."
+autowrap_mode = 3
