@@ -1,0 +1,161 @@
+[gd_scene format=3 uid="uid://bf0epoh12vxwq"]
+
+[ext_resource type="Texture2D" uid="uid://djwipdng1fao7" path="res://assets/tilesets/PhysicsTiles/Checkpoint.png" id="1_ryr8l"]
+[ext_resource type="Script" uid="uid://hckmp4ws0ebv" path="res://scenes/world/tile_map_layer.gd" id="2_8ha5i"]
+[ext_resource type="Script" uid="uid://5prkgw6rk2o7" path="res://scenes/world/Identifierscript.gd" id="3_pwwfq"]
+[ext_resource type="Texture2D" uid="uid://cas4me878o1ck" path="res://assets/sprites/Checkpoint Effect.png" id="4_7ddlc"]
+[ext_resource type="Texture2D" uid="uid://cmad6hpn8wke5" path="res://assets/sprites/Healing Particle.png" id="5_o5b52"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ly2qt"]
+size = Vector2(512, 128)
+
+[sub_resource type="Gradient" id="Gradient_o5b52"]
+offsets = PackedFloat32Array(0, 0.75490195, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Checkpoint" type="Sprite2D" unique_id=1697631469]
+texture = ExtResource("1_ryr8l")
+script = ExtResource("2_8ha5i")
+
+[node name="Blood Hotspring thing" type="Area2D" parent="." unique_id=1076904271]
+collision_layer = 255
+collision_mask = 255
+script = ExtResource("3_pwwfq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blood Hotspring thing" unique_id=101936578]
+shape = SubResource("RectangleShape2D_ly2qt")
+
+[node name="Ramps" type="StaticBody2D" parent="." unique_id=1564232164]
+position = Vector2(-384, 64)
+collision_layer = 255
+collision_mask = 255
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ramps" unique_id=1401262452]
+polygon = PackedVector2Array(0, -10, 117, -128, 128, -128, 128, 0, 0, 0)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Ramps" unique_id=1804237375]
+position = Vector2(500, 30)
+polygon = PackedVector2Array(268, -35, 150, -158, 140, -158, 140, -30, 267, -30)
+
+[node name="Blood Effect" type="CPUParticles2D" parent="." unique_id=937061843]
+z_index = -1
+position = Vector2(-183, 48)
+amount = 6
+texture = ExtResource("4_7ddlc")
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+gravity = Vector2(0, -600)
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color_ramp = SubResource("Gradient_o5b52")
+
+[node name="Blood Effect2" type="CPUParticles2D" parent="." unique_id=1389628013]
+z_index = -1
+position = Vector2(4, 34)
+amount = 6
+texture = ExtResource("4_7ddlc")
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+gravity = Vector2(0, -600)
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color_ramp = SubResource("Gradient_o5b52")
+
+[node name="Blood Effect3" type="CPUParticles2D" parent="." unique_id=1374479477]
+z_index = -1
+position = Vector2(169, 44)
+amount = 6
+texture = ExtResource("4_7ddlc")
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+gravity = Vector2(0, -600)
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color_ramp = SubResource("Gradient_o5b52")
+
+[node name="Blood Effect4" type="CPUParticles2D" parent="." unique_id=402996796]
+z_index = -1
+position = Vector2(-78, 34)
+amount = 6
+texture = ExtResource("4_7ddlc")
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+gravity = Vector2(0, -600)
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color_ramp = SubResource("Gradient_o5b52")
+
+[node name="Heal Effect" type="CPUParticles2D" parent="." unique_id=1690770727]
+z_index = -1
+position = Vector2(-137, 32)
+amount = 3
+texture = ExtResource("5_o5b52")
+speed_scale = 0.75
+lifetime_randomness = 1.0
+gravity = Vector2(0, -600)
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color = Color(0, 1, 0.50956357, 1)
+color_ramp = SubResource("Gradient_o5b52")
+
+[node name="Heal Effect2" type="CPUParticles2D" parent="." unique_id=40062112]
+z_index = -1
+position = Vector2(213, 18)
+amount = 3
+texture = ExtResource("5_o5b52")
+speed_scale = 0.75
+lifetime_randomness = 1.0
+gravity = Vector2(0, -600)
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color = Color(0, 1, 0.50956357, 1)
+color_ramp = SubResource("Gradient_o5b52")
+
+[node name="Heal Effect3" type="CPUParticles2D" parent="." unique_id=1646957947]
+z_index = -1
+position = Vector2(-248, 22)
+amount = 3
+texture = ExtResource("5_o5b52")
+speed_scale = 0.75
+lifetime_randomness = 1.0
+gravity = Vector2(0, -600)
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color = Color(0, 1, 0.50956357, 1)
+color_ramp = SubResource("Gradient_o5b52")
+
+[node name="Heal Effect4" type="CPUParticles2D" parent="." unique_id=907608019]
+z_index = -1
+position = Vector2(124, 36)
+amount = 3
+texture = ExtResource("5_o5b52")
+speed_scale = 0.75
+lifetime_randomness = 1.0
+gravity = Vector2(0, -600)
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color = Color(0, 1, 0.50956357, 1)
+color_ramp = SubResource("Gradient_o5b52")
+
+[node name="Heal Effect5" type="CPUParticles2D" parent="." unique_id=1862040323]
+z_index = -1
+position = Vector2(-25, 31)
+amount = 3
+texture = ExtResource("5_o5b52")
+speed_scale = 0.75
+lifetime_randomness = 1.0
+gravity = Vector2(0, -600)
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color = Color(0, 1, 0.50956357, 1)
+color_ramp = SubResource("Gradient_o5b52")
+
+[connection signal="area_entered" from="Blood Hotspring thing" to="." method="_on_blood_hotspring_thing_area_entered"]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://fhwoofwgfebu"
+path="res://.godot/imported/The Bloodborn.mp3-08c0387f029100a8a3e1665396d53451.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/The Bloodborn.mp3"
+dest_files=["res://.godot/imported/The Bloodborn.mp3-08c0387f029100a8a3e1665396d53451.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

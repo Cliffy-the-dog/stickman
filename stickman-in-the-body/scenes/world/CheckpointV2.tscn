@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://d33rv0ypy8bey"]
+
+[ext_resource type="Texture2D" uid="uid://djwipdng1fao7" path="res://assets/tilesets/PhysicsTiles/Checkpoint.png" id="1_5h8f1"]
+[ext_resource type="Script" uid="uid://hckmp4ws0ebv" path="res://scenes/world/tile_map_layer.gd" id="1_ly2qt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ly2qt"]
+size = Vector2(512, 128)
+
+[node name="Central Root Scene" type="Node" unique_id=791906756]
+script = ExtResource("1_ly2qt")
+
+[node name="Checkpoint" type="Sprite2D" parent="." unique_id=843880261]
+texture = ExtResource("1_5h8f1")
+
+[node name="Blood Hotspring thing" type="Area2D" parent="Checkpoint" unique_id=815023283]
+collision_layer = 255
+collision_mask = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint/Blood Hotspring thing" unique_id=1998074135]
+shape = SubResource("RectangleShape2D_ly2qt")
+
+[node name="Ramps" type="StaticBody2D" parent="Checkpoint" unique_id=1995571937]
+position = Vector2(-384, 64)
+collision_layer = 255
+collision_mask = 255
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Checkpoint/Ramps" unique_id=1805063043]
+polygon = PackedVector2Array(0, -10, 117, -128, 128, -128, 128, 0, 0, 0)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Checkpoint/Ramps" unique_id=1378108627]
+position = Vector2(500, 30)
+polygon = PackedVector2Array(268, -35, 150, -158, 140, -158, 140, -30, 267, -30)
+
+[connection signal="area_entered" from="Checkpoint/Blood Hotspring thing" to="." method="_on_blood_hotspring_thing_area_entered"]

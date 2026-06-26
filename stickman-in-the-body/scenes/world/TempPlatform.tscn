@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://bmokuk76jjpav"]
+
+[ext_resource type="Texture2D" uid="uid://g0x02lcxgj6f" path="res://assets/tilesets/PhysicsTiles/Few seconds platform.png" id="1_qbaa6"]
+[ext_resource type="Script" uid="uid://bsvys0ifjm6h4" path="res://scenes/world/FewSecondsPlatform.gd" id="2_8cujs"]
+[ext_resource type="Script" uid="uid://v7rpdghhuvuj" path="res://scenes/world/TEMPLATFORM.gd" id="3_vd6vi"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8cujs"]
+texture = ExtResource("1_qbaa6")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_tto40"]
+tile_size = Vector2i(128, 128)
+physics_layer_0/collision_layer = 255
+physics_layer_0/collision_mask = 255
+sources/1 = SubResource("TileSetAtlasSource_8cujs")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tto40"]
+custom_solver_bias = 1.0
+radius = 68.0
+height = 392.0
+
+[node name="TileMapLayer" type="TileMapLayer" unique_id=1631617220]
+position = Vector2(0, -64)
+tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 254, 255, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_tto40")
+script = ExtResource("2_8cujs")
+StandDuration = 0.1
+
+[node name="Floor Hitbox" type="StaticBody2D" parent="." unique_id=640738494]
+collision_layer = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor Hitbox" unique_id=628584977]
+position = Vector2(0, 64)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_tto40")
+
+[node name="TEMPLATFORM" type="Area2D" parent="." unique_id=1441980582]
+collision_layer = 255
+collision_mask = 255
+script = ExtResource("3_vd6vi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TEMPLATFORM" unique_id=752002159]
+position = Vector2(0, 64)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_tto40")
+
+[connection signal="area_entered" from="TEMPLATFORM" to="." method="_on_area_2d_area_entered"]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://6mrl7hl1ybu1"
+path="res://.godot/imported/Rage Intro.mp3-08daf6f8ee2d82dd0fb0287db23f97b9.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/Rage Intro.mp3"
+dest_files=["res://.godot/imported/Rage Intro.mp3-08daf6f8ee2d82dd0fb0287db23f97b9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

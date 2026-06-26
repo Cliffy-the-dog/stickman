@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://21i06xop7j7q"]
+
+[ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="1_emv3i"]
+[ext_resource type="Script" uid="uid://dmmtab3atvwhy" path="res://scenes/ui/pause_menu.gd" id="1_k0w1u"]
+
+[node name="PauseMenu" type="Control" unique_id=1392100631]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k0w1u")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1766167563]
+layout_mode = 1
+offset_right = 127.0
+offset_bottom = 92.0
+scale = Vector2(2, 2)
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=592392034]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Resume" type="Button" parent="MarginContainer/VBoxContainer" unique_id=225600681]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.8750814, 0.8750814, 1)
+theme_override_colors/font_focus_color = Color(3.7541986e-06, 0.58839273, 0.58839273, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.5882353, 0.5882353, 1)
+theme_override_colors/font_hover_color = Color(0, 0.5882353, 0.5882353, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0.5882353, 0.5882353, 1)
+theme_override_fonts/font = ExtResource("1_emv3i")
+text = "Resume"
+
+[node name="Quit to Menu" type="Button" parent="MarginContainer/VBoxContainer" unique_id=431194506]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.8750814, 0.8750814, 1)
+theme_override_colors/font_focus_color = Color(3.7541986e-06, 0.58839273, 0.58839273, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.5882353, 0.5882353, 1)
+theme_override_colors/font_hover_color = Color(0, 0.5882353, 0.5882353, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0.5882353, 0.5882353, 1)
+theme_override_fonts/font = ExtResource("1_emv3i")
+text = "Quit to Menu"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit to Menu" to="." method="_on_quit_to_menu_pressed"]

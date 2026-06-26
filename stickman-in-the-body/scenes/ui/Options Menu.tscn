@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://dpojlcptnlam"]
+
+[ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="1_c8man"]
+[ext_resource type="Script" uid="uid://dgf6bqgnx4amq" path="res://scenes/ui/options_menu.gd" id="1_ppco4"]
+
+[node name="Control" type="Control" unique_id=545469593]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_ppco4")
+
+[node name="Control" type="Control" parent="." unique_id=1672199690]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=1281496590]
+layout_mode = 1
+offset_left = -105.0
+offset_top = -36.0
+scale = Vector2(2, 2)
+
+[node name="Volume" type="HSlider" parent="Control/VBoxContainer" unique_id=1776580788]
+layout_mode = 2
+max_value = 2.0
+step = 0.1
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/Volume" unique_id=2102643469]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.5
+offset_top = -18.0
+offset_right = 21.5
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_c8man")
+theme_override_font_sizes/font_size = 10
+text = "Volume"
+
+[node name="Brightness" type="HSlider" parent="Control/VBoxContainer" unique_id=960755173]
+layout_mode = 2
+max_value = 2.0
+step = 0.1
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/Brightness" unique_id=1864253457]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.5
+offset_top = -18.0
+offset_right = 21.5
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_c8man")
+theme_override_font_sizes/font_size = 10
+text = "Brightness"
+
+[connection signal="value_changed" from="Control/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
+[connection signal="value_changed" from="Control/VBoxContainer/Brightness" to="." method="_on_brightness_value_changed"]
