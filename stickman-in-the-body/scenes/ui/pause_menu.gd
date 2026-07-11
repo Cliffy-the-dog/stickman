@@ -95,4 +95,4 @@ func _on_quit_to_menu_pressed() -> void:
 	save_game()
 	get_tree().paused = false # <-- ADD THIS HERE
 	Engine.time_scale = 1
-	get_tree().change_scene_to_file("res://Scenes/control.tscn")
+	get_tree().change_scene_to_file("res://Scenes/levels/MainMenu.tscn")

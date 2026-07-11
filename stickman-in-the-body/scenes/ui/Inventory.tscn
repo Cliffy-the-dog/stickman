@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://c31warb72412w"]
+
+[ext_resource type="Script" uid="uid://dn4u6avnidn31" path="res://Scenes/ui/InventoryControls.gd" id="1_afu2s"]
+
+[node name="Inventory" type="Node2D" unique_id=666343005]
+script = ExtResource("1_afu2s")
+
+[node name="Binventory" type="ColorRect" parent="." unique_id=1388620417]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="B" type="Label" parent="Binventory" unique_id=927334110]
+layout_mode = 0
+offset_left = 466.0
+offset_top = 228.0
+offset_right = 532.0
+offset_bottom = 505.0
+theme_override_font_sizes/font_size = 100
+text = "B
+"
+
+[node name="Ninventory" type="ColorRect" parent="." unique_id=1909490822]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="N" type="Label" parent="Ninventory" unique_id=1147543237]
+layout_mode = 0
+offset_left = 466.0
+offset_top = 228.0
+offset_right = 532.0
+offset_bottom = 505.0
+theme_override_font_sizes/font_size = 100
+text = "N
+"
+
+[node name="Minventory" type="ColorRect" parent="." unique_id=239126784]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="M" type="Label" parent="Minventory" unique_id=684982702]
+layout_mode = 0
+offset_left = 466.0
+offset_top = 228.0
+offset_right = 532.0
+offset_bottom = 505.0
+theme_override_font_sizes/font_size = 100
+text = "M
+"

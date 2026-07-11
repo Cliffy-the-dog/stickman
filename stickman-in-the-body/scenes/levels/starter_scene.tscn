@@ -1,29 +1,30 @@
 [gd_scene format=4 uid="uid://dqeeidq7t2drx"]
 
-[ext_resource type="Script" uid="uid://c3cver7fnu5ca" path="res://scenes/world/FaliureManagement.gd" id="1_5arw2"]
+[ext_resource type="Script" uid="uid://c3cver7fnu5ca" path="res://Scenes/world/FaliureManagement.gd" id="1_5arw2"]
 [ext_resource type="PackedScene" uid="uid://gnmp0yh0cmhe" path="res://assets/sprites/Characters and GUI/character_body_2d.tscn" id="1_j8eka"]
-[ext_resource type="Script" uid="uid://db3ysd2kfpwtk" path="res://scenes/levels/starter_scene.gd" id="1_x63nd"]
+[ext_resource type="Script" uid="uid://db3ysd2kfpwtk" path="res://Scenes/levels/starter_scene.gd" id="1_x63nd"]
 [ext_resource type="Texture2D" uid="uid://11c74briycgi" path="res://assets/tilesets/GeneralTilesetV3.png" id="2_lhs2h"]
 [ext_resource type="PackedScene" uid="uid://eq1nth1nqlqc" path="res://assets/audio/music/node.tscn" id="3_dgyv7"]
 [ext_resource type="PackedScene" uid="uid://4jc8ydq23k2q" path="res://assets/sprites/Characters and GUI/Enemy.tscn" id="3_knupb"]
-[ext_resource type="PackedScene" uid="uid://21i06xop7j7q" path="res://scenes/ui/pause_menu.tscn" id="4_xr7e8"]
-[ext_resource type="Script" uid="uid://bf303e138oju8" path="res://scenes/levels/color_rect.gd" id="5_xr7e8"]
+[ext_resource type="PackedScene" uid="uid://21i06xop7j7q" path="res://Scenes/ui/pause_menu.tscn" id="4_xr7e8"]
+[ext_resource type="Script" uid="uid://bf303e138oju8" path="res://Scenes/levels/color_rect.gd" id="5_xr7e8"]
 [ext_resource type="PackedScene" uid="uid://cfb1qls6umnq5" path="res://entities/enemies/JetpackGit.tscn" id="6_gdo4f"]
-[ext_resource type="PackedScene" uid="uid://dpojlcptnlam" path="res://scenes/ui/Options Menu.tscn" id="7_4roa6"]
+[ext_resource type="PackedScene" uid="uid://dpojlcptnlam" path="res://Scenes/ui/Options Menu.tscn" id="7_4roa6"]
 [ext_resource type="PackedScene" uid="uid://boje3j3b0xq2t" path="res://assets/tilesets/one_way_wall.tscn" id="8_axxa6"]
 [ext_resource type="PackedScene" uid="uid://dk6sy1o7yy53t" path="res://entities/enemies/hoard.tscn" id="8_bt04q"]
-[ext_resource type="Script" uid="uid://le17xre3w0lv" path="res://scenes/world/Dust.gd" id="8_eex8d"]
+[ext_resource type="Script" uid="uid://le17xre3w0lv" path="res://Scenes/world/Dust.gd" id="8_eex8d"]
 [ext_resource type="Texture2D" uid="uid://cmad6hpn8wke5" path="res://assets/sprites/Healing Particle.png" id="8_eexro"]
 [ext_resource type="Script" uid="uid://d3d55vajcipk7" path="res://entities/enemies/cpu_particles_2d.gd" id="9_7xe5b"]
 [ext_resource type="Script" uid="uid://dhri6ib2mpkev" path="res://entities/enemies/cpu_particles_2d_4.gd" id="9_45uwc"]
 [ext_resource type="Script" uid="uid://cnxk616b2v5j" path="res://entities/enemies/cpu_particles_2d_6.gd" id="9_oj6g0"]
-[ext_resource type="PackedScene" uid="uid://bf0epoh12vxwq" path="res://scenes/world/CheckpointV3.tscn" id="10_pgasi"]
-[ext_resource type="Script" uid="uid://bboybgcomr2fu" path="res://scenes/world/once_dead_wall.gd" id="10_vshu3"]
+[ext_resource type="PackedScene" uid="uid://bf0epoh12vxwq" path="res://Scenes/world/CheckpointV3.tscn" id="10_pgasi"]
+[ext_resource type="Script" uid="uid://bboybgcomr2fu" path="res://Scenes/world/once_dead_wall.gd" id="10_vshu3"]
 [ext_resource type="Texture2D" uid="uid://benjnxbd0layw" path="res://assets/tilesets/PhysicsTiles/Swamp Biome Tileset.png" id="12_83h8q"]
 [ext_resource type="Texture2D" uid="uid://bahkxvetoi1hk" path="res://assets/sprites/Dusgt.png" id="13_uds5j"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="14_cgehh"]
+[ext_resource type="PackedScene" uid="uid://c31warb72412w" path="res://Scenes/ui/Inventory.tscn" id="15_i6g23"]
 [ext_resource type="PackedScene" uid="uid://djv72irkalgai" path="res://entities/enemies/slimyboi.tscn" id="16_83h8q"]
-[ext_resource type="PackedScene" uid="uid://bmokuk76jjpav" path="res://scenes/world/TempPlatform.tscn" id="17_4roa6"]
+[ext_resource type="PackedScene" uid="uid://bmokuk76jjpav" path="res://Scenes/world/TempPlatform.tscn" id="17_4roa6"]
 [ext_resource type="Texture2D" uid="uid://bb3hei1mnar8j" path="res://assets/tilesets/BackgroundTiles/BackgroundThing.png" id="19_w3ulh"]
 [ext_resource type="PackedScene" uid="uid://uskuwl044xek" path="res://assets/sprites/collecter.tscn" id="21_mkd5k"]
 [ext_resource type="PackedScene" uid="uid://b6d7sxddtno0j" path="res://entities/npcs/Healer.tscn" id="22_tbhji"]
@@ -967,6 +968,9 @@ theme_override_colors/font_hover_pressed_color = Color(0.56078434, 0.56078434, 0
 theme_override_fonts/font = ExtResource("14_cgehh")
 theme_override_font_sizes/font_size = 50
 text = "Decline"
+
+[node name="Inventory" parent="DirectionalLight2D/Management/Player" unique_id=666343005 instance=ExtResource("15_i6g23")]
+position = Vector2(11681, 1005)
 
 [node name="Killzone" type="Area2D" parent="DirectionalLight2D/Management" unique_id=1330915264]
 unique_name_in_owner = true
