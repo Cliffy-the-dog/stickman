@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b6d7sxddtno0j"]
 
 [ext_resource type="Texture2D" uid="uid://b8uwlug5hlpu5" path="res://assets/sprites/Characters and GUI/HealerSpritesheet.png" id="1_tl7ob"]
-[ext_resource type="Script" uid="uid://blpx4ecsjerk4" path="res://entities/npcs/healer.gd" id="2_tl7ob"]
+[ext_resource type="Script" uid="uid://blpx4ecsjerk4" path="res://Scripts/healer.gd" id="2_tl7ob"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="3_rinsy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cawh0"]

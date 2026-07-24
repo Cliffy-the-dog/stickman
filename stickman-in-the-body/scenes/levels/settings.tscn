@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dkmnonkdefu4o"]
 
-[ext_resource type="Script" uid="uid://ew222m6c5a55" path="res://scenes/ui/settings.gd" id="1_lhmql"]
+[ext_resource type="Script" uid="uid://ew222m6c5a55" path="res://Scripts/settings.gd" id="1_lhmql"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="2_lhmql"]
 
 [node name="Settings" type="Control" unique_id=1034091266]

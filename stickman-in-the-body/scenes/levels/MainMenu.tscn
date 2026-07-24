@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://ctwaoarn65quf"]
 
-[ext_resource type="Script" uid="uid://cqpgtxw2ak7a7" path="res://scenes/ui/MainMenu.gd" id="1_ue4lf"]
-[ext_resource type="PackedScene" uid="uid://dkmnonkdefu4o" path="res://scenes/levels/settings.tscn" id="2_7rblo"]
+[ext_resource type="Script" uid="uid://cqpgtxw2ak7a7" path="res://Scripts/MainMenu.gd" id="1_ue4lf"]
+[ext_resource type="PackedScene" uid="uid://dkmnonkdefu4o" path="res://Scenes/levels/settings.tscn" id="2_7rblo"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="3_ov3pg"]
-[ext_resource type="Texture2D" uid="uid://dhli81x86e771" path="res://scenes/ui/Sunset Battle.png" id="4_agb1x"]
+[ext_resource type="Texture2D" uid="uid://dhli81x86e771" path="res://Scenes/ui/Sunset Battle.png" id="4_agb1x"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ue4lf"]
 load_path = "res://.godot/imported/Screenshot 2026-05-07 063547.png-00990db0c0abbfd6d5c2bb90ef54de3e.ctex"

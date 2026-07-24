@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d33rv0ypy8bey"]
 
 [ext_resource type="Texture2D" uid="uid://djwipdng1fao7" path="res://assets/tilesets/PhysicsTiles/Checkpoint.png" id="1_5h8f1"]
-[ext_resource type="Script" uid="uid://hckmp4ws0ebv" path="res://scenes/world/tile_map_layer.gd" id="1_ly2qt"]
+[ext_resource type="Script" uid="uid://hckmp4ws0ebv" path="res://Scripts/tile_map_layer.gd" id="1_ly2qt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ly2qt"]
 size = Vector2(512, 128)

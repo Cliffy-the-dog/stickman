@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cfb1qls6umnq5"]
 
-[ext_resource type="Script" uid="uid://duf52tidmmvom" path="res://entities/enemies/hoard.gd" id="1_mu4cg"]
+[ext_resource type="Script" uid="uid://duf52tidmmvom" path="res://Scripts/hoard (2).gd" id="1_mu4cg"]
 [ext_resource type="Texture2D" uid="uid://c51d5kh5yu52m" path="res://assets/sprites/Characters and GUI/Jetpack Cell.png" id="2_n7lfv"]
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://assets/sprites/Characters and GUI/healthbar.tscn" id="3_w5eb7"]
 [ext_resource type="Texture2D" uid="uid://jfej87b3ipkp" path="res://assets/sprites/Orange Particle.png" id="4_7nx82"]

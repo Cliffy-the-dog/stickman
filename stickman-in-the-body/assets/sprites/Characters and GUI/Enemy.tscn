@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://4jc8ydq23k2q"]
 
-[ext_resource type="Script" uid="uid://bfpt3k2jaqpsi" path="res://assets/sprites/Characters and GUI/ChaseScript.gd" id="1_dlwnr"]
+[ext_resource type="Script" uid="uid://bfpt3k2jaqpsi" path="res://Scripts/ChaseScript.gd" id="1_dlwnr"]
 [ext_resource type="Texture2D" uid="uid://ctycj4ip0rg8p" path="res://assets/sprites/Characters and GUI/EnemySpritesheet.png" id="1_e2upk"]
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://assets/sprites/Characters and GUI/healthbar.tscn" id="3_kc2dw"]
 

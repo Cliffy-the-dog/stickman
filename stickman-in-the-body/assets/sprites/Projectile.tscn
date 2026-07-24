@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ch8qce1vi8c6e"]
 
-[ext_resource type="Script" uid="uid://clhwwc8aorrdy" path="res://entities/projectiles/Projectile.gd" id="1_sijcv"]
+[ext_resource type="Script" uid="uid://clhwwc8aorrdy" path="res://Scripts/Projectile.gd" id="1_sijcv"]
 [ext_resource type="Texture2D" uid="uid://cfqcvngqaguko" path="res://assets/sprites/Projectile.svg" id="2_nb8br"]
 [ext_resource type="Texture2D" uid="uid://uv2twx26babl" path="res://assets/sprites/Chain.svg" id="3_nb8br"]
 

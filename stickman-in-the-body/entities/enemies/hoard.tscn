@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dk6sy1o7yy53t"]
 
-[ext_resource type="Script" uid="uid://3mo6xnvh30y8" path="res://entities/npcs/Hoard.gd" id="1_ghijl"]
+[ext_resource type="Script" uid="uid://3mo6xnvh30y8" path="res://Scripts/Hoard.gd" id="1_ghijl"]
 [ext_resource type="Texture2D" uid="uid://v8dnkvwrlweg" path="res://assets/sprites/Hoard SpriteSheet.png" id="1_ij6vw"]
 [ext_resource type="VideoStream" uid="uid://dubqefnppbs53" path="res://assets/vfx/hoardKillUpscalesd.ogv" id="4_44cfe"]
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://assets/sprites/Characters and GUI/healthbar.tscn" id="4_dd465"]

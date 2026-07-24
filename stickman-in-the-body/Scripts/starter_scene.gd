@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var pause_menu: Control = $DirectionalLight2D/Management/Player/Camera2D2/PauseMenu
+@onready var control: Control = $DirectionalLight2D/Management/Player/Camera2D2/Control
 
 
 
@@ -16,6 +17,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Pause"):
 		pauseMenu()
+		control.mouse_filter = Control.MOUSE_FILTER_PASS
+		pause_menu.mouse_filter = Control.MOUSE_FILTER_PASS
 
 func pauseMenu():
 	if paused == true:

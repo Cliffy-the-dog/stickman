@@ -1,18 +1,18 @@
 [gd_scene format=3 uid="uid://gnmp0yh0cmhe"]
 
-[ext_resource type="Script" uid="uid://c6c7bqdistc0g" path="res://entities/player/CharacterMove.gd" id="1_21c00"]
+[ext_resource type="Script" uid="uid://c6c7bqdistc0g" path="res://Scripts/CharacterMove.gd" id="1_21c00"]
 [ext_resource type="Texture2D" uid="uid://dtfntlflbm2cu" path="res://assets/sprites/spritesheet.png" id="2_21c00"]
-[ext_resource type="Texture2D" uid="uid://ptyne2oam0cp" path="res://assets/sprites/Characters and GUI/SlashesSpritesheetV2.png" id="2_at0vm"]
 [ext_resource type="PackedScene" uid="uid://ch8qce1vi8c6e" path="res://assets/sprites/Projectile.tscn" id="2_eceog"]
 [ext_resource type="Texture2D" uid="uid://btxrb8x3d73gi" path="res://assets/sprites/FullSpriteSheet.png" id="3_b8g2h"]
 [ext_resource type="Texture2D" uid="uid://bkrn7wv1dk35" path="res://assets/sprites/Bloodbind.png" id="4_i0bwr"]
 [ext_resource type="Texture2D" uid="uid://4yj45joodosl" path="res://assets/sprites/Characters and GUI/Death.png" id="4_n7jsu"]
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://assets/sprites/Characters and GUI/healthbar.tscn" id="4_peqie"]
+[ext_resource type="Texture2D" uid="uid://7lqp2i04t0ib" path="res://assets/sprites/Characters and GUI/Shred.png" id="5_wf03w"]
 [ext_resource type="PackedScene" uid="uid://bsbi72s8m65pt" path="res://assets/sprites/Characters and GUI/animated_sprite_2d.tscn" id="6_n7jsu"]
 [ext_resource type="Texture2D" uid="uid://ddtgsvwh6ayyn" path="res://assets/sprites/Endlag.png" id="7_ithgc"]
 [ext_resource type="Texture2D" uid="uid://goiub63ndlpc" path="res://assets/sprites/Leaping Spritesheet.png" id="7_xbhyn"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="9_53umr"]
-[ext_resource type="Script" uid="uid://ceifqnw8gna1l" path="res://assets/sprites/Characters and GUI/Max.gd" id="10_eceog"]
+[ext_resource type="Script" uid="uid://ceifqnw8gna1l" path="res://Scripts/Max.gd" id="10_eceog"]
 [ext_resource type="Texture2D" uid="uid://ca8dx783grj26" path="res://assets/sprites/Reeling.png" id="10_x6ao1"]
 [ext_resource type="AudioStream" uid="uid://cvoqnry8ssqo6" path="res://assets/audio/music/ChainToss.mp3" id="15_qmkcy"]
 
@@ -68,25 +68,21 @@ region = Rect2(0, 161, 181, 161)
 atlas = ExtResource("4_i0bwr")
 region = Rect2(181, 161, 181, 161)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_53umr"]
-atlas = ExtResource("2_at0vm")
-region = Rect2(0, 189, 239, 189)
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ibk3"]
+atlas = ExtResource("5_wf03w")
+region = Rect2(444, 0, 148, 160)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_eceog"]
-atlas = ExtResource("2_at0vm")
-region = Rect2(239, 189, 239, 189)
+[sub_resource type="AtlasTexture" id="AtlasTexture_tj67o"]
+atlas = ExtResource("5_wf03w")
+region = Rect2(296, 0, 148, 160)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i0bwr"]
-atlas = ExtResource("2_at0vm")
-region = Rect2(717, 189, 239, 189)
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qykq"]
+atlas = ExtResource("5_wf03w")
+region = Rect2(148, 0, 148, 160)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x6ao1"]
-atlas = ExtResource("2_at0vm")
-region = Rect2(0, 378, 239, 189)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ithgc"]
-atlas = ExtResource("2_at0vm")
-region = Rect2(239, 378, 239, 189)
+[sub_resource type="AtlasTexture" id="AtlasTexture_dkmdn"]
+atlas = ExtResource("5_wf03w")
+region = Rect2(0, 0, 148, 160)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qmkcy"]
 atlas = ExtResource("4_n7jsu")
@@ -441,19 +437,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_53umr")
+"texture": SubResource("AtlasTexture_2ibk3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_eceog")
+"texture": SubResource("AtlasTexture_tj67o")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_i0bwr")
+"texture": SubResource("AtlasTexture_2qykq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x6ao1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ithgc")
+"texture": SubResource("AtlasTexture_dkmdn")
 }],
 "loop": false,
 "name": &"Butcher",
@@ -736,7 +729,7 @@ animations = [{
 }]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7jsu"]
-bg_color = Color(0, 1, 0.735357, 1)
+bg_color = Color(0, 1, 0.7372549, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
@@ -792,9 +785,7 @@ position = Vector2(130, 0)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=64196167]
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_uglg6")
-animation = &"Bloodpunch"
-frame = 6
-frame_progress = 1.0
+animation = &"Butcher"
 
 [node name="Healthbar" parent="." unique_id=213354145 groups=["main_healthbar"] instance=ExtResource("4_peqie")]
 unique_name_in_owner = true

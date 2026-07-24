@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bf0epoh12vxwq"]
 
 [ext_resource type="Texture2D" uid="uid://djwipdng1fao7" path="res://assets/tilesets/PhysicsTiles/Checkpoint.png" id="1_ryr8l"]
-[ext_resource type="Script" uid="uid://hckmp4ws0ebv" path="res://scenes/world/tile_map_layer.gd" id="2_8ha5i"]
-[ext_resource type="Script" uid="uid://5prkgw6rk2o7" path="res://scenes/world/Identifierscript.gd" id="3_pwwfq"]
+[ext_resource type="Script" uid="uid://hckmp4ws0ebv" path="res://Scripts/tile_map_layer.gd" id="2_8ha5i"]
+[ext_resource type="Script" uid="uid://5prkgw6rk2o7" path="res://Scripts/Identifierscript.gd" id="3_pwwfq"]
 [ext_resource type="Texture2D" uid="uid://cas4me878o1ck" path="res://assets/sprites/Checkpoint Effect.png" id="4_7ddlc"]
 [ext_resource type="Texture2D" uid="uid://cmad6hpn8wke5" path="res://assets/sprites/Healing Particle.png" id="5_o5b52"]
 

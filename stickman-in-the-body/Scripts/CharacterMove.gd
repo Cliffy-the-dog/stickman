@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@onready var inventory: Node2D = $Inventory
 @export var projectile_scene: PackedScene 
 @onready var bloodbar: ProgressBar = $Bloodbar
 @onready var character: AnimatedSprite2D = $AnimatedSprite2D
@@ -17,6 +18,7 @@ extends CharacterBody2D
 @onready var process_mat = particle_node.process_material as ParticleProcessMaterial
 const CHAIN_TOSS = preload("uid://cvoqnry8ssqo6")
 
+var health
 var hasbloodbind = false
 var bootson = true
 const JUMP_VELOCITY = -2200.0
@@ -26,7 +28,7 @@ var abletoheal = 1; var damage = 20; var last_checkpoint = Vector2.ZERO; var att
 var last_floor_pos = Vector2.ZERO; var pause_Idleanimationforce = 0; var damage_taken_in_the_past_0point4seconds = 0
 var damage_value = 10; var butchering_in_progress = 0; var bouncing_in_progress = 0; var being_touched = 0
 var health_upgrades = 1; var SPEED = 1200.0; var healthpause = 0; var is_safe_ground = true
-
+var max_health = 100 + 20 * health_upgrades
 var bloodbind_in_progress = 0 
 var goo_spawn_cooldown = 0.0
 
@@ -169,7 +171,7 @@ func _process(_delta):
 	if attackers.size() > 0 and healthbar.health > 0 and not damage_taken_in_the_past_0point4seconds and not healthpause: apply_damage(damage_value)
 	if healthbar.health < 1 and not healthpause: die_sequence()
 	healthbar.health = healthbar.value
-	
+	health = healthbar.value
 	if Input.is_action_just_pressed("BloodSpell") and not bloodbind_in_progress: 
 		if bloodbar.value >= 10.0: 
 			bloodbar.value -= 10.0 

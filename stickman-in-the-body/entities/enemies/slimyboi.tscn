@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://djv72irkalgai"]
 
 [ext_resource type="Texture2D" uid="uid://dldocnd6o0hv8" path="res://assets/sprites/Slimy Boi Spriteshee.png" id="1_1ayn8"]
-[ext_resource type="Script" uid="uid://kf4txasqh0hm" path="res://entities/enemies/SlimyScript.gd" id="1_u7wia"]
+[ext_resource type="Script" uid="uid://kf4txasqh0hm" path="res://Scripts/SlimyScript.gd" id="1_u7wia"]
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://assets/sprites/Characters and GUI/healthbar.tscn" id="2_u7wia"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y5qp1"]

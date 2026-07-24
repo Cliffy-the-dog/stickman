@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bpopyf8bngc5k"]
 
 [ext_resource type="Texture2D" uid="uid://b0rh0cwjj8irk" path="res://assets/sprites/Sensei Git.png" id="1_h1hag"]
-[ext_resource type="Script" uid="uid://ch6hw15d4j7gb" path="res://entities/npcs/Sensei.gd" id="2_dyu8d"]
+[ext_resource type="Script" uid="uid://ch6hw15d4j7gb" path="res://Scripts/Sensei.gd" id="2_dyu8d"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="3_uyfve"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0irxf"]

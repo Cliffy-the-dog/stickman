@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://dy4skj7vvvtfs"]
+
+[ext_resource type="Texture2D" uid="uid://nasisryi1x27" path="res://Scenes/world/Button.png" id="1_dqiaq"]
+[ext_resource type="Script" uid="uid://boxskmuprm04u" path="res://Scripts/Button Script.gd" id="2_0an2h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sx1u1"]
+atlas = ExtResource("1_dqiaq")
+region = Rect2(0, 0, 115, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xd73t"]
+atlas = ExtResource("1_dqiaq")
+region = Rect2(0, 0, 115, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ql3cp"]
+atlas = ExtResource("1_dqiaq")
+region = Rect2(115, 0, 115, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywdh6"]
+atlas = ExtResource("1_dqiaq")
+region = Rect2(230, 0, 115, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tggfo"]
+atlas = ExtResource("1_dqiaq")
+region = Rect2(345, 0, 115, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0u8te"]
+atlas = ExtResource("1_dqiaq")
+region = Rect2(0, 158, 115, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oe2ot"]
+atlas = ExtResource("1_dqiaq")
+region = Rect2(115, 158, 115, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e38go"]
+atlas = ExtResource("1_dqiaq")
+region = Rect2(230, 158, 115, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coq72"]
+atlas = ExtResource("1_dqiaq")
+region = Rect2(230, 158, 115, 158)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0u6o5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sx1u1")
+}],
+"loop": true,
+"name": &"Not Pressed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xd73t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ql3cp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ywdh6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tggfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0u8te")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oe2ot")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e38go")
+}],
+"loop": false,
+"name": &"Press",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coq72")
+}],
+"loop": true,
+"name": &"Pressed",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ts72"]
+size = Vector2(86, 156)
+
+[node name="Button" type="Node2D" unique_id=782268745]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1848599692]
+sprite_frames = SubResource("SpriteFrames_0u6o5")
+animation = &"Not Pressed"
+script = ExtResource("2_0an2h")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1829765489]
+collision_layer = 255
+collision_mask = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1383205003]
+position = Vector2(14, 0)
+shape = SubResource("RectangleShape2D_1ts72")
+
+[connection signal="body_entered" from="Area2D" to="AnimatedSprite2D" method="_on_area_2d_body_entered"]

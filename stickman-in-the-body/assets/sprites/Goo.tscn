@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ff2v5camfqac"]
 
-[ext_resource type="Script" uid="uid://h28i6r65hlg6" path="res://entities/player/area_2d.gd" id="1_38xvr"]
+[ext_resource type="Script" uid="uid://h28i6r65hlg6" path="res://Scripts/area_2d.gd" id="1_38xvr"]
 [ext_resource type="Texture2D" uid="uid://dldocnd6o0hv8" path="res://assets/sprites/Slimy Boi Spriteshee.png" id="2_g4s21"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_38xvr"]

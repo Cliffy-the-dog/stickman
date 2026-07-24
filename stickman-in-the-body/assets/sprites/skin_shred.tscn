@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cj1jcbo8yntk7"]
 
-[ext_resource type="Script" uid="uid://bbl7p511dqepv" path="res://assets/sprites/skin_shred.gd" id="1_56e7p"]
+[ext_resource type="Script" uid="uid://bbl7p511dqepv" path="res://Scripts/skin_shred.gd" id="1_56e7p"]
 [ext_resource type="Texture2D" uid="uid://c8q4vfq1j2ty1" path="res://assets/sprites/Skin Shred.svg" id="1_nbyuj"]
 
 [node name="Node2D" type="Node2D" unique_id=2073578284]

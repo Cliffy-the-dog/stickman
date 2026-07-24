@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dmxty4wc5nwxr"]
 
-[ext_resource type="Script" uid="uid://b6rtgyc51j6o7" path="res://entities/projectiles/head.gd" id="1_hukeq"]
+[ext_resource type="Script" uid="uid://b6rtgyc51j6o7" path="res://Scripts/head.gd" id="1_hukeq"]
 [ext_resource type="Texture2D" uid="uid://dstc8vp4ijjud" path="res://assets/sprites/Head Projectile.svg" id="1_xe7ry"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xe7ry"]

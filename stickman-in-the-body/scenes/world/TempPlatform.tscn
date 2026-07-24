@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bmokuk76jjpav"]
 
 [ext_resource type="Texture2D" uid="uid://g0x02lcxgj6f" path="res://assets/tilesets/PhysicsTiles/Few seconds platform.png" id="1_qbaa6"]
-[ext_resource type="Script" uid="uid://bsvys0ifjm6h4" path="res://scenes/world/FewSecondsPlatform.gd" id="2_8cujs"]
-[ext_resource type="Script" uid="uid://v7rpdghhuvuj" path="res://scenes/world/TEMPLATFORM.gd" id="3_vd6vi"]
+[ext_resource type="Script" uid="uid://bsvys0ifjm6h4" path="res://Scripts/FewSecondsPlatform.gd" id="2_8cujs"]
+[ext_resource type="Script" uid="uid://v7rpdghhuvuj" path="res://Scripts/TEMPLATFORM.gd" id="3_vd6vi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8cujs"]
 texture = ExtResource("1_qbaa6")

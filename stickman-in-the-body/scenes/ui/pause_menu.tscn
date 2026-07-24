@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://21i06xop7j7q"]
 
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="1_emv3i"]
-[ext_resource type="Script" uid="uid://dmmtab3atvwhy" path="res://scenes/ui/pause_menu.gd" id="1_k0w1u"]
+[ext_resource type="Script" uid="uid://dmmtab3atvwhy" path="res://Scripts/pause_menu.gd" id="1_k0w1u"]
 
 [node name="PauseMenu" type="Control" unique_id=1392100631]
 process_mode = 2

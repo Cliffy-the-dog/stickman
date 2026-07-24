@@ -1,51 +1,213 @@
 [gd_scene format=3 uid="uid://c31warb72412w"]
 
-[ext_resource type="Script" uid="uid://dn4u6avnidn31" path="res://Scenes/ui/InventoryControls.gd" id="1_afu2s"]
+[ext_resource type="Script" uid="uid://dn4u6avnidn31" path="res://Scripts/InventoryControls.gd" id="1_afu2s"]
+[ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="2_6ykjb"]
+[ext_resource type="PackedScene" uid="uid://bkufjfdnayad6" path="res://Scenes/ui/Item Icons/skinshred(ui).tscn" id="3_sxppk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxppk"]
+bg_color = Color(0.37951472, 5.9862623e-07, 1.6845763e-07, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4lboj"]
+bg_color = Color(0, 1, 0.7372549, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [node name="Inventory" type="Node2D" unique_id=666343005]
+z_index = 4096
 script = ExtResource("1_afu2s")
 
 [node name="Binventory" type="ColorRect" parent="." unique_id=1388620417]
+visible = false
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="B" type="Label" parent="Binventory" unique_id=927334110]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.0
+offset_top = 19.0
+offset_right = 113.0
+offset_bottom = 110.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_6ykjb")
+theme_override_font_sizes/font_size = 75
+text = "Items and Misc"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Binventory" unique_id=586413235]
+z_index = 2
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -526.0
+offset_top = 112.0
+offset_right = -62.0
+offset_bottom = -112.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Binventory/ScrollContainer" unique_id=1797528240]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Binventory/ScrollContainer/VBoxContainer" unique_id=584454829]
+layout_mode = 2
+
+[node name="Skinshred(UI)" parent="Binventory/ScrollContainer/VBoxContainer/HBoxContainer" unique_id=967909783 instance=ExtResource("3_sxppk")]
+z_index = 110
+z_as_relative = false
+position = Vector2(30, 29)
+
+[node name="ColorRect" type="ColorRect" parent="Binventory" unique_id=610760309]
+z_index = 100
+z_as_relative = false
 layout_mode = 0
-offset_left = 466.0
-offset_top = 228.0
-offset_right = 532.0
-offset_bottom = 505.0
-theme_override_font_sizes/font_size = 100
-text = "B
-"
+offset_left = 605.2075
+offset_top = 93.0
+offset_right = 1110.7925
+offset_bottom = 555.0
+color = Color(0, 0, 0, 0.8)
+
+[node name="Healthbar" type="ProgressBar" parent="Binventory" unique_id=1014671295]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 126.0
+offset_right = 505.0
+offset_bottom = 153.0
+theme_override_styles/background = SubResource("StyleBoxFlat_sxppk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4lboj")
+value = 60.0
+show_percentage = false
 
 [node name="Ninventory" type="ColorRect" parent="." unique_id=1909490822]
+visible = false
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 0.5)
 
-[node name="N" type="Label" parent="Ninventory" unique_id=1147543237]
+[node name="N" type="Label" parent="Ninventory" unique_id=815205436]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.0
+offset_top = 19.0
+offset_right = 113.0
+offset_bottom = 110.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_6ykjb")
+theme_override_font_sizes/font_size = 75
+text = "Skills"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Ninventory" unique_id=1328697044]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = 109.0
+offset_right = -48.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tree" type="Tree" parent="Ninventory/ScrollContainer" unique_id=330132451]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Ninventory" unique_id=216596636]
 layout_mode = 0
-offset_left = 466.0
-offset_top = 228.0
-offset_right = 532.0
-offset_bottom = 505.0
-theme_override_font_sizes/font_size = 100
-text = "N
-"
+offset_left = 48.0
+offset_top = 109.0
+offset_right = 1104.0
+offset_bottom = 591.0
+color = Color(0, 0, 0, 1)
 
 [node name="Minventory" type="ColorRect" parent="." unique_id=239126784]
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 0.5)
 
-[node name="M" type="Label" parent="Minventory" unique_id=684982702]
+[node name="M" type="Label" parent="Minventory" unique_id=1983997278]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.0
+offset_top = 19.0
+offset_right = 113.0
+offset_bottom = 110.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_6ykjb")
+theme_override_font_sizes/font_size = 75
+text = "Tasks"
+
+[node name="Border" type="ColorRect" parent="Minventory" unique_id=1822384340]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -519.0
+offset_top = -223.0
+offset_right = 519.0
+offset_bottom = 282.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19363177, 0.1936318, 0.1936318, 1)
+
+[node name="Main questl2" type="ColorRect" parent="Minventory/Border" unique_id=328211116]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -501.0
+offset_top = -225.5
+offset_right = 501.0
+offset_bottom = -87.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Minventory/Border/Main questl2" unique_id=1557336158]
 layout_mode = 0
-offset_left = 466.0
-offset_top = 228.0
-offset_right = 532.0
-offset_bottom = 505.0
-theme_override_font_sizes/font_size = 100
-text = "M
-"
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Minventory/Border/Main questl2/ScrollContainer" unique_id=1563183548]
+layout_mode = 2
+
+[node name="Other stuff" type="ColorRect" parent="Minventory/Border" unique_id=1381787761]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -501.0
+offset_top = -77.5
+offset_right = 501.0
+offset_bottom = 216.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Minventory/Border/Other stuff" unique_id=1146909195]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Minventory/Border/Other stuff/ScrollContainer" unique_id=1048053252]
+layout_mode = 2

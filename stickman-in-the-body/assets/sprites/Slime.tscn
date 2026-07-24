@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://kpgdqjklmaoo"]
 
-[ext_resource type="Script" uid="uid://cmha0a3af72mm" path="res://entities/enemies/SlimyBoi.gd" id="1_bqrxe"]
-[ext_resource type="Texture2D" uid="uid://dldocnd6o0hv8" path="res://assets/sprites/Slimy Boi Spriteshee.png" id="2_50aod"]
-[ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://assets/sprites/Characters and GUI/healthbar.tscn" id="3_50aod"]
+[ext_resource type="Script" uid="uid://cmha0a3af72mm" path="res://Scripts/SlimyBoi.gd" id="1_xkcoy"]
+[ext_resource type="Texture2D" uid="uid://dldocnd6o0hv8" path="res://assets/sprites/Slimy Boi Spriteshee.png" id="2_av1ob"]
+[ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://assets/sprites/Characters and GUI/healthbar.tscn" id="3_lhon3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y5qp1"]
-atlas = ExtResource("2_50aod")
+atlas = ExtResource("2_av1ob")
 region = Rect2(0, 0, 155, 75)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ksrbx"]
-atlas = ExtResource("2_50aod")
+atlas = ExtResource("2_av1ob")
 region = Rect2(0, 75, 155, 75)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dac5l"]
@@ -48,14 +48,14 @@ corner_detail = 20
 
 [node name="Slime" type="Node2D" unique_id=18578752]
 scale = Vector2(2, 2)
-script = ExtResource("1_bqrxe")
+script = ExtResource("1_xkcoy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1802407047]
 sprite_frames = SubResource("SpriteFrames_dac5l")
 animation = &"Animaiton"
 frame_progress = 0.45136476
 
-[node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("3_50aod")]
+[node name="Healthbar" parent="." unique_id=213354145 instance=ExtResource("3_lhon3")]
 offset_left = -136.0
 offset_top = -84.0
 offset_right = 138.0

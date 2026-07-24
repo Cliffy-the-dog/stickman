@@ -8,9 +8,11 @@ extends Control
 @onready var player: CharacterBody2D = %Player
 @onready var healthbar: ProgressBar = $"../../Healthbar"
 const SAVE_PATH = "user://savegame.json"
+@onready var control: Control = $"../Control"
 
 func _ready() -> void:
 	hide()
+	load_game()
 
 func save_game():
 	var save_data = {
@@ -35,6 +37,7 @@ func save_game():
 		print("DEBUG: Save failed! Error: ", FileAccess.get_open_error())
 
 func load_game():
+	await get_tree().create_timer(0.1).timeout
 	if not FileAccess.file_exists(SAVE_PATH):
 		print("DEBUG: No save file found.")
 		return
@@ -90,6 +93,8 @@ func _process(_delta: float) -> void:
 
 func _on_resume_pressed() -> void:
 	starter_scene.pauseMenu()
+	control.mouse_filter = Control.MOUSE_FILTER_PASS
+	mouse_filter = Control.MOUSE_FILTER_PASS
 
 func _on_quit_to_menu_pressed() -> void:
 	save_game()

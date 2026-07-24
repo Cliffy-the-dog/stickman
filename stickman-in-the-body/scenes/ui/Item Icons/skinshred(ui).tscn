@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bkufjfdnayad6"]
+
+[ext_resource type="Script" uid="uid://bn3b6717ysfy6" path="res://Scripts/skinshred(ui).gd" id="1_5w8bw"]
+[ext_resource type="Texture2D" uid="uid://c8q4vfq1j2ty1" path="res://assets/sprites/Skin Shred.svg" id="1_da2fs"]
+[ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="3_43luq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_da2fs"]
+bg_color = Color(0.21950099, 0.21950105, 0.21950087, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="Skinshred(UI)" type="Node2D" unique_id=967909783]
+scale = Vector2(0.27999946, 0.27999946)
+script = ExtResource("1_5w8bw")
+
+[node name="Button" type="Button" parent="." unique_id=1161434106]
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_da2fs")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=413311787]
+texture = ExtResource("1_da2fs")
+
+[node name="Label" type="Label" parent="." unique_id=543812809]
+offset_left = 46.42866
+offset_top = 57.142967
+offset_right = 98.428665
+offset_bottom = 97.14297
+theme_override_fonts/font = ExtResource("3_43luq")
+theme_override_font_sizes/font_size = 32
+text = "99"

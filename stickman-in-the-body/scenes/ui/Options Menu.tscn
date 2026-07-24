@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dpojlcptnlam"]
 
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="1_c8man"]
-[ext_resource type="Script" uid="uid://dgf6bqgnx4amq" path="res://scenes/ui/options_menu.gd" id="1_ppco4"]
+[ext_resource type="Script" uid="uid://dgf6bqgnx4amq" path="res://Scripts/options_menu.gd" id="1_ppco4"]
 
 [node name="Control" type="Control" unique_id=545469593]
 layout_mode = 3
