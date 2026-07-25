@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://b6d7sxddtno0j" path="res://entities/npcs/Healer.tscn" id="22_tbhji"]
 [ext_resource type="PackedScene" uid="uid://bpopyf8bngc5k" path="res://assets/sprites/sensei.tscn" id="28_4v6u3"]
 [ext_resource type="PackedScene" uid="uid://dy4skj7vvvtfs" path="res://Scenes/world/Button.tscn" id="31_b7e1y"]
+[ext_resource type="PackedScene" uid="uid://ciardqyydlsue" path="res://Scenes/world/OneWayPlatform.tscn" id="32_21psl"]
 
 [sub_resource type="Gradient" id="Gradient_eexro"]
 offsets = PackedFloat32Array(0, 0.2, 0.7, 1)
@@ -1232,7 +1233,13 @@ scale = Vector2(2.1027398, 2.1027396)
 position = Vector2(63303, 3264)
 rotation = 3.1415927
 
-[node name="Node2D" parent="." unique_id=308084151 instance=ExtResource("31_b7e1y")]
-position = Vector2(6181, -4231)
+[node name="StaticBody2D" parent="." unique_id=115562366 instance=ExtResource("32_21psl")]
+position = Vector2(63740, -1083)
+
+[node name="StaticBody2D2" parent="." unique_id=1757228387 instance=ExtResource("32_21psl")]
+position = Vector2(64631, -1183)
+
+[node name="StaticBody2D3" parent="." unique_id=1685414411 instance=ExtResource("32_21psl")]
+position = Vector2(65651, -1379)
 
 [connection signal="body_entered" from="DirectionalLight2D/Management/Killzone" to="DirectionalLight2D/Management/Player" method="_on_killzone_body_entered"]

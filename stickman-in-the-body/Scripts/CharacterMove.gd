@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@onready var grounder_hitbox: CollisionShape2D = $"Grounder Hitbox"
 @onready var inventory: Node2D = $Inventory
 @export var projectile_scene: PackedScene 
 @onready var bloodbar: ProgressBar = $Bloodbar
@@ -32,6 +33,18 @@ var max_health = 100 + 20 * health_upgrades
 var bloodbind_in_progress = 0 
 var goo_spawn_cooldown = 0.0
 
+var is_crouching = false
+var crouch_cooldown = 0.0
+
+# Dash variables
+var is_dashing = false
+var dash_timer = 0.0
+var dash_direction = 1
+var dash_cooldown_timer = 0.0
+
+# Store the default Y position of the hitbox so we can safely return to it when standing
+@onready var default_hitbox_pos_y = grounder_hitbox.position.y
+
 func _ready():
 	slash_area_2.hide()
 	pause_menu.load_game()
@@ -48,6 +61,18 @@ func flash_red():
 	t.tween_property(self, "modulate", Color.WHITE, 0.4)
 
 func _physics_process(delta):
+	# Tick down the cooldown and dash timers
+	if crouch_cooldown > 0.0:
+		crouch_cooldown -= delta
+		
+	if dash_cooldown_timer > 0.0:
+		dash_cooldown_timer -= delta
+		
+	if is_dashing:
+		dash_timer -= delta
+		if dash_timer <= 0.0:
+			is_dashing = false
+
 	moneyLabel.text = "$" + str(money)
 	if character.flip_h == true:
 		dust_particles.position.x = 44
@@ -60,11 +85,11 @@ func _physics_process(delta):
 	
 	node_2d.global_position = global_position
 	
-	# --- PREVENT GRAVITY WHILE BLOODINDING ---
-	if not is_on_floor() and not bloodbind_in_progress: 
+	# --- PREVENT GRAVITY WHILE BLOODINDING OR DASHING ---
+	if not is_on_floor() and not bloodbind_in_progress and not is_dashing: 
 		velocity += get_gravity() * delta * 5
-	elif bloodbind_in_progress:
-		velocity = Vector2.ZERO
+	elif bloodbind_in_progress or is_dashing:
+		velocity.y = 0 # Lock Y axis to prevent falling during dash/cast
 	
 	if is_on_floor() and Input.is_action_just_pressed("Heal") and healthbar.value < healthbar.max_value:
 		while bloodbar.value > 0 and healthbar.value < healthbar.max_value and abletoheal:
@@ -77,28 +102,63 @@ func _physics_process(delta):
 		SPEED = 1200
 		for p in particles: p.emitting = false
 
-	if Input.is_action_just_pressed("Slash"): Cleave()
-	
-	if Input.is_action_just_pressed("Jump") and is_on_floor() and not butchering_in_progress and not bloodbind_in_progress:
+	# --- BLOCKED NORMAL ACTIONS IF CROUCHING ---
+	if Input.is_action_just_pressed("Slash") and not is_crouching: Cleave()
+	if Input.is_action_just_pressed("Jump") and is_on_floor() and not butchering_in_progress and not bloodbind_in_progress and not is_crouching:
 		velocity.y = JUMP_VELOCITY
 
-	# --- PREVENT WALKING INPUTS WHILE BLOODINDING ---
+	# --- DASH FROM CROUCH ---
+	if is_crouching and not is_dashing and dash_cooldown_timer <= 0.0 and (Input.is_action_just_pressed("Jump") or Input.is_action_just_pressed("Slash")):
+		is_dashing = true
+		dash_timer = 0.2 # 0.2 seconds * 2500 speed = 500 pixels
+		dash_direction = -1 if character.flip_h else 1
+		dash_cooldown_timer = 1.0 # 1-second cooldown before you can dash again
+
+	# --- PREVENT WALKING INPUTS WHILE BLOODINDING/DASHING ---
 	var d := 0.0
-	if not bloodbind_in_progress:
+	if not bloodbind_in_progress and not is_dashing:
 		d = Input.get_axis("Walk Left", "Walk Right")
 	
 	if d: 
 		character.flip_h = d < 0
 		%SlashArea2.position.x = 145 if d > 0 else -145
+		
+	# --- CROUCHING TOGGLE LOGIC ---
+	if Input.is_action_just_pressed("Crouch") and is_on_floor() and not bloodbind_in_progress and not butchering_in_progress:
+		if crouch_cooldown <= 0.0:
+			is_crouching = not is_crouching 
+			crouch_cooldown = 0.3 # Lock state changes for 0.3 seconds
+		
+	# Auto-uncrouch if the player falls off a ledge (ignored if mid-dash)
+	if not is_on_floor() and crouch_cooldown <= 0.0 and not is_dashing:
+		is_crouching = false
 	
+	# --- HITBOX SCALING & POSITION FIX ---
+	if is_crouching:
+		grounder_hitbox.scale.y = 0.75
+		grounder_hitbox.position.y = 40.0 
+	else:
+		grounder_hitbox.scale.y = 1.5
+		grounder_hitbox.position.y = default_hitbox_pos_y
+	
+	# --- ANIMATION PRIORITY ---
 	if not pause_Idleanimationforce:
-		if d and is_on_floor(): character.play("Walking")
-		elif not is_on_floor() and character.animation != "Butcher": character.play("Falling" if d == 0 else "Leap")
-		elif d == 0 and is_on_floor(): character.play("Idle")
+		if is_dashing:
+			character.play("CrawlMove") 
+		elif is_crouching: 
+			character.play("CrawlMove" if d != 0 else "CrouchIdle")
+		elif d and is_on_floor(): 
+			character.play("Walking")
+		elif not is_on_floor() and character.animation != "Butcher": 
+			character.play("Falling" if d == 0 else "Leap")
+		elif d == 0 and is_on_floor(): 
+			character.play("Idle")
 
-	# --- FORCE VELOCITY TO ZERO IF CASTING ---
+	# --- FORCE VELOCITY TO DASH OR CAST ---
 	if bloodbind_in_progress:
 		velocity = Vector2.ZERO
+	elif is_dashing:
+		velocity.x = dash_direction * 2500.0 
 	else:
 		velocity.x = d * SPEED if d else move_toward(velocity.x, 0, SPEED)
 	
@@ -205,17 +265,13 @@ func finish_bloodbind() -> void:
 	pause_Idleanimationforce = 0
 	SPEED = 1200
 	character.play("Idle")
+
 func trigger_endlag_punishment() -> void:
-	
 	$AudioStreamPlayer2D.play()
-	# Keep bloodbind_in_progress = 1 and pause_Idleanimationforce = 1 active
-	# This keeps your movement, jump inputs, and gravity completely frozen
 	character.position.y = -100
 	character.play("Endlag")
 
-	# Wait until the animation completely finishes playing
 	await character.animation_finished
 	character.position.y = 0
 	$AudioStreamPlayer2D.playing = false
-	# Safely unlock the player now that the punishment duration is over
 	finish_bloodbind()

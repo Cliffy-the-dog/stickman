@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://4yj45joodosl" path="res://assets/sprites/Characters and GUI/Death.png" id="4_n7jsu"]
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://assets/sprites/Characters and GUI/healthbar.tscn" id="4_peqie"]
 [ext_resource type="Texture2D" uid="uid://7lqp2i04t0ib" path="res://assets/sprites/Characters and GUI/Shred.png" id="5_wf03w"]
+[ext_resource type="Texture2D" uid="uid://68s4n0x86720" path="res://assets/sprites/Characters and GUI/CrawlSprites.png" id="6_2ibk3"]
 [ext_resource type="PackedScene" uid="uid://bsbi72s8m65pt" path="res://assets/sprites/Characters and GUI/animated_sprite_2d.tscn" id="6_n7jsu"]
 [ext_resource type="Texture2D" uid="uid://ddtgsvwh6ayyn" path="res://assets/sprites/Endlag.png" id="7_ithgc"]
 [ext_resource type="Texture2D" uid="uid://goiub63ndlpc" path="res://assets/sprites/Leaping Spritesheet.png" id="7_xbhyn"]
@@ -83,6 +84,26 @@ region = Rect2(148, 0, 148, 160)
 [sub_resource type="AtlasTexture" id="AtlasTexture_dkmdn"]
 atlas = ExtResource("5_wf03w")
 region = Rect2(0, 0, 148, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sox3"]
+atlas = ExtResource("6_2ibk3")
+region = Rect2(0, 0, 132, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56rly"]
+atlas = ExtResource("6_2ibk3")
+region = Rect2(132, 0, 132, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4p73t"]
+atlas = ExtResource("6_2ibk3")
+region = Rect2(264, 0, 132, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjlkj"]
+atlas = ExtResource("6_2ibk3")
+region = Rect2(396, 0, 132, 126)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rwh2"]
+atlas = ExtResource("6_2ibk3")
+region = Rect2(0, 0, 132, 126)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qmkcy"]
 atlas = ExtResource("4_n7jsu")
@@ -454,6 +475,31 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_4sox3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56rly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4p73t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjlkj")
+}],
+"loop": true,
+"name": &"CrawlMove",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2rwh2")
+}],
+"loop": true,
+"name": &"CrouchIdle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qmkcy")
 }, {
 "duration": 1.0,
@@ -785,7 +831,7 @@ position = Vector2(130, 0)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=64196167]
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_uglg6")
-animation = &"Butcher"
+animation = &"CrouchIdle"
 
 [node name="Healthbar" parent="." unique_id=213354145 groups=["main_healthbar"] instance=ExtResource("4_peqie")]
 unique_name_in_owner = true
@@ -826,14 +872,12 @@ collision_mask = 7
 [node name="Hitbox" type="CollisionShape2D" parent="Fazed Hitbox" unique_id=1023303441]
 light_mask = 2
 visibility_layer = 2
-position = Vector2(2, -7.5)
 scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_xbhyn")
 
 [node name="Grounder Hitbox" type="CollisionShape2D" parent="." unique_id=589186753]
 light_mask = 2
 visibility_layer = 2
-position = Vector2(2, -7.5)
 scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_tvrmd")
 
