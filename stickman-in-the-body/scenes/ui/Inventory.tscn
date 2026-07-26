@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dn4u6avnidn31" path="res://Scripts/InventoryControls.gd" id="1_afu2s"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="2_6ykjb"]
 [ext_resource type="PackedScene" uid="uid://bkufjfdnayad6" path="res://Scenes/ui/Item Icons/skinshred(ui).tscn" id="3_sxppk"]
+[ext_resource type="Script" uid="uid://b0u0lck44204v" path="res://Scenes/ui/healthbar.gd" id="4_4lboj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxppk"]
 bg_color = Color(0.37951472, 5.9862623e-07, 1.6845763e-07, 1)
@@ -23,7 +24,6 @@ z_index = 4096
 script = ExtResource("1_afu2s")
 
 [node name="Binventory" type="ColorRect" parent="." unique_id=1388620417]
-visible = false
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 0.5)
@@ -88,6 +88,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_sxppk")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4lboj")
 value = 60.0
 show_percentage = false
+script = ExtResource("4_4lboj")
 
 [node name="Ninventory" type="ColorRect" parent="." unique_id=1909490822]
 visible = false
@@ -133,6 +134,7 @@ offset_bottom = 591.0
 color = Color(0, 0, 0, 1)
 
 [node name="Minventory" type="ColorRect" parent="." unique_id=239126784]
+visible = false
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 0.5)

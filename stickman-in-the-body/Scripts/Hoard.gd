@@ -11,7 +11,11 @@ extends CharacterBody2D
 enum BossState { ASLEEP, WAKING, AWAKENED, DEAD }
 var current_state = BossState.ASLEEP
 
-var exists_in_previous_save = true
+var exists_in_previous_save = true:
+	set(value):
+		exists_in_previous_save = value
+		if not exists_in_previous_save:
+			queue_free()
 var cooldown = 0
 const SPEED = 1200.0
 const JUMP_VELOCITY = -1800.0

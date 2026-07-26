@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dy4skj7vvvtfs"]
 
 [ext_resource type="Texture2D" uid="uid://nasisryi1x27" path="res://Scenes/world/Button.png" id="1_dqiaq"]
-[ext_resource type="Script" uid="uid://boxskmuprm04u" path="res://Scripts/Button Script.gd" id="2_0an2h"]
+[ext_resource type="Script" uid="uid://ddwehvdetubrs" path="res://Scenes/world/button.gd" id="1_xtiie"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sx1u1"]
 atlas = ExtResource("1_dqiaq")
@@ -88,11 +88,11 @@ animations = [{
 size = Vector2(86, 156)
 
 [node name="Button" type="Node2D" unique_id=782268745]
+script = ExtResource("1_xtiie")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1848599692]
 sprite_frames = SubResource("SpriteFrames_0u6o5")
 animation = &"Not Pressed"
-script = ExtResource("2_0an2h")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1829765489]
 collision_layer = 255

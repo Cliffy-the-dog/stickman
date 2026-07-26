@@ -1,5 +1,4 @@
 extends Control
-
 @onready var hoard: CharacterBody2D = $"../../../Hoard"
 @onready var management: Node = %Management
 @onready var color_rect: ColorRect = $"../ColorRect"
@@ -23,7 +22,9 @@ func save_game():
 		"health_upgrade_bought": healer.health_upgrade_bought,
 		"Sword_Damage": player.damage,
 		"money": player.money,
-		"Hoard_exists": is_instance_valid(hoard)
+		
+		# THE FIX: Check if the node is valid AND make sure its state is not DEAD
+		"Hoard_exists": is_instance_valid(hoard) and hoard.current_state != hoard.BossState.DEAD
 	}
 	
 	var json_string = JSON.stringify(save_data)
