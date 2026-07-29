@@ -13,7 +13,12 @@ func _ready() -> void:
 	static_body_2d.hide()
 	static_body_2d_2.hide()
 	static_body_2d_3.hide()
-
+	static_body_2d.set_collision_mask_value(1, false)
+	static_body_2d.set_collision_mask_value(2, false)
+	static_body_2d_2.set_collision_mask_value(1, false)
+	static_body_2d_2.set_collision_mask_value(2, false)
+	static_body_2d_3.set_collision_mask_value(1, false)
+	static_body_2d_3.set_collision_mask_value(2, false)
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method("flash_red") and buttondown == 0:
 		buttondown = 1
@@ -23,3 +28,20 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		static_body_2d.show()
 		static_body_2d_2.show()
 		static_body_2d_3.show()
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.has_method("flash_red") and buttondown == 0:
+		buttondown = 1
+		animated_sprite_2d.play("Press")
+		await animated_sprite_2d.animation_finished
+		animated_sprite_2d.play("Pressed")
+		static_body_2d.show()
+		static_body_2d_2.show()
+		static_body_2d_3.show()
+		static_body_2d.set_collision_mask_value(1, false)
+		static_body_2d.set_collision_mask_value(2, false)
+		static_body_2d_2.set_collision_mask_value(1, false)
+		static_body_2d_2.set_collision_mask_value(2, false)
+		static_body_2d_3.set_collision_mask_value(1, false)
+		static_body_2d_3.set_collision_mask_value(2, false)

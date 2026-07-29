@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b6ay56t8u16ij"]
+
+[ext_resource type="Script" uid="uid://8mmpwtlh2hgh" path="res://assets/sprites/moving_buzz_saw.gd" id="1_8anec"]
+[ext_resource type="Texture2D" uid="uid://b2kyfekrpdmqs" path="res://assets/sprites/Circular.svg" id="2_5tnkw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0ie5m"]
+radius = 210.86726
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1709963690]
+collision_layer = 2147483649
+collision_mask = 2147483649
+script = ExtResource("1_8anec")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1393404611]
+shape = SubResource("CircleShape2D_0ie5m")
+
+[node name="Circular" type="Sprite2D" parent="." unique_id=1426358037]
+texture = ExtResource("2_5tnkw")

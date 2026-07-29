@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ckcwh3wcjt8u5"]
+
+[ext_resource type="Script" uid="uid://ck8vhqfnyjgkg" path="res://BuzzSaw.gd" id="1_lpqwy"]
+[ext_resource type="Texture2D" uid="uid://b2kyfekrpdmqs" path="res://assets/sprites/Circular.svg" id="2_5ienx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g2hga"]
+radius = 214.52505
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=2049714077]
+script = ExtResource("1_lpqwy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=623933928]
+shape = SubResource("CircleShape2D_g2hga")
+
+[node name="Circular" type="Sprite2D" parent="." unique_id=1903869581]
+texture = ExtResource("2_5ienx")

@@ -102,4 +102,5 @@ collision_mask = 255
 position = Vector2(14, 0)
 shape = SubResource("RectangleShape2D_1ts72")
 
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="AnimatedSprite2D" method="_on_area_2d_body_entered"]

@@ -22,7 +22,7 @@ func save_game():
 		"health_upgrade_bought": healer.health_upgrade_bought,
 		"Sword_Damage": player.damage,
 		"money": player.money,
-		
+		"has_walljump": player.has_walljump,
 		# THE FIX: Check if the node is valid AND make sure its state is not DEAD
 		"Hoard_exists": is_instance_valid(hoard) and hoard.current_state != hoard.BossState.DEAD
 	}
@@ -68,6 +68,8 @@ func load_game():
 			if data.has("health_upgrade_bought"):
 				healer.health_upgrade_bought = data["health_upgrade_bought"]
 
+			if data.has("has_walljump"):
+				player.has_walljump = data["has_walljump"]
 
 			if data.has("money"):
 				player.money = data["money"]

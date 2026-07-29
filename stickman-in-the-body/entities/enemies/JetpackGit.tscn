@@ -147,8 +147,6 @@ offsets = PackedFloat32Array(0, 0.7012987, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1036799139]
-collision_layer = 4
-collision_mask = 4
 script = ExtResource("1_mu4cg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1449370168]
