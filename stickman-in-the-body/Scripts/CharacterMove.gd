@@ -72,6 +72,10 @@ func _ready():
 	bloodbar.value = 100; butchering_in_progress = 0
 	for p in particles: 
 		p.show(); p.emitting = false
+		
+	# --- NEW: Connects area logic so sword can slash Area2D projectiles! ---
+	if not slash_area_2.area_entered.is_connected(_on_slash_area_2_area_entered):
+		slash_area_2.area_entered.connect(_on_slash_area_2_area_entered)
 
 func flash_red():
 	var t = create_tween()
@@ -160,6 +164,11 @@ func _physics_process(delta):
 		
 	# --- WALL JUMP LOGIC ---
 	if Input.is_action_just_pressed("Jump") and is_on_wall() and not is_on_floor() and has_walljump:
+		
+		# --> DEJANK FIX: Cleanly cancel the pogo and glide state so they don't break the wall jump
+		is_pogoing = false
+		pogo_fall_timer = 0.0
+		
 		var wall_direction = get_wall_normal()
 		velocity.y = JUMP_VELOCITY
 		wall_jump_lock_timer = 0.25 
@@ -309,8 +318,22 @@ func _physics_process(delta):
 			last_floor_pos = global_position
 
 func _on_slash_area_2_body_entered(body):
+	# Stop the sword from slicing the player!
+	if body == self:
+		return
+		
 	if body.has_method("take_damage") and slash.animation == "Slash" and slash.is_playing(): 
 		body.take_damage(damage); bloodbar.value += 1
+
+# --- NEW: Allows slashing Area2D projectiles ---
+func _on_slash_area_2_area_entered(a):
+	if a == self or a == fazed_hitbox: return
+	
+	var target = a if a.has_method("take_damage") else a.get_parent()
+	
+	if target and target.has_method("take_damage") and slash.animation == "Slash" and slash.is_playing(): 
+		target.take_damage(damage)
+		bloodbar.value += 1
 
 func _on_killzone_body_entered(_b):
 	if healthbar.health > 0 and not damage_taken_in_the_past_0point4seconds: apply_damage(10)
@@ -337,6 +360,10 @@ func die_sequence():
 	respawn_logic() 
 
 func _on_fazed_hitbox_body_entered(b):
+	# Stop punching yourself!
+	if b == self: 
+		return 
+		
 	if is_pogoing and velocity.y > 0 and b.has_method("take_damage"):
 		var calculated_damage = damage_value * max(1.0, pogo_fall_timer)
 		b.take_damage(calculated_damage)
@@ -357,6 +384,19 @@ func _on_fazed_hitbox_body_exited(b):
 	if attackers.has(b): attackers.erase(b)
 
 func _on_fazed_hitbox_area_entered(a):
+	# --- NEW: POGO OFF AREA PROJECTILES (LIKE LIMBS) ---
+	var target = a if a.has_method("take_damage") else a.get_parent()
+	if is_pogoing and velocity.y > 0 and target and target.has_method("take_damage"):
+		var calculated_damage = damage_value * max(1.0, pogo_fall_timer)
+		target.take_damage(calculated_damage)
+		
+		velocity.y = JUMP_VELOCITY * sqrt(1.5)
+		is_pogoing = false
+		pogo_fall_timer = 0.0
+		pogo_cooldown_timer = pogo_cooldown_duration 
+		bouncing_in_progress = 1
+		return
+		
 	if a.name == "Damage" and healthbar.health > 0 and not damage_taken_in_the_past_0point4seconds and not healthpause: 
 		apply_damage(damage_value)
 	if a.has_method("AreaIdentifier"):
@@ -388,7 +428,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("BloodSpell") and not bloodbind_in_progress: 
 		if bloodbar.value >= 10.0: 
 			bloodbar.value -= 10.0 
-			shoot_projectile()     
+			shoot_projectile()      
 
 func shoot_projectile() -> void:
 	if projectile_scene == null:
@@ -428,3 +468,9 @@ func trigger_endlag_punishment() -> void:
 	character.position.y = 0
 	$AudioStreamPlayer2D.playing = false
 	finish_bloodbind()
+
+# --- I ADDED THIS SO THE BOSS CAN HURT YOU! ---
+func take_damage(amount):
+	# Now it actually checks your invincibility frames before hurting you!
+	if not damage_taken_in_the_past_0point4seconds and not healthpause:
+		apply_damage(amount)

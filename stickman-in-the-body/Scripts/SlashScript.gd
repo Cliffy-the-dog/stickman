@@ -28,7 +28,3 @@ func _process(delta: float) -> void:
 				await get_tree().create_timer(0.25).timeout
 				slashing_counts = 0
 				await get_tree().create_timer(0.25).timeout
-
-
-#================================================================================================#
-#                                   End of Script

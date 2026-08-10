@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bdpv6lvtfuu6h"]
+
+[ext_resource type="Texture2D" uid="uid://bomedhv6esjkk" path="res://assets/sprites/Former Guardian.png" id="1_3rrls"]
+[ext_resource type="Script" uid="uid://dmoi75fmkqley" path="res://assets/sprites/limb_projectile.gd" id="2_qhval"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhval"]
+atlas = ExtResource("1_3rrls")
+region = Rect2(217, 0, 217, 213)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ykn7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhval")
+}],
+"loop": true,
+"name": &"Sprite",
+"speed": 5.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" unique_id=1602664218]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ykn7s")
+animation = &"Sprite"
+script = ExtResource("2_qhval")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1386399275]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1292491398]
+polygon = PackedVector2Array(-32, 10, -36, -9, 27, -3)

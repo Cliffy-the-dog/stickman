@@ -15,8 +15,7 @@ func _set_health(new_health):
 	health = min(max_value, new_health)
 	value = health
 	
-	if health <= -1:
-		queue_free()
+	# I DELETED THE QUEUE_FREE() LOGIC HERE
 	
 	if health < prev_health:
 		@warning_ignore("standalone_expression")
@@ -24,7 +23,6 @@ func _set_health(new_health):
 		
 	else:
 		damage_bar.value = health
-	
 
 
 func init_health(_health):
