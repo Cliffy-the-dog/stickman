@@ -1,34 +1,32 @@
 extends CharacterBody2D
 
-@export var speed: float = 1200.0
-@export var max_lifetime: float = 1.5
-
-var move_dir: Vector2 = Vector2.ZERO
+@export var speed: float = 600.0
+@export var lifetime: float = 6.0
+var damage: int = 20
+var direction: Vector2 = Vector2.ZERO
 
 func _ready():
-	get_tree().create_timer(max_lifetime).timeout.connect(func():
-		if is_instance_valid(self):
+	# Start the self-destruct timer
+	await get_tree().create_timer(lifetime).timeout
+	queue_free()
+
+func _physics_process(_delta):
+	velocity = direction * speed
+	move_and_slide()
+
+func launch(aim_dir: Vector2, _target: Node2D):
+	direction = aim_dir.normalized()
+	
+func _on_area_2d_body_entered(body):
+	# Bulletproof check: Does it have health, and is it NOT the boss?
+	if body.has_method("take_damage") and not "Boss" in body.name:
+		if "is_pogoing" in body and body.is_pogoing and body.velocity.y > 0:
 			queue_free()
-	)
-
-func launch(initial_dir: Vector2, _target_player: Node2D = null):
-	move_dir = initial_dir.normalized()
-	rotation = move_dir.angle()
-
-func _physics_process(delta):
-	if move_dir != Vector2.ZERO:
-		var collision = move_and_collide(move_dir * speed * delta)
-		if collision:
-			var hit_object = collision.get_collider()
-			
-			if hit_object and hit_object.has_method("take_damage"):
-				hit_object.take_damage(15)
-			elif hit_object and hit_object.has_method("_on_fazed_hitbox_area_entered"):
-				hit_object._on_fazed_hitbox_area_entered()
-				
-			# Breaks instantly on collision
+		else:
+			body.take_damage(damage)
 			queue_free()
+	elif body is TileMap or body is StaticBody2D:
+		queue_free()
 
-func take_damage(amount):
-	# The instant it takes damage from a pogo or slash, it deletes itself!
+func take_damage(_amount):
 	queue_free()

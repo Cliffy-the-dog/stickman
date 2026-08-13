@@ -12,8 +12,9 @@ var limb_projectile_scene = preload("res://assets/sprites/LimbProjectile.tscn")
 
 # --- ADJUSTABLE EXPORT VARIABLES ---
 @export var max_health: int = 1000
+@export var attack_cooldown: float = 1.0 # Delay between attacks
 @export var spike_gap: float = 150.0 
-@export var attack_cooldown: float = 1.0 
+@export var DASH_SPEED: float = 1500.0 
 
 # --- BOSS STATS ---
 @onready var health: int = max_health
@@ -21,7 +22,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 # --- ABILITY VARIABLES ---
 var dash_distance_left = 0.0
-@export var DASH_SPEED: float = 1500.0 # Tweak this in the Inspector now!
 var spin_timer = 0.0
 var head_reference: Node2D = null
 var attack_timer = 0.0
@@ -30,6 +30,8 @@ var headless_timeout = 0.0
 # --- STATE MACHINE ---
 enum State { SLEEP, WAKING, IDLE, DASH, SPIKE, START_SPIN, SPIN, SPREAD, THROW_HEAD, HEADLESS, DYING }
 var current_state = State.SLEEP
+
+var wake_delay = 0.2
 
 func _ready():
 	health = max_health
@@ -44,7 +46,9 @@ func _physics_process(delta):
 
 	match current_state:
 		State.SLEEP:
-			if player and global_position.distance_to(player.global_position) <= 1200:
+			if wake_delay > 0.0:
+				wake_delay -= delta
+			elif player and global_position.distance_to(player.global_position) <= 1200:
 				change_state(State.WAKING)
 				AnimatedSprite.play("Starting")
 				velocity = Vector2.ZERO
@@ -159,7 +163,6 @@ func start_spike():
 	var start_x = global_position.x + (facing_dir * 100)
 	var warning_spikes = []
 	
-	# Spawn transparent telegraphing warnings
 	for i in range(8):
 		var warning = spike_scene.instantiate()
 		warning.global_position = Vector2(start_x + (i * spike_gap * facing_dir), global_position.y)
@@ -182,7 +185,6 @@ func start_spike():
 	
 	if current_state == State.DYING: return 
 	
-	# Spawn real damaging spikes
 	for i in range(8):
 		var spike = spike_scene.instantiate()
 		spike.global_position = Vector2(start_x + (i * spike_gap * facing_dir), global_position.y)
@@ -212,7 +214,6 @@ func start_spread():
 	
 	velocity.y = -1200.0 
 	
-	# Wait for apex of the jump before firing
 	while velocity.y < 0 and current_state == State.SPREAD:
 		await get_tree().physics_frame
 	

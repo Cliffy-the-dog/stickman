@@ -23,6 +23,9 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ykn7s")
 animation = &"Sprite"
 script = ExtResource("2_qhval")
+speed = 3600.0
+lifetime = 2.0
+homing_strength = 1.0
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1386399275]
 

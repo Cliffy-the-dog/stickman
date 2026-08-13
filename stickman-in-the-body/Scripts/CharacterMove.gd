@@ -73,7 +73,6 @@ func _ready():
 	for p in particles: 
 		p.show(); p.emitting = false
 		
-	# --- NEW: Connects area logic so sword can slash Area2D projectiles! ---
 	if not slash_area_2.area_entered.is_connected(_on_slash_area_2_area_entered):
 		slash_area_2.area_entered.connect(_on_slash_area_2_area_entered)
 
@@ -244,7 +243,7 @@ func _physics_process(delta):
 		grounder_hitbox.position.y = default_hitbox_pos_y
 	
 	# --- ANIMATION PRIORITY ---
-	var is_gliding = (is_pogoing and pogo_fall_timer >= pogo_glide_time) or (not is_on_floor() and not is_pogoing and normal_fall_timer >= normal_glide_time)
+	var is_gliding = (not is_on_floor() and not is_pogoing and normal_fall_timer >= normal_glide_time)
 
 	if not pause_Idleanimationforce:
 		if is_dashing:
@@ -325,7 +324,6 @@ func _on_slash_area_2_body_entered(body):
 	if body.has_method("take_damage") and slash.animation == "Slash" and slash.is_playing(): 
 		body.take_damage(damage); bloodbar.value += 1
 
-# --- NEW: Allows slashing Area2D projectiles ---
 func _on_slash_area_2_area_entered(a):
 	if a == self or a == fazed_hitbox: return
 	
@@ -360,21 +358,24 @@ func die_sequence():
 	respawn_logic() 
 
 func _on_fazed_hitbox_body_entered(b):
-	# Stop punching yourself!
 	if b == self: 
 		return 
 		
-	if is_pogoing and velocity.y > 0 and b.has_method("take_damage"):
-		var calculated_damage = damage_value * max(1.0, pogo_fall_timer)
-		b.take_damage(calculated_damage)
+	# --- NEW: Check if this body is an enemy OR a hazard (Spikes/Limbs) ---
+	var is_bouncable = b.has_method("take_damage") or "Spike" in b.name or "Limb" in b.name
 		
+	if is_pogoing and velocity.y > 0 and is_bouncable:
+		# Only try to do damage if it actually has health
+		if b.has_method("take_damage"):
+			b.take_damage(damage_value)
+			bloodbar.value += 1
+		
+		# BOUNCE!
 		velocity.y = JUMP_VELOCITY * sqrt(1.5)
-		
 		is_pogoing = false
 		pogo_fall_timer = 0.0
 		pogo_cooldown_timer = pogo_cooldown_duration 
 		bouncing_in_progress = 1
-		
 		return
 
 	if b.has_method("take_damage") and not attackers.has(b): 
@@ -384,12 +385,21 @@ func _on_fazed_hitbox_body_exited(b):
 	if attackers.has(b): attackers.erase(b)
 
 func _on_fazed_hitbox_area_entered(a):
-	# --- NEW: POGO OFF AREA PROJECTILES (LIKE LIMBS) ---
-	var target = a if a.has_method("take_damage") else a.get_parent()
-	if is_pogoing and velocity.y > 0 and target and target.has_method("take_damage"):
-		var calculated_damage = damage_value * max(1.0, pogo_fall_timer)
-		target.take_damage(calculated_damage)
+	if a == self or a.get_parent() == self:
+		return
 		
+	var target = a if a.has_method("take_damage") else a.get_parent()
+	
+	# --- NEW: Allow pogoing off pure hazards (Areas named "Damage" or Spikes) ---
+	var is_bouncable = (target and target.has_method("take_damage")) or a.name == "Damage" or "Spike" in a.name or "Limb" in a.name
+	
+	if is_pogoing and velocity.y > 0 and is_bouncable:
+		# Only hurt it if it has health
+		if target and target.has_method("take_damage"):
+			target.take_damage(damage_value)
+			bloodbar.value += 1
+		
+		# BOUNCE!
 		velocity.y = JUMP_VELOCITY * sqrt(1.5)
 		is_pogoing = false
 		pogo_fall_timer = 0.0
@@ -398,7 +408,9 @@ func _on_fazed_hitbox_area_entered(a):
 		return
 		
 	if a.name == "Damage" and healthbar.health > 0 and not damage_taken_in_the_past_0point4seconds and not healthpause: 
-		apply_damage(damage_value)
+		if not (is_pogoing and velocity.y > 0):
+			apply_damage(damage_value)
+			
 	if a.has_method("AreaIdentifier"):
 		SPEED = 0
 		while healthbar.value < healthbar.max_value: 
@@ -421,14 +433,19 @@ func Cleave():
 func _process(_delta):
 	if not is_on_wall():
 		character.position.x = 0
-	if attackers.size() > 0 and healthbar.health > 0 and not damage_taken_in_the_past_0point4seconds and not healthpause: apply_damage(damage_value)
+		
+	# --- NEW: If a projectile got into the 'attackers' array, block it from hurting us while pogoing! ---
+	if attackers.size() > 0 and healthbar.health > 0 and not damage_taken_in_the_past_0point4seconds and not healthpause: 
+		if not (is_pogoing and velocity.y > 0):
+			apply_damage(damage_value)
+			
 	if healthbar.health < 1 and not healthpause: die_sequence()
 	healthbar.health = healthbar.value
 	health = healthbar.value
 	if Input.is_action_just_pressed("BloodSpell") and not bloodbind_in_progress: 
 		if bloodbar.value >= 10.0: 
 			bloodbar.value -= 10.0 
-			shoot_projectile()      
+			shoot_projectile()     
 
 func shoot_projectile() -> void:
 	if projectile_scene == null:
@@ -469,8 +486,9 @@ func trigger_endlag_punishment() -> void:
 	$AudioStreamPlayer2D.playing = false
 	finish_bloodbind()
 
-# --- I ADDED THIS SO THE BOSS CAN HURT YOU! ---
 func take_damage(amount):
-	# Now it actually checks your invincibility frames before hurting you!
+	if is_pogoing and velocity.y > 0:
+		return
+		
 	if not damage_taken_in_the_past_0point4seconds and not healthpause:
 		apply_damage(amount)

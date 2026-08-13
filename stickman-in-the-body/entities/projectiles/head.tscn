@@ -8,6 +8,8 @@ radius = 18.0
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=362676423]
 script = ExtResource("1_hukeq")
+speed = 6000.0
+lifetime = 1.5
 
 [node name="HeadProjectile" type="Sprite2D" parent="." unique_id=1327184313]
 scale = Vector2(2, 2)
