@@ -3,16 +3,23 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-# --- Save Data Variables ---
-var last_checkpoint: Vector2 = Vector2.ZERO
+
+# --- Player Stats & Save Data (Crucial for Pause Menu) ---
+var max_health: int = 100
+var health_upgrades: int = 1
+var money: float = 0.0
 var skins: int = 0
-var damage: float = 10.0 # Or whatever your default starting damage is
-var money: int = 0
+var damage: int = 20
+var last_checkpoint: Vector2 = Vector2.ZERO
 var has_walljump: bool = false
+var has_bloodbind: bool = false
+var boots_on: bool = true
+
 # --- Nodes ---
 @onready var player_anim_player: AnimationPlayer = $PlayerAnimPlayer
-# Update this path if your visual node is named something else!
+# Update these paths if your nodes are named something else or are in a different spot!
 @onready var sprite: Sprite2D = $Sprite2D 
+@onready var healthbar: ProgressBar = $Healthbar 
 
 # --- Combo Variables ---
 var combo_step: int = 0
