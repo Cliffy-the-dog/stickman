@@ -797,6 +797,7 @@ script = ExtResource("1_5arw2")
 [node name="Player" parent="DirectionalLight2D/Management" unique_id=1074889554 node_paths=PackedStringArray("particle_node") instance=ExtResource("1_j8eka")]
 unique_name_in_owner = true
 position = Vector2(-11475, -981)
+scale = Vector2(1.5, 1.5)
 particle_node = NodePath("GPUParticles2D")
 
 [node name="Camera2D2" type="Camera2D" parent="DirectionalLight2D/Management/Player" unique_id=1035022596]

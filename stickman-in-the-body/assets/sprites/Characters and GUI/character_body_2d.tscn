@@ -1,21 +1,9 @@
 [gd_scene format=3 uid="uid://gnmp0yh0cmhe"]
 
 [ext_resource type="Script" uid="uid://c6c7bqdistc0g" path="res://Scripts/CharacterMove.gd" id="1_21c00"]
-[ext_resource type="Texture2D" uid="uid://dtfntlflbm2cu" path="res://assets/sprites/spritesheet.png" id="2_21c00"]
-[ext_resource type="Texture2D" uid="uid://btxrb8x3d73gi" path="res://assets/sprites/FullSpriteSheet.png" id="3_b8g2h"]
-[ext_resource type="Texture2D" uid="uid://bkrn7wv1dk35" path="res://assets/sprites/Bloodbind.png" id="4_i0bwr"]
-[ext_resource type="Texture2D" uid="uid://4yj45joodosl" path="res://assets/sprites/Characters and GUI/Death.png" id="4_n7jsu"]
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://assets/sprites/Characters and GUI/healthbar.tscn" id="4_peqie"]
-[ext_resource type="Texture2D" uid="uid://7lqp2i04t0ib" path="res://assets/sprites/Characters and GUI/Shred.png" id="5_wf03w"]
-[ext_resource type="Texture2D" uid="uid://68s4n0x86720" path="res://assets/sprites/Characters and GUI/CrawlSprites.png" id="6_2ibk3"]
-[ext_resource type="Texture2D" uid="uid://ddtgsvwh6ayyn" path="res://assets/sprites/Endlag.png" id="7_ithgc"]
-[ext_resource type="Texture2D" uid="uid://goiub63ndlpc" path="res://assets/sprites/Leaping Spritesheet.png" id="7_xbhyn"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="9_53umr"]
-[ext_resource type="Texture2D" uid="uid://cfo61prlgfh3x" path="res://assets/sprites/Characters and GUI/Glide.svg" id="10_2qykq"]
 [ext_resource type="Script" uid="uid://ceifqnw8gna1l" path="res://Scripts/Max.gd" id="10_eceog"]
-[ext_resource type="Texture2D" uid="uid://ca8dx783grj26" path="res://assets/sprites/Reeling.png" id="10_x6ao1"]
-[ext_resource type="Texture2D" uid="uid://dvflolal5yb06" path="res://assets/sprites/Characters and GUI/Pogo.png" id="12_tj67o"]
-[ext_resource type="Texture2D" uid="uid://be46ipp6ovrm8" path="res://assets/sprites/Wall Jump.png" id="15_4sox3"]
 [ext_resource type="AudioStream" uid="uid://cvoqnry8ssqo6" path="res://assets/audio/music/ChainToss.mp3" id="15_qmkcy"]
 [ext_resource type="Script" uid="uid://di2dwhrgbocaw" path="res://assets/sprites/Characters and GUI/fazed_hitbox.gd" id="18_dkmdn"]
 [ext_resource type="Texture2D" uid="uid://dpet7qdjty6ma" path="res://entities/player/PlayerHead.svg" id="21_bqjbq"]
@@ -24,867 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://bq2web401t0tt" path="res://entities/player/Body.svg" id="24_uxfsk"]
 [ext_resource type="Texture2D" uid="uid://c37lattbhan6y" path="res://entities/player/ArmR.svg" id="25_buoo7"]
 [ext_resource type="Texture2D" uid="uid://ck4s81me1v1sr" path="res://entities/player/ArmL.svg" id="26_cbyo3"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_whk18"]
-atlas = ExtResource("4_i0bwr")
-region = Rect2(362, 161, 181, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2euby"]
-atlas = ExtResource("4_i0bwr")
-region = Rect2(543, 161, 181, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qqkkv"]
-atlas = ExtResource("4_i0bwr")
-region = Rect2(724, 161, 181, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kb1lx"]
-atlas = ExtResource("4_i0bwr")
-region = Rect2(0, 322, 181, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0qa0n"]
-atlas = ExtResource("4_i0bwr")
-region = Rect2(181, 322, 181, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7f8nf"]
-atlas = ExtResource("4_i0bwr")
-region = Rect2(362, 322, 181, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6tar1"]
-atlas = ExtResource("4_i0bwr")
-region = Rect2(0, 0, 181, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tiuqx"]
-atlas = ExtResource("4_i0bwr")
-region = Rect2(181, 0, 181, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7ltbl"]
-atlas = ExtResource("4_i0bwr")
-region = Rect2(362, 0, 181, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tmrus"]
-atlas = ExtResource("4_i0bwr")
-region = Rect2(543, 0, 181, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o3gc1"]
-atlas = ExtResource("4_i0bwr")
-region = Rect2(724, 0, 181, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tal5c"]
-atlas = ExtResource("4_i0bwr")
-region = Rect2(0, 161, 181, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qtve1"]
-atlas = ExtResource("4_i0bwr")
-region = Rect2(181, 161, 181, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2ibk3"]
-atlas = ExtResource("5_wf03w")
-region = Rect2(444, 0, 148, 160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tj67o"]
-atlas = ExtResource("5_wf03w")
-region = Rect2(296, 0, 148, 160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2qykq"]
-atlas = ExtResource("5_wf03w")
-region = Rect2(148, 0, 148, 160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dkmdn"]
-atlas = ExtResource("5_wf03w")
-region = Rect2(0, 0, 148, 160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4sox3"]
-atlas = ExtResource("6_2ibk3")
-region = Rect2(0, 0, 132, 126)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_56rly"]
-atlas = ExtResource("6_2ibk3")
-region = Rect2(132, 0, 132, 126)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4p73t"]
-atlas = ExtResource("6_2ibk3")
-region = Rect2(264, 0, 132, 126)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jjlkj"]
-atlas = ExtResource("6_2ibk3")
-region = Rect2(396, 0, 132, 126)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2rwh2"]
-atlas = ExtResource("6_2ibk3")
-region = Rect2(0, 0, 132, 126)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qmkcy"]
-atlas = ExtResource("4_n7jsu")
-region = Rect2(169, 477, 169, 159)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7ntic"]
-atlas = ExtResource("4_n7jsu")
-region = Rect2(0, 477, 169, 159)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fbgct"]
-atlas = ExtResource("4_n7jsu")
-region = Rect2(507, 318, 169, 159)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eru4o"]
-atlas = ExtResource("4_n7jsu")
-region = Rect2(338, 318, 169, 159)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0g0jl"]
-atlas = ExtResource("4_n7jsu")
-region = Rect2(169, 318, 169, 159)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tjx1y"]
-atlas = ExtResource("4_n7jsu")
-region = Rect2(0, 318, 169, 159)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ypoct"]
-atlas = ExtResource("4_n7jsu")
-region = Rect2(507, 159, 169, 159)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kjsvh"]
-atlas = ExtResource("4_n7jsu")
-region = Rect2(338, 159, 169, 159)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kmwir"]
-atlas = ExtResource("4_n7jsu")
-region = Rect2(169, 159, 169, 159)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bdesb"]
-atlas = ExtResource("4_n7jsu")
-region = Rect2(0, 159, 169, 159)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h66l8"]
-atlas = ExtResource("4_n7jsu")
-region = Rect2(507, 0, 169, 159)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a3nep"]
-atlas = ExtResource("4_n7jsu")
-region = Rect2(338, 0, 169, 159)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5tqho"]
-atlas = ExtResource("4_n7jsu")
-region = Rect2(169, 0, 169, 159)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8xopx"]
-atlas = ExtResource("4_n7jsu")
-region = Rect2(0, 0, 169, 159)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4aybj"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(0, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iqx6o"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(198, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ajghd"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(396, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s1rkn"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(594, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j38hu"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(792, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_akc6o"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(990, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uv2jn"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(1188, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6rcp5"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(1386, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ayykl"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(1584, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t3r2q"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(1782, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jfn0t"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(1980, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_slmp2"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(2178, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e7kv7"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(2376, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gc5aj"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(2574, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wmlwm"]
-atlas = ExtResource("7_ithgc")
-region = Rect2(2772, 0, 198, 292)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_41qpt"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(149, 644, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pmy0y"]
-atlas = ExtResource("10_2qykq")
-region = Rect2(0, 0, 149, 84)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_elhyv"]
-atlas = ExtResource("2_21c00")
-region = Rect2(447, 972, 149, 162)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_at0vm"]
-atlas = ExtResource("2_21c00")
-region = Rect2(0, 1134, 149, 162)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h7lbt"]
-atlas = ExtResource("2_21c00")
-region = Rect2(149, 1134, 149, 162)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n7jsu"]
-atlas = ExtResource("2_21c00")
-region = Rect2(0, 1296, 149, 162)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xbhyn"]
-atlas = ExtResource("2_21c00")
-region = Rect2(447, 1134, 149, 162)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tvrmd"]
-atlas = ExtResource("2_21c00")
-region = Rect2(298, 1134, 149, 162)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3rwv0"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(0, 0, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qyc7h"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(149, 0, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oi3yl"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(298, 0, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jk1bl"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(447, 0, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yny7d"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(596, 0, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uglg6"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(745, 0, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ewsyt"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(0, 805, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k77nb"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(745, 644, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_38wys"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(447, 644, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3vax8"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(298, 644, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bjwks"]
-atlas = ExtResource("7_xbhyn")
-region = Rect2(0, 0, 134, 177)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b0ut4"]
-atlas = ExtResource("7_xbhyn")
-region = Rect2(134, 0, 134, 177)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2xhf8"]
-atlas = ExtResource("7_xbhyn")
-region = Rect2(268, 0, 134, 177)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5c2br"]
-atlas = ExtResource("7_xbhyn")
-region = Rect2(402, 0, 134, 177)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fsluv"]
-atlas = ExtResource("7_xbhyn")
-region = Rect2(0, 177, 134, 177)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lobig"]
-atlas = ExtResource("7_xbhyn")
-region = Rect2(134, 177, 134, 177)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6kk7k"]
-atlas = ExtResource("7_xbhyn")
-region = Rect2(268, 177, 134, 177)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5rk4o"]
-atlas = ExtResource("7_xbhyn")
-region = Rect2(402, 177, 134, 177)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1oysa"]
-atlas = ExtResource("7_xbhyn")
-region = Rect2(0, 354, 134, 177)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_by2ta"]
-atlas = ExtResource("7_xbhyn")
-region = Rect2(134, 354, 134, 177)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_twmqb"]
-atlas = ExtResource("7_xbhyn")
-region = Rect2(268, 354, 134, 177)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l1yln"]
-atlas = ExtResource("7_xbhyn")
-region = Rect2(402, 354, 134, 177)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_op1np"]
-atlas = ExtResource("12_tj67o")
-region = Rect2(0, 0, 104, 104)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bqjbq"]
-atlas = ExtResource("12_tj67o")
-region = Rect2(104, 0, 104, 104)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_82old"]
-atlas = ExtResource("12_tj67o")
-region = Rect2(208, 0, 104, 104)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gjltl"]
-atlas = ExtResource("12_tj67o")
-region = Rect2(312, 0, 104, 104)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uxfsk"]
-atlas = ExtResource("12_tj67o")
-region = Rect2(0, 104, 104, 104)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_buoo7"]
-atlas = ExtResource("12_tj67o")
-region = Rect2(104, 104, 104, 104)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cbyo3"]
-atlas = ExtResource("12_tj67o")
-region = Rect2(208, 104, 104, 104)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gtwwb"]
-atlas = ExtResource("12_tj67o")
-region = Rect2(312, 104, 104, 104)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b0tv4"]
-atlas = ExtResource("10_x6ao1")
-region = Rect2(0, 0, 93, 158)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qtbjv"]
-atlas = ExtResource("2_21c00")
-region = Rect2(447, 810, 149, 162)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2dpwt"]
-atlas = ExtResource("2_21c00")
-region = Rect2(298, 810, 149, 162)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_byo82"]
-atlas = ExtResource("2_21c00")
-region = Rect2(149, 810, 149, 162)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1pry0"]
-atlas = ExtResource("2_21c00")
-region = Rect2(0, 810, 149, 162)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kuibc"]
-atlas = ExtResource("2_21c00")
-region = Rect2(447, 648, 149, 162)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hqyci"]
-atlas = ExtResource("2_21c00")
-region = Rect2(298, 648, 149, 162)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6vv51"]
-atlas = ExtResource("2_21c00")
-region = Rect2(149, 648, 149, 162)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a5opm"]
-atlas = ExtResource("2_21c00")
-region = Rect2(0, 648, 149, 162)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_67bcr"]
-atlas = ExtResource("15_4sox3")
-region = Rect2(0, 0, 125, 168)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0wkso"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(0, 161, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bue31"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(149, 161, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lhsgh"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(298, 161, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x58tp"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(447, 161, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ymhkd"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(596, 161, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ulb32"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(745, 161, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3gyq1"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(0, 322, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4jrk1"]
-atlas = ExtResource("3_b8g2h")
-region = Rect2(149, 322, 149, 161)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vkefc"]
-atlas = ExtResource("15_4sox3")
-region = Rect2(250, 0, 125, 168)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pofx6"]
-atlas = ExtResource("15_4sox3")
-region = Rect2(375, 0, 125, 168)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_uglg6"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_whk18")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2euby")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qqkkv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kb1lx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0qa0n")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7f8nf")
-}],
-"loop": false,
-"name": &"BloodbindLaunch",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6tar1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tiuqx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7ltbl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tmrus")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o3gc1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tal5c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qtve1")
-}],
-"loop": false,
-"name": &"Bloodpunch",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2ibk3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tj67o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2qykq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dkmdn")
-}],
-"loop": false,
-"name": &"Butcher",
-"speed": 20.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4sox3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_56rly")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4p73t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jjlkj")
-}],
-"loop": true,
-"name": &"CrawlMove",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2rwh2")
-}],
-"loop": true,
-"name": &"CrouchIdle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qmkcy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7ntic")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fbgct")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eru4o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0g0jl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tjx1y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ypoct")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kjsvh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kmwir")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bdesb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h66l8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a3nep")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5tqho")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8xopx")
-}],
-"loop": false,
-"name": &"Die",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4aybj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iqx6o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ajghd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s1rkn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j38hu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_akc6o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uv2jn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6rcp5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ayykl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t3r2q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jfn0t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_slmp2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e7kv7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gc5aj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wmlwm")
-}],
-"loop": false,
-"name": &"Endlag",
-"speed": 25.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_41qpt")
-}],
-"loop": true,
-"name": &"Falling",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pmy0y")
-}],
-"loop": true,
-"name": &"Glide",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_elhyv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_at0vm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h7lbt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n7jsu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xbhyn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tvrmd")
-}],
-"loop": true,
-"name": &"Hurt",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3rwv0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qyc7h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oi3yl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jk1bl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yny7d")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uglg6")
-}],
-"loop": true,
-"name": &"Idle",
-"speed": 9.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ewsyt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k77nb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_38wys")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3vax8")
-}],
-"loop": true,
-"name": &"Jump",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bjwks")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b0ut4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2xhf8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5c2br")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fsluv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lobig")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6kk7k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5rk4o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1oysa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_by2ta")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_twmqb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l1yln")
-}],
-"loop": true,
-"name": &"Leap",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_op1np")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bqjbq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_82old")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gjltl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uxfsk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_buoo7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cbyo3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gtwwb")
-}],
-"loop": true,
-"name": &"Pogo",
-"speed": 24.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_b0tv4")
-}],
-"loop": false,
-"name": &"Reeling",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qtbjv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2dpwt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_byo82")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1pry0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kuibc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hqyci")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6vv51")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a5opm")
-}],
-"loop": true,
-"name": &"Roll",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_67bcr")
-}],
-"loop": true,
-"name": &"Slide",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0wkso")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bue31")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lhsgh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x58tp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ymhkd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ulb32")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3gyq1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4jrk1")
-}],
-"loop": true,
-"name": &"Walking",
-"speed": 9.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vkefc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pofx6")
-}],
-"loop": false,
-"name": &"WallJump",
-"speed": 20.0
-}]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7jsu"]
 bg_color = Color(0, 1, 0.7372549, 1)
@@ -899,13 +26,14 @@ corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2rwh2"]
+radius = 30.0
 height = 201.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbhyn"]
-size = Vector2(49.333332, 150)
+size = Vector2(37.333336, 124)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvrmd"]
-size = Vector2(49.333336, 150)
+size = Vector2(38.666668, 125.333336)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xbhyn"]
 bg_color = Color(0, 0, 0, 1)
@@ -938,7 +66,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -950,7 +78,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -962,7 +90,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -974,7 +102,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -986,7 +114,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -998,7 +126,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -1010,7 +138,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -1022,7 +150,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -1034,7 +162,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1046,7 +174,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1058,7 +186,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1070,7 +198,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("PlayerAnimPlayer/ArmR:modulate")
+tracks/11/path = NodePath("Visuals/ArmR:modulate")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -1087,7 +215,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1099,7 +227,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1111,7 +239,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1123,7 +251,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -1135,7 +263,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1147,7 +275,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -1159,7 +287,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -1171,7 +299,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -1183,7 +311,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1195,7 +323,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1207,7 +335,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1219,7 +347,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("PlayerAnimPlayer/ArmR:modulate")
+tracks/11/path = NodePath("Visuals/ArmR:modulate")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -1236,7 +364,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1248,7 +376,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1260,7 +388,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1272,7 +400,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -1284,7 +412,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1296,7 +424,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -1308,7 +436,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -1320,7 +448,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -1332,7 +460,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1344,7 +472,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1356,7 +484,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1373,7 +501,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1385,7 +513,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1397,7 +525,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1409,7 +537,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -1421,7 +549,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1433,7 +561,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -1445,7 +573,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -1457,7 +585,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -1469,7 +597,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1481,7 +609,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1493,7 +621,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1505,7 +633,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("PlayerAnimPlayer/ArmR:modulate")
+tracks/11/path = NodePath("Visuals/ArmR:modulate")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -1522,7 +650,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1534,7 +662,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1546,7 +674,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1558,7 +686,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -1570,7 +698,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1582,7 +710,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -1594,7 +722,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -1606,7 +734,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -1618,7 +746,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1630,7 +758,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1642,7 +770,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1659,7 +787,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1671,7 +799,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1683,7 +811,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1695,7 +823,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -1707,7 +835,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1719,7 +847,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -1731,7 +859,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -1743,7 +871,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -1755,7 +883,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1767,7 +895,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1779,7 +907,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1797,7 +925,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1809,7 +937,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1821,7 +949,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1833,7 +961,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -1845,7 +973,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1857,7 +985,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -1869,7 +997,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -1881,7 +1009,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -1893,7 +1021,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1905,7 +1033,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -1917,7 +1045,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1934,7 +1062,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1946,7 +1074,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1958,7 +1086,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1970,7 +1098,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -1982,7 +1110,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -1994,7 +1122,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -2006,7 +1134,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2018,7 +1146,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -2030,7 +1158,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -2042,7 +1170,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -2054,7 +1182,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -2071,7 +1199,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -2083,7 +1211,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -2095,7 +1223,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -2107,7 +1235,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -2119,7 +1247,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -2131,7 +1259,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -2143,7 +1271,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2155,7 +1283,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -2167,7 +1295,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -2179,7 +1307,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -2191,7 +1319,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -2208,7 +1336,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -2220,7 +1348,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -2232,7 +1360,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -2244,7 +1372,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -2256,7 +1384,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -2268,7 +1396,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -2280,7 +1408,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2292,7 +1420,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -2304,7 +1432,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -2316,7 +1444,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -2328,7 +1456,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -2345,7 +1473,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -2357,7 +1485,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -2369,7 +1497,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -2381,7 +1509,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -2393,7 +1521,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -2405,7 +1533,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -2417,7 +1545,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2429,7 +1557,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -2441,7 +1569,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -2453,7 +1581,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -2465,7 +1593,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -2483,7 +1611,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -2495,7 +1623,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -2507,7 +1635,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -2519,7 +1647,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -2531,7 +1659,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -2543,7 +1671,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -2555,7 +1683,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2567,7 +1695,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -2579,7 +1707,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -2591,7 +1719,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -2603,7 +1731,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -2615,12 +1743,13 @@ tracks/10/keys = {
 
 [sub_resource type="Animation" id="Animation_cktar"]
 resource_name = "Pogo"
-length = 0.4
+length = 0.04
+loop_mode = 1
 step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -2632,31 +1761,31 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.02),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.02, 0.04),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(-197, 33), Vector2(-204.00003, 17.000008)]
+"values": [Vector2(-197, 33), Vector2(-204.00003, 17.000008), Vector2(-206, 7)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.02),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.02, 0.04),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(-207, 15), Vector2(-209, -16)]
+"values": [Vector2(-207, 15), Vector2(-209, -16), Vector2(-182, -24)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -2668,55 +1797,55 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.02),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.02, 0.04),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(-178, -16), Vector2(-165, -14.000008)]
+"values": [Vector2(-178, -16), Vector2(-165, -14.000008), Vector2(-152, 3)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.02),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.02, 0.04),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(-154, 9), Vector2(-165.00002, 23)]
+"values": [Vector2(-154, 9), Vector2(-165.00002, 23), Vector2(-183, 36)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.02),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.02, 0.04),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [1.5707964, 2.3561945]
+"values": [1.5707964, 2.3561945, 3.1415927]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.02),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.02, 0.04),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [3.1415927, 3.9269907]
+"values": [3.1415927, 3.9269907, 4.712389]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -2728,26 +1857,26 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.02),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.02, 0.04),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [-1.5707964, -0.7853982]
+"values": [-1.5707964, -0.7853982, 0.0]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0, 0.02),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.02, 0.04),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 0.7853982]
+"values": [0.0, 0.7853982, 1.5707964]
 }
 
 [sub_resource type="Animation" id="Animation_uxfsk"]
@@ -2757,7 +1886,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -2769,7 +1898,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -2781,7 +1910,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -2793,7 +1922,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -2805,7 +1934,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -2817,7 +1946,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -2829,7 +1958,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2841,7 +1970,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -2853,7 +1982,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -2865,7 +1994,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -2877,7 +2006,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -2894,7 +2023,7 @@ step = 0.025
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -2906,7 +2035,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -2918,7 +2047,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -2930,7 +2059,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -2942,7 +2071,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -2954,7 +2083,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -2966,7 +2095,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2978,7 +2107,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -2990,7 +2119,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -3002,7 +2131,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -3014,7 +2143,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -3031,7 +2160,7 @@ step = 0.025
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3043,7 +2172,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3055,7 +2184,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -3067,7 +2196,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -3079,7 +2208,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -3091,7 +2220,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -3103,7 +2232,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -3115,7 +2244,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -3127,7 +2256,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -3139,7 +2268,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -3151,7 +2280,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -3168,7 +2297,7 @@ step = 0.025
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3180,7 +2309,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3192,7 +2321,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -3204,7 +2333,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -3216,7 +2345,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -3228,7 +2357,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -3240,7 +2369,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -3252,7 +2381,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -3264,7 +2393,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -3276,7 +2405,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -3288,7 +2417,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -3303,7 +2432,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/0/path = NodePath("Visuals/LegL:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3315,7 +2444,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/1/path = NodePath("Visuals/LegL:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3327,7 +2456,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/2/path = NodePath("Visuals/LegR:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -3339,7 +2468,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/3/path = NodePath("Visuals/LegR:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -3351,7 +2480,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -3363,7 +2492,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/5/path = NodePath("Visuals/ArmR:rotation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -3375,7 +2504,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/6/path = NodePath("Visuals/ArmL:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -3387,7 +2516,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/7/path = NodePath("Visuals/ArmL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -3399,7 +2528,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/8/path = NodePath("Visuals/Body:position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -3411,7 +2540,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/9/path = NodePath("Visuals/Body:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -3423,7 +2552,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/10/path = NodePath("Visuals/PlayerHead:position")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -3435,7 +2564,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("PlayerAnimPlayer/ArmR:modulate")
+tracks/11/path = NodePath("Visuals/ArmR:modulate")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -3445,51 +2574,50 @@ tracks/11/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_67bcr"]
-resource_name = "Walk"
-length = 0.8
-loop_mode = 1
-step = 0.05
+[sub_resource type="Animation" id="Animation_lg4wt"]
+resource_name = "Slide"
+length = 0.001
+step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerAnimPlayer/PlayerHead:position")
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-185, -30)]
+"values": [Vector2(-190, -33)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerAnimPlayer/LegR:position")
+tracks/1/path = NodePath("Visuals/LegR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-171.00002, 69), Vector2(-216, 76), Vector2(-171.00002, 69)]
+"values": [Vector2(-161, 79)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerAnimPlayer/LegL:position")
+tracks/2/path = NodePath("Visuals/LegL:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-211, 78.00001), Vector2(-165, 69), Vector2(-211, 78.00001)]
+"values": [Vector2(-205, 80)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerAnimPlayer/Body:position")
+tracks/3/path = NodePath("Visuals/Body:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -3501,7 +2629,145 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PlayerAnimPlayer/ArmR:position")
+tracks/4/path = NodePath("Visuals/ArmR:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-149.00002, -31)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Visuals/ArmL:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-215, 15)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Visuals/LegR:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.5131268]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Visuals/LegL:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Visuals/Body:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-2.3561945]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_67bcr"]
+resource_name = "Walk"
+length = 0.8
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-185, -30)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/LegR:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-171.00002, 69), Vector2(-216, 76), Vector2(-171.00002, 69)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/LegL:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-211, 78.00001), Vector2(-165, 69), Vector2(-211, 78.00001)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visuals/Body:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-190, 21)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Visuals/ArmR:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -3513,7 +2779,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PlayerAnimPlayer/ArmL:position")
+tracks/5/path = NodePath("Visuals/ArmL:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -3525,7 +2791,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PlayerAnimPlayer/LegR:rotation")
+tracks/6/path = NodePath("Visuals/LegR:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -3537,7 +2803,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PlayerAnimPlayer/LegL:rotation")
+tracks/7/path = NodePath("Visuals/LegL:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -3549,7 +2815,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("PlayerAnimPlayer/Body:rotation")
+tracks/8/path = NodePath("Visuals/Body:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -3561,7 +2827,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("PlayerAnimPlayer/ArmR:rotation")
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -3573,7 +2839,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("PlayerAnimPlayer/ArmL:rotation")
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -3581,6 +2847,143 @@ tracks/10/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.34906584, -0.17453292, -0.6981317, -0.1744665, 0.34906584]
+}
+
+[sub_resource type="Animation" id="Animation_3jdsr"]
+resource_name = "Walljump"
+length = 0.04
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/PlayerHead:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.04),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-190, -33), Vector2(-190, -33)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/LegR:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.04),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-161, 79), Vector2(-175, 60)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/LegL:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.04),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-205, 80), Vector2(-205, 60)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visuals/Body:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.04),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-190, 21), Vector2(-190, 21)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Visuals/ArmR:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.04),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-149.00002, -31), Vector2(-148.00002, 15)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Visuals/ArmL:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.04),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-215, 15), Vector2(-230, 15)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Visuals/LegR:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.04),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.5131268, 0.61086524]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Visuals/LegL:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.04),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.61086524]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Visuals/Body:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.04),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Visuals/ArmR:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.04),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-2.3561945, -0.7853982]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Visuals/ArmL:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.04),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.7853982]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a7be7"]
@@ -3603,18 +3006,15 @@ _data = {
 &"Punch3": SubResource("Animation_cbyo3"),
 &"Punch4": SubResource("Animation_pmy0y"),
 &"RESET": SubResource("Animation_gjltl"),
-&"Walk": SubResource("Animation_67bcr")
+&"Slide": SubResource("Animation_lg4wt"),
+&"Walk": SubResource("Animation_67bcr"),
+&"Walljump": SubResource("Animation_3jdsr")
 }
 
 [node name="Jimmy Bobbington" type="CharacterBody2D" unique_id=1074889554]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_21c00")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=64196167]
-scale = Vector2(1.5, 1.5)
-sprite_frames = SubResource("SpriteFrames_uglg6")
-animation = &"CrawlMove"
 
 [node name="Healthbar" parent="." unique_id=213354145 groups=["main_healthbar"] instance=ExtResource("4_peqie")]
 unique_name_in_owner = true
@@ -3645,8 +3045,7 @@ collision_mask = 7
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SlashArea2" unique_id=1723089465]
-position = Vector2(-39, -13)
-rotation = 1.5707964
+position = Vector2(-91, -13)
 shape = SubResource("CapsuleShape2D_2rwh2")
 
 [node name="Fazed Hitbox" type="Area2D" parent="." unique_id=713956515]
@@ -3681,36 +3080,39 @@ show_percentage = false
 stream = ExtResource("15_qmkcy")
 volume_db = 24.0
 
-[node name="PlayerAnimPlayer" type="AnimationPlayer" parent="." unique_id=1491208728]
+[node name="Visuals" type="Node2D" parent="." unique_id=1725611167]
+
+[node name="PlayerAnimPlayer" type="AnimationPlayer" parent="Visuals" unique_id=1491208728]
+root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_a7be7")
 
-[node name="PlayerHead" type="Sprite2D" parent="PlayerAnimPlayer" unique_id=1490788423]
+[node name="PlayerHead" type="Sprite2D" parent="Visuals" unique_id=1490788423]
 z_index = 3
 position = Vector2(-232, -21)
 texture = ExtResource("21_bqjbq")
 
-[node name="LegR" type="Sprite2D" parent="PlayerAnimPlayer" unique_id=1241237041]
+[node name="LegR" type="Sprite2D" parent="Visuals" unique_id=1241237041]
 position = Vector2(-175, 80)
 rotation = -0.08726646
 texture = ExtResource("22_82old")
 
-[node name="LegL" type="Sprite2D" parent="PlayerAnimPlayer" unique_id=1872435219]
+[node name="LegL" type="Sprite2D" parent="Visuals" unique_id=1872435219]
 position = Vector2(-204, 71)
 texture = ExtResource("23_gjltl")
 
-[node name="Body" type="Sprite2D" parent="PlayerAnimPlayer" unique_id=1833517152]
+[node name="Body" type="Sprite2D" parent="Visuals" unique_id=1833517152]
 z_index = 3
 position = Vector2(-205, 21.999992)
 rotation = -0.7696902
 texture = ExtResource("24_uxfsk")
 
-[node name="ArmR" type="Sprite2D" parent="PlayerAnimPlayer" unique_id=705739199]
+[node name="ArmR" type="Sprite2D" parent="Visuals" unique_id=705739199]
 z_index = 5
 position = Vector2(-188, -61)
 rotation = 3.1415927
 texture = ExtResource("25_buoo7")
 
-[node name="ArmL" type="Sprite2D" parent="PlayerAnimPlayer" unique_id=971373068]
+[node name="ArmL" type="Sprite2D" parent="Visuals" unique_id=971373068]
 position = Vector2(-189, 20)
 texture = ExtResource("26_cbyo3")
 
