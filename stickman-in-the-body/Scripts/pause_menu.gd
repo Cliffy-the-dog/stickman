@@ -8,7 +8,12 @@ extends Control
 @onready var healthbar: ProgressBar = $"../../Healthbar"
 const SAVE_PATH = "user://savegame.json"
 @onready var control: Control = $"../Control"
-
+# --- Save Data Variables ---
+var last_checkpoint: Vector2 = Vector2.ZERO
+var skins: int = 0
+var damage: float = 10.0 # Or whatever your default starting damage is
+var money: int = 0
+var has_walljump: bool = false
 func _ready() -> void:
 	hide()
 	load_game()
