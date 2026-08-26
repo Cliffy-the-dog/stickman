@@ -23,11 +23,15 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ykn7s")
 animation = &"Sprite"
 script = ExtResource("2_qhval")
-speed = 3600.0
+speed = 3300.0
 lifetime = 2.0
 homing_strength = 1.0
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1386399275]
+collision_layer = 255
+collision_mask = 255
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1292491398]
 polygon = PackedVector2Array(-32, 10, -36, -9, 27, -3)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

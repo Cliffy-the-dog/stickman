@@ -8,8 +8,8 @@ extends CharacterBody2D
 @onready var inventory: Node2D = $Inventory
 @export var projectile_scene: PackedScene
 
-@onready var bloodbar: ProgressBar = $Bloodbar
-@onready var healthbar: ProgressBar = $Healthbar
+@onready var bloodbar: ProgressBar = get_node_or_null("CanvasLayer/Bloodbar") if get_node_or_null("CanvasLayer/Bloodbar") else $Bloodbar
+@onready var healthbar: ProgressBar = %Healthbar if has_node("%Healthbar") else get_node_or_null("CanvasLayer/Healthbar")
 @onready var management: Node = %Management
 @onready var pause_menu: Control = $Camera2D2/PauseMenu
 @onready var node_2d: Node2D = $Node2D
@@ -21,8 +21,9 @@ extends CharacterBody2D
 const CHAIN_TOSS = preload("uid://cvoqnry8ssqo6")
 
 # --- Adjustable Variables ---
-@export var keyframe_x_shift: float = 190.0 # Adjust in Inspector to move keyframe positions in memory
-@export var visual_offset_x: float = 0.0 
+@export var keyframe_x_shift: float = 0.0 
+@export var visual_offset_x: float = 190.0 
+@export var wall_slide_offset_x: float = 50.0 
 @export var pogo_cooldown_duration: float = 0.4
 @export var wall_slide_speed: float = 300.0 
 @export var push_force = 100.0
@@ -34,7 +35,7 @@ var bootson = true
 const JUMP_VELOCITY = -2200.0
 var money = 0.0
 var skins = 0
-var abletoheal = 1; var damage = 20; var last_checkpoint = Vector2.ZERO; var attackers: Array[Node2D] = []
+var abletoheal = 1; var damage = 20; var last_checkpoint = Vector2.ZERO; var attackers: Array[Node] = []
 var last_floor_pos = Vector2.ZERO; var pause_Idleanimationforce = 0; var damage_taken_in_the_past_0point4seconds = 0
 var damage_value = 10; var bouncing_in_progress = 0; var being_touched = 0
 var health_upgrades = 1; var SPEED = 1440.0; var healthpause = 0; var is_safe_ground = true
@@ -75,12 +76,15 @@ func _ready():
 	shift_all_keyframe_offsets(keyframe_x_shift)
 	anim_player.animation_finished.connect(_on_animation_finished)
 	pause_menu.load_game()
-	healthbar.max_value = 100 + 20 * management.health_upgrades
-	healthbar.value = healthbar.max_value
-	healthbar.health = healthbar.max_value
-	bloodbar.value = 100
 	
-	# Clear out pre-emitted particles on startup
+	if is_instance_valid(healthbar):
+		healthbar.max_value = 100 + 20 * management.health_upgrades
+		healthbar.value = healthbar.max_value
+		healthbar.health = healthbar.max_value
+		
+	if is_instance_valid(bloodbar):
+		bloodbar.value = 100
+	
 	for p in particles: 
 		p.show()
 		p.emitting = false
@@ -116,7 +120,6 @@ func can_uncrouch() -> bool:
 	return true
 
 func _physics_process(delta):
-	# Timers
 	if crouch_cooldown > 0.0: crouch_cooldown -= delta
 	if dash_cooldown_timer > 0.0: dash_cooldown_timer -= delta
 	if pogo_cooldown_timer > 0.0: pogo_cooldown_timer -= delta
@@ -138,21 +141,18 @@ func _physics_process(delta):
 
 	moneyLabel.text = "$" + str(money)
 	
-	# Directional alignment for particle emitters
-# Directional alignment for particle emitters
-	if visuals.scale.x < 0:
-		dust_particles.position.x = 44
-		if particle_node and particle_node.process_material is ParticleProcessMaterial:
-			(particle_node.process_material as ParticleProcessMaterial).direction.x = 5
-	else:
-		dust_particles.position.x = -44
-		if particle_node and particle_node.process_material is ParticleProcessMaterial:
-			(particle_node.process_material as ParticleProcessMaterial).direction.x = -5
+	if particle_node and particle_node.process_material is ParticleProcessMaterial:
+		var process_mat = particle_node.process_material as ParticleProcessMaterial
+		if visuals.scale.x < 0:
+			dust_particles.position.x = 44
+			process_mat.direction.x = 5
+		else:
+			dust_particles.position.x = -44
+			process_mat.direction.x = -5
 	
 	dust_particles.emitting = false
 	node_2d.global_position = global_position
 	
-	# Gravity & Wall Sliding
 	if not is_on_floor() and not bloodbind_in_progress and (not is_dashing or is_pogo_sliding): 
 		velocity += get_gravity() * delta * 5
 			
@@ -160,14 +160,13 @@ func _physics_process(delta):
 			velocity.y = min(velocity.y, wall_slide_speed)
 			var wall_normal = get_wall_normal()
 			visuals.scale.x = -1 if wall_normal.x > 0 else 1
-			visuals.position.x = (50 * wall_normal.x) + visual_offset_x
+			visuals.position.x = (wall_slide_offset_x * wall_normal.x) + visual_offset_x
 			
 	elif bloodbind_in_progress or (is_dashing and not is_pogo_sliding):
 		velocity.y = 0 
 	
-	# Healing Logic
-	if is_on_floor() and Input.is_action_just_pressed("Heal") and healthbar.value < healthbar.max_value:
-		while bloodbar.value > 0 and healthbar.value < healthbar.max_value and abletoheal:
+	if is_on_floor() and Input.is_action_just_pressed("Heal") and is_instance_valid(healthbar) and healthbar.value < healthbar.max_value:
+		while is_instance_valid(bloodbar) and bloodbar.value > 0 and healthbar.value < healthbar.max_value and abletoheal:
 			for p in particles: p.emitting = true
 			SPEED = 0
 			bloodbar.value -= 1.0 
@@ -177,7 +176,6 @@ func _physics_process(delta):
 		SPEED = 1440
 		for p in particles: p.emitting = false
 
-	# Action Inputs
 	if Input.is_action_just_pressed("Slash") and is_on_floor() and not is_crouching: 
 		execute_punch()
 	
@@ -185,7 +183,6 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 		anim_player.play("Jumpstart")
 		
-	# Wall Jump
 	if Input.is_action_just_pressed("Jump") and is_on_wall() and not is_on_floor() and has_walljump:
 		is_pogoing = false
 		pogo_fall_timer = 0.0
@@ -202,7 +199,6 @@ func _physics_process(delta):
 			velocity.x = 1500
 			visuals.scale.x = -1
 			
-	# Crouch Dash
 	if is_crouching and not is_dashing and dash_cooldown_timer <= 0.0 and (Input.is_action_just_pressed("Jump") or Input.is_action_just_pressed("Slash")):
 		is_dashing = true
 		is_pogo_sliding = false 
@@ -210,7 +206,6 @@ func _physics_process(delta):
 		dash_direction = -1 if visuals.scale.x < 0 else 1
 		dash_cooldown_timer = 1.0 
 
-	# Horizontal Movement & Flipping
 	var d := 0.0
 	if not bloodbind_in_progress and not is_dashing and not is_punching:
 		d = Input.get_axis("Walk Left", "Walk Right")
@@ -218,20 +213,22 @@ func _physics_process(delta):
 	if d and anim_player.current_animation != "Slide": 
 		var desired_scale = -1 if d < 0 else 1
 		
-		# Invert scale ONLY during "Leap" to correct backwards keyframe orientation
 		if anim_player.current_animation == "Leap":
 			desired_scale *= -1
 			
 		visuals.scale.x = desired_scale
 		facing_direction = sign(d)
-		%SlashArea2.position.x = 145 if d > 0 else -145
+		
+		if %SlashArea2.get_parent() == self:
+			%SlashArea2.position.x = -60 * facing_direction
+		else:
+			%SlashArea2.position.x = -60
 	elif anim_player.current_animation == "Leap":
 		visuals.scale.x = 1 if facing_direction < 0 else -1
 		
 	if bouncing_in_progress and velocity.y >= 0:
 		bouncing_in_progress = 0
 		
-	# Crouch and Aerial Pogo
 	var attempted_aerial_pogo = Input.is_action_just_pressed("Crouch") or Input.is_action_just_pressed("Slash")
 	
 	if Input.is_action_just_pressed("Crouch") and is_on_floor() and not bloodbind_in_progress and crouch_cooldown <= 0.0:
@@ -254,7 +251,6 @@ func _physics_process(delta):
 		if is_crouching and can_uncrouch():
 			is_crouching = false
 	
-	# Hitbox Modification for Crouch
 	if is_crouching:
 		grounder_hitbox.scale.y = 0.75
 		grounder_hitbox.position.y = 60.0 
@@ -262,12 +258,11 @@ func _physics_process(delta):
 		grounder_hitbox.scale.y = 1.5
 		grounder_hitbox.position.y = default_hitbox_pos_y
 	
-	# Animation Controller
 	if not pause_Idleanimationforce and not is_punching:
 		if is_dashing:
 			anim_player.play("Pogo" if is_pogo_sliding else "CrouchWalk") 
 		elif (anim_player.current_animation == "Walljump" or anim_player.current_animation == "Jumpstart") and anim_player.is_playing():
-			pass # Allow Jumpstart and Walljump to finish their playback without interruption
+			pass 
 		elif is_on_wall() and not is_on_floor() and velocity.y > 0 and not is_pogoing:
 			anim_player.play("Slide")
 		elif is_pogoing or bouncing_in_progress: 
@@ -277,11 +272,10 @@ func _physics_process(delta):
 		elif d and is_on_floor(): 
 			anim_player.play("Walk")
 		elif not is_on_floor(): 
-			anim_player.play("Leap" if d != 0 else "Jump") # Leap when moving midair, Jump when still
+			anim_player.play("Leap" if d != 0 else "Jump")
 		elif d == 0 and is_on_floor(): 
 			anim_player.play("Idle")
 
-	# Velocity Calculation
 	if bloodbind_in_progress:
 		velocity = Vector2.ZERO
 	elif is_dashing:
@@ -298,7 +292,6 @@ func _physics_process(delta):
 	velocity.y = clamp(velocity.y, -3600.0, 3600.0)
 	move_and_slide()
 	
-	# Landing & Ground Checks
 	if is_on_floor():
 		wall_jump_lock_timer = 0.0 
 		if is_pogoing:
@@ -342,9 +335,12 @@ func execute_punch() -> void:
 	combo_timer = 0.0 
 	velocity.x = facing_direction * punch_slide_speed
 	
-	# Set scale normally during punch so the player faces the direction they attack
 	visuals.scale.x = facing_direction
-	%SlashArea2.position.x = 145 if facing_direction > 0 else -145
+	
+	if %SlashArea2.get_parent() == self:
+		%SlashArea2.position.x = -120 * facing_direction
+	else:
+		%SlashArea2.position.x = 120
 	
 	%SlashArea2.show()
 	%SlashArea2.monitoring = true
@@ -365,26 +361,39 @@ func _on_slash_area_2_area_entered(a):
 	var target = a if a.has_method("take_damage") else a.get_parent()
 	if target and target.has_method("take_damage") and is_punching: 
 		target.take_damage(damage)
-		bloodbar.value += 1
+		if is_instance_valid(bloodbar):
+			bloodbar.value = min(bloodbar.max_value, bloodbar.value + 10)
 
 # --- Hazards & Damage Logic ---
 func _on_killzone_body_entered(_b):
-	if healthbar.health > 0 and not damage_taken_in_the_past_0point4seconds: apply_damage(10)
-	if healthbar.health > 0: global_position = last_floor_pos
+	if is_instance_valid(healthbar) and healthbar.value > 0 and not damage_taken_in_the_past_0point4seconds: apply_damage(10)
+	if is_instance_valid(healthbar) and healthbar.value > 0: global_position = last_floor_pos
 	else: respawn_logic()
 
 func respawn_logic():
+	attackers.clear()
+	
 	if last_checkpoint != Vector2.ZERO: 
 		global_position = last_checkpoint
-		healthbar.health = healthbar.max_value 
+		if is_instance_valid(healthbar):
+			healthbar.value = healthbar.max_value 
 	else: 
 		get_tree().reload_current_scene()
 
 func apply_damage(val):
-	abletoheal = 0; damage_taken_in_the_past_0point4seconds = 1; flash_red()
-	healthbar.health -= val; healthbar.damage_bar.value = healthbar.health
+	abletoheal = 0
+	damage_taken_in_the_past_0point4seconds = 1
+	flash_red()
+	
+	if is_instance_valid(healthbar):
+		healthbar.value -= val
+		healthbar.health = healthbar.value
+		if "damage_bar" in healthbar and healthbar.damage_bar:
+			healthbar.damage_bar.value = healthbar.health
+			
 	await get_tree().create_timer(0.4).timeout
-	damage_taken_in_the_past_0point4seconds = 0; abletoheal = 1
+	damage_taken_in_the_past_0point4seconds = 0
+	abletoheal = 1
 
 func die_sequence():
 	healthpause = 1; SPEED = 0; pause_Idleanimationforce = 1
@@ -399,7 +408,8 @@ func _on_fazed_hitbox_body_entered(b):
 	if is_pogoing and velocity.y > 0 and is_bouncable:
 		if b.has_method("take_damage"):
 			b.take_damage(damage_value)
-			bloodbar.value += 1
+			if is_instance_valid(bloodbar):
+				bloodbar.value = min(bloodbar.max_value, bloodbar.value + 10)
 		velocity.y = JUMP_VELOCITY * sqrt(1.5)
 		is_pogoing = false
 		pogo_fall_timer = 0.0
@@ -415,12 +425,18 @@ func _on_fazed_hitbox_body_exited(b):
 func _on_fazed_hitbox_area_entered(a):
 	if a == self or a.get_parent() == self: return
 	var target = a if a.has_method("take_damage") else a.get_parent()
-	var is_bouncable = (target and target.has_method("take_damage")) or a.name == "Damage" or "Spike" in a.name or "Limb" in a.name
+	
+	var t_name = target.name.to_lower() if target else ""
+	var a_name = a.name.to_lower()
+	var is_hazard = "damage" in a_name or "spike" in a_name or "limb" in a_name or "head" in a_name or "spike" in t_name or "limb" in t_name or "head" in t_name
+	
+	var is_bouncable = (target and target.has_method("take_damage")) or is_hazard
 	
 	if is_pogoing and velocity.y > 0 and is_bouncable:
 		if target and target.has_method("take_damage"):
 			target.take_damage(damage_value)
-			bloodbar.value += 1
+			if is_instance_valid(bloodbar):
+				bloodbar.value = min(bloodbar.max_value, bloodbar.value + 10)
 		velocity.y = JUMP_VELOCITY * sqrt(1.5)
 		is_pogoing = false
 		pogo_fall_timer = 0.0
@@ -428,34 +444,47 @@ func _on_fazed_hitbox_area_entered(a):
 		bouncing_in_progress = 1
 		return
 		
-	if a.name == "Damage" and healthbar.health > 0 and not damage_taken_in_the_past_0point4seconds and not healthpause: 
-		if not (is_pogoing and velocity.y > 0):
-			apply_damage(damage_value)
+	if is_hazard and not attackers.has(a): 
+		attackers.append(a)
 			
 	if a.has_method("AreaIdentifier"):
 		SPEED = 0
-		while healthbar.value < healthbar.max_value: 
-			healthbar.value += 1; await get_tree().create_timer(0.02).timeout
-		healthbar.health = healthbar.max_value; SPEED = 1440; last_checkpoint = global_position; pause_menu.save_game()
+		if is_instance_valid(healthbar):
+			while healthbar.value < healthbar.max_value: 
+				healthbar.value += 1; await get_tree().create_timer(0.02).timeout
+			healthbar.health = healthbar.max_value
+		SPEED = 1440; last_checkpoint = global_position; pause_menu.save_game()
 	if a.has_method("GITGUD"): 
 		SPEED = 700; await get_tree().create_timer(0.2).timeout; SPEED = 1440
+
+func _on_fazed_hitbox_area_exited(a):
+	if attackers.has(a): 
+		attackers.erase(a)
 
 func _process(_delta):
 	if not is_on_wall():
 		visuals.position.x = visual_offset_x
 		
-	if attackers.size() > 0 and healthbar.health > 0 and not damage_taken_in_the_past_0point4seconds and not healthpause: 
+	# NEW: Filter out deleted/invalid hazards from the list
+	for i in range(attackers.size() - 1, -1, -1):
+		if not is_instance_valid(attackers[i]):
+			attackers.remove_at(i)
+		
+	if attackers.size() > 0 and is_instance_valid(healthbar) and healthbar.value > 0 and not damage_taken_in_the_past_0point4seconds and not healthpause: 
 		if not (is_pogoing and velocity.y > 0):
 			apply_damage(damage_value)
 			
-	if healthbar.health < 1 and not healthpause: die_sequence()
-	healthbar.health = healthbar.value
-	health = healthbar.value
+	if is_instance_valid(healthbar):
+		if healthbar.value < 1 and not healthpause: die_sequence()
+		health = healthbar.value
 	
 	if Input.is_action_just_pressed("BloodSpell") and not bloodbind_in_progress: 
-		if bloodbar.value >= 10.0: 
-			bloodbar.value -= 10.0 
-			shoot_projectile()      
+		if projectile_scene != null:
+			if is_instance_valid(bloodbar) and bloodbar.value >= 10.0: 
+				bloodbar.value -= 10.0 
+				shoot_projectile()
+		else:
+			print("DEBUG: Projectile Scene is missing in Inspector!")
 
 # --- Spells ---
 func shoot_projectile() -> void:
@@ -488,6 +517,8 @@ func trigger_endlag_punishment() -> void:
 	finish_bloodbind()
 
 func take_damage(amount):
-	if is_pogoing and velocity.y > 0: return
+	if (is_pogoing and velocity.y > 0) or bouncing_in_progress: 
+		return
+		
 	if not damage_taken_in_the_past_0point4seconds and not healthpause:
 		apply_damage(amount)

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://gnmp0yh0cmhe"]
 
 [ext_resource type="Script" uid="uid://c6c7bqdistc0g" path="res://Scripts/CharacterMove.gd" id="1_21c00"]
+[ext_resource type="PackedScene" uid="uid://ch8qce1vi8c6e" path="res://assets/sprites/Projectile.tscn" id="2_ljjww"]
 [ext_resource type="PackedScene" uid="uid://dboo0ieo10gid" path="res://assets/sprites/Characters and GUI/healthbar.tscn" id="4_peqie"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="9_53umr"]
 [ext_resource type="Script" uid="uid://ceifqnw8gna1l" path="res://Scripts/Max.gd" id="10_eceog"]
@@ -13,51 +14,11 @@
 [ext_resource type="Texture2D" uid="uid://c37lattbhan6y" path="res://entities/player/ArmR.svg" id="25_buoo7"]
 [ext_resource type="Texture2D" uid="uid://ck4s81me1v1sr" path="res://entities/player/ArmL.svg" id="26_cbyo3"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7jsu"]
-bg_color = Color(0, 1, 0.7372549, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2rwh2"]
-radius = 30.0
-height = 201.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbhyn"]
 size = Vector2(37.333336, 124)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvrmd"]
 size = Vector2(38.666668, 125.333336)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xbhyn"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvrmd"]
-bg_color = Color(0.6, 0, 0, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
 
 [sub_resource type="Animation" id="Animation_a7be7"]
 resource_name = "Bloodbind Armless"
@@ -3011,42 +2972,55 @@ _data = {
 &"Walljump": SubResource("Animation_3jdsr")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2rwh2"]
+radius = 67.0
+height = 201.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xbhyn"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvrmd"]
+bg_color = Color(0.6, 0, 0, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7jsu"]
+bg_color = Color(0, 1, 0.7372549, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
 [node name="Jimmy Bobbington" type="CharacterBody2D" unique_id=1074889554]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_21c00")
-
-[node name="Healthbar" parent="." unique_id=213354145 groups=["main_healthbar"] instance=ExtResource("4_peqie")]
-unique_name_in_owner = true
-z_index = 4096
-offset_left = -1764.0
-offset_top = -999.0
-offset_right = -1264.0
-offset_bottom = -972.0
-theme_override_styles/fill = SubResource("StyleBoxFlat_n7jsu")
-metadata/_edit_use_anchors_ = true
-
-[node name="Health" type="Label" parent="Healthbar" unique_id=1185595611]
-layout_mode = 0
-offset_left = 17.0
-offset_top = 30.0
-offset_right = 202.0
-offset_bottom = 91.0
-theme_override_fonts/font = ExtResource("9_53umr")
-theme_override_font_sizes/font_size = 50
-text = "Health"
-script = ExtResource("10_eceog")
-
-[node name="SlashArea2" type="Area2D" parent="." unique_id=1506186180]
-unique_name_in_owner = true
-position = Vector2(145, 9)
-collision_layer = 2
-collision_mask = 7
-monitoring = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SlashArea2" unique_id=1723089465]
-position = Vector2(-91, -13)
-shape = SubResource("CapsuleShape2D_2rwh2")
+projectile_scene = ExtResource("2_ljjww")
+keyframe_x_shift = 190.0
+visual_offset_x = 0.0
+wall_slide_offset_x = 25.0
+wall_slide_speed = 450.0
 
 [node name="Fazed Hitbox" type="Area2D" parent="." unique_id=713956515]
 collision_layer = 7
@@ -3064,17 +3038,6 @@ light_mask = 2
 visibility_layer = 2
 scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_tvrmd")
-
-[node name="Bloodbar" type="ProgressBar" parent="." unique_id=1770813219]
-z_index = 4096
-offset_left = -1764.0
-offset_top = -892.0
-offset_right = -1264.0
-offset_bottom = -861.0
-theme_override_styles/background = SubResource("StyleBoxFlat_xbhyn")
-theme_override_styles/fill = SubResource("StyleBoxFlat_tvrmd")
-value = 100.0
-show_percentage = false
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1806018517]
 stream = ExtResource("15_qmkcy")
@@ -3116,7 +3079,51 @@ texture = ExtResource("25_buoo7")
 position = Vector2(-189, 20)
 texture = ExtResource("26_cbyo3")
 
-[connection signal="body_entered" from="SlashArea2" to="." method="_on_slash_area_2_body_entered"]
+[node name="SlashArea2" type="Area2D" parent="Visuals" unique_id=1506186180]
+unique_name_in_owner = true
+position = Vector2(-60, 0)
+collision_layer = 2
+collision_mask = 7
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/SlashArea2" unique_id=1723089465]
+position = Vector2(-34, 0)
+shape = SubResource("CapsuleShape2D_2rwh2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1760332570]
+
+[node name="Bloodbar" type="ProgressBar" parent="CanvasLayer" unique_id=1770813219]
+z_index = 4096
+offset_top = 15.0
+offset_right = 300.0
+offset_bottom = 29.999992
+scale = Vector2(0.4, 0.4)
+theme_override_styles/background = SubResource("StyleBoxFlat_xbhyn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_tvrmd")
+value = 100.0
+show_percentage = false
+
+[node name="Healthbar" parent="CanvasLayer" unique_id=213354145 groups=["main_healthbar"] instance=ExtResource("4_peqie")]
+unique_name_in_owner = true
+z_index = 4096
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 500.0
+offset_bottom = 30.0
+scale = Vector2(0.4, 0.4)
+theme_override_styles/fill = SubResource("StyleBoxFlat_n7jsu")
+
+[node name="Health" type="Label" parent="CanvasLayer/Healthbar" unique_id=1185595611]
+layout_mode = 0
+offset_top = 50.0
+offset_right = 185.0
+offset_bottom = 111.0
+theme_override_fonts/font = ExtResource("9_53umr")
+theme_override_font_sizes/font_size = 50
+text = "Health"
+script = ExtResource("10_eceog")
+
 [connection signal="area_entered" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_area_entered"]
 [connection signal="body_entered" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_body_entered"]
 [connection signal="body_exited" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_body_exited"]
+[connection signal="body_entered" from="Visuals/SlashArea2" to="." method="_on_slash_area_2_body_entered"]

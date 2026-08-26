@@ -16,4 +16,7 @@ collision_layer = 255
 collision_mask = 255
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=417690562]
+position = Vector2(120, -65)
 polygon = PackedVector2Array(-116, 184, -27, -172, 27, 39, 56, -33, 116, 184)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

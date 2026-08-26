@@ -26,6 +26,7 @@ var spin_timer = 0.0
 var head_reference: Node2D = null
 var attack_timer = 0.0
 var headless_timeout = 0.0 
+var last_attack_choice: int = 0
 
 # --- STATE MACHINE ---
 enum State { SLEEP, WAKING, IDLE, DASH, SPIKE, START_SPIN, SPIN, SPREAD, THROW_HEAD, HEADLESS, DYING }
@@ -119,7 +120,12 @@ func pick_random_attack():
 	if current_state != State.IDLE or not player: return 
 	
 	var attacks = [1, 2, 3, 4, 5]
+	
+	if last_attack_choice in attacks:
+		attacks.erase(last_attack_choice)
+		
 	var chosen = attacks.pick_random()
+	last_attack_choice = chosen
 	
 	match chosen:
 		1: start_dash()
@@ -274,11 +280,19 @@ func _on_boss_hitbox_body_entered(body):
 	if current_state == State.DYING: return 
 	
 	if body == player:
+		# 1. Base contact damage applied in ALL states
+		if body.has_method("take_damage"): 
+			body.take_damage(10) # You can adjust this base damage
+		
+		# 2. State-specific bonuses and knockbacks
 		if current_state == State.DASH:
-			if body.has_method("take_damage"): body.take_damage(20)
+			if body.has_method("take_damage"): 
+				body.take_damage(10) # Additional 10 damage brings it to your original 20
+			
 			var knock_dir = sign(global_position.x - player.global_position.x)
 			global_position.x += (knock_dir if knock_dir != 0 else 1.0) * 100
 			change_state(State.IDLE)
 			
 		elif current_state == State.SPIN:
-			if body.has_method("take_damage"): body.take_damage(10)
+			# The base 10 damage is already applied above, so we don't need to add more here
+			pass

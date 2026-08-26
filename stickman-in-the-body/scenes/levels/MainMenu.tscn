@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dkmnonkdefu4o" path="res://Scenes/levels/settings.tscn" id="2_7rblo"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="3_ov3pg"]
 [ext_resource type="Texture2D" uid="uid://dhli81x86e771" path="res://Scenes/ui/Sunset Battle.png" id="4_agb1x"]
+[ext_resource type="AudioStream" uid="uid://b73e73aemk4oi" path="res://assets/audio/music/Menu.wav" id="5_al3p8"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ue4lf"]
 load_path = "res://.godot/imported/Screenshot 2026-05-07 063547.png-00990db0c0abbfd6d5c2bb90ef54de3e.ctex"
@@ -33,7 +34,9 @@ offset_bottom = 173.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("3_ov3pg")
 theme_override_font_sizes/font_size = 64
-text = "WRECKED HUMANITY"
+text = "APOPTOSIS"
+horizontal_alignment = 1
+autowrap_mode = 1
 
 [node name="Sunset Battle" type="Sprite2D" parent="." unique_id=1219705406]
 z_index = -99
@@ -89,6 +92,10 @@ z_index = -100
 position = Vector2(576, 324)
 scale = Vector2(3.0157073, 3.3402064)
 texture = SubResource("CompressedTexture2D_ue4lf")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1483178082]
+stream = ExtResource("5_al3p8")
+autoplay = true
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Settings2" to="." method="_on_settings_pressed"]

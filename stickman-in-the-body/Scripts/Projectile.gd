@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 		if distance_traveled >= max_distance:
 			is_returning = true
 			if is_instance_valid(player_ref):
-				player_ref.character.play("Reeling")
+				player_ref.anim_player.play("Reeling") # FIXED
 	else:
 		if is_instance_valid(player_ref):
 			if not is_punching:
@@ -86,7 +86,7 @@ func trigger_punch() -> void:
 
 	# 2. Start the visual winding-up punch animation
 	if is_instance_valid(player_ref):
-		player_ref.character.play("Bloodpunch")
+		player_ref.anim_player.play("Bloodpunch") # FIXED
 		
 	# 3. Apply the cinematic delay pause (or switch to animation_finished)
 	await get_tree().create_timer(0.4).timeout 
@@ -103,7 +103,7 @@ func trigger_punch() -> void:
 			if is_instance_valid(target) and target.has_method("apply_knockback"):
 				var push_dir = sign(target.global_position.x - player_ref.global_position.x)
 				if push_dir == 0:
-					push_dir = -1.0 if player_ref.character.flip_h else 1.0
+					push_dir = -1.0 if player_ref.visuals.scale.x < 0 else 1.0 # FIXED
 					
 				target.apply_knockback(Vector2(push_dir * 2400.0, -800.0))
 		
@@ -117,6 +117,7 @@ func trigger_punch() -> void:
 		await punch_audio_player.finished
 		
 	queue_free()
+
 # --- NEW: Safely handles unlocking the player without playing any effects ---
 func trigger_miss_cleanup() -> void:
 	if is_instance_valid(chain_audio_player):

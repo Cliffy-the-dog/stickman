@@ -8,6 +8,7 @@ func _ready() -> void:
 #In case something goes wrong, starter scene path is res://Scenes/starter_scene.tscn
 
 func _on_play_pressed() -> void:
+	$AudioStreamPlayer.queue_free()
 	get_tree().change_scene_to_file("res://scenes/levels/starter_scene.tscn")
 
 

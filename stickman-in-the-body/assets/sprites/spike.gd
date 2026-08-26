@@ -4,19 +4,25 @@ extends Sprite2D
 var damage: int = 15
 
 func _ready():
-	# Start the self-destruct timer
 	await get_tree().create_timer(lifetime).timeout
 	queue_free()
 
 func _on_area_2d_body_entered(body):
-	# Bulletproof check: Does it have health, and is it NOT the boss?
-	if body.has_method("take_damage") and not "Boss" in body.name:
-		if "is_pogoing" in body and body.is_pogoing and body.velocity.y > 0:
-			# Player is pogoing! Block damage so the player script handles the bounce.
-			return
-		else:
-			# Normal hit!
-			body.take_damage(damage)
+	_handle_collision(body)
 
-func take_damage(_amount):
+func _on_area_2d_area_entered(area):
+	var target = area if area.has_method("take_damage") else area.get_parent()
+	_handle_collision(target)
+
+func _handle_collision(target):
+	if target and target.has_method("take_damage") and not target.has_method("pick_random_attack"):
+		var is_pogoing_now = "is_pogoing" in target and target.is_pogoing and target.velocity.y > 0
+		var is_bouncing_now = "bouncing_in_progress" in target and target.bouncing_in_progress > 0
+		
+		if is_pogoing_now or is_bouncing_now:
+			return # Spike doesn't destroy itself on bounce
+		else:
+			target.take_damage(damage)
+
+func take_damage(amount):
 	pass

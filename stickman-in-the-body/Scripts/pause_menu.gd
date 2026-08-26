@@ -5,7 +5,7 @@ extends Control
 @onready var healer: AnimatedSprite2D = $"../../../Collecter2"
 @onready var starter_scene: Node2D = $"../../../../.."
 @onready var player: CharacterBody2D = %Player
-@onready var healthbar: ProgressBar = $"../../Healthbar"
+@onready var healthbar: ProgressBar = %Healthbar
 const SAVE_PATH = "user://savegame.json"
 @onready var control: Control = $"../Control"
 # --- Save Data Variables ---
@@ -64,10 +64,13 @@ func load_game():
 				player.global_position = player.last_checkpoint
 				print("DEBUG: Checkpoint loaded: ", player.last_checkpoint)
 			
-			if data.has("health_upgrades"):
-				management.health_upgrades = data["health_upgrades"]
-				print("DEBUG: Health Upgrades loaded: ", management.health_upgrades)
-				healthbar.max_value = 100 + 20 * data["health_upgrades"]
+		if data.has("health_upgrades"):
+			management.health_upgrades = data["health_upgrades"]
+			print("DEBUG: Health Upgrades loaded: ", management.health_upgrades)
+			
+			var target_bar = healthbar if is_instance_valid(healthbar) else (player.get("healthbar") if is_instance_valid(player) else null)
+			if target_bar:
+				target_bar.max_value = 100 + 20 * data["health_upgrades"]
 				
 
 			if data.has("health_upgrade_bought"):
