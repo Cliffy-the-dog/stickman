@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d3o6yv261uamt"
+path="res://.godot/imported/Ambient for Apoptosis.wav-3d332eb5fc002108f493f2dee38c5232.sample"
+
+[deps]
+
+source_file="res://assets/audio/music/Ambient for Apoptosis.wav"
+dest_files=["res://.godot/imported/Ambient for Apoptosis.wav-3d332eb5fc002108f493f2dee38c5232.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -3,7 +3,7 @@ extends Node
 @onready var player: AudioStreamPlayer = $AudioStreamPlayer
 
 const TRACK_BLOODBORN = preload("res://assets/audio/music/The Bloodborn.mp3")
-const TRACK_FLOW = preload("res://assets/audio/music//Flow.mp3")
+const TRACK_FLOW = preload("res://assets/audio/music/Ambient for Apoptosis.wav")
 const TRACK_HOARD1 = preload("res://assets/audio/music//Main 1.wav")
 const TRACK_HOARD2 = preload("res://assets/audio/music//Main 2.wav")
 const TRACK_HOARD_FALL = preload("res://assets/audio/music/Screen Recording 2026-05-01 091735.mp3")

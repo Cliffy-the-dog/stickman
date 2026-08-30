@@ -18,6 +18,12 @@ extends CharacterBody2D
 @export var particle_node: GPUParticles2D 
 @onready var moneyLabel: Label = $Camera2D2/Money
 
+# --- Limb Trail References ---
+@export var arm_l_trail: Line2D
+@export var arm_r_trail: Line2D
+@export var leg_l_trail: Line2D
+@export var leg_r_trail: Line2D
+
 const CHAIN_TOSS = preload("uid://cvoqnry8ssqo6")
 
 # --- Adjustable Variables ---
@@ -56,6 +62,7 @@ var wall_jump_lock_timer = 0.0
 
 # --- Pogo Variables ---
 var is_pogoing = false
+var was_pogoing = false
 var pogo_start_y = 0.0
 var pogo_direction = 0.0 
 var pogo_fall_timer = 0.0 
@@ -77,6 +84,8 @@ func _ready():
 	anim_player.animation_finished.connect(_on_animation_finished)
 	pause_menu.load_game()
 	
+	_setup_limb_trails()
+	
 	if is_instance_valid(healthbar):
 		healthbar.max_value = 100 + 20 * management.health_upgrades
 		healthbar.value = healthbar.max_value
@@ -93,6 +102,41 @@ func _ready():
 		
 	if not %SlashArea2.area_entered.is_connected(_on_slash_area_2_area_entered):
 		%SlashArea2.area_entered.connect(_on_slash_area_2_area_entered)
+
+func _setup_limb_trails() -> void:
+	var lines = visuals.find_children("*", "Line2D", true, false)
+	for line in lines:
+		if line is Line2D:
+			line.visible = false
+			var p_name = line.get_parent().name.to_lower()
+			if "arm" in p_name or "hand" in p_name:
+				if "r" in p_name and arm_r_trail == null: arm_r_trail = line
+				elif "l" in p_name and arm_l_trail == null: arm_l_trail = line
+				elif arm_l_trail == null: arm_l_trail = line
+				elif arm_r_trail == null: arm_r_trail = line
+			elif "leg" in p_name or "foot" in p_name:
+				if "r" in p_name and leg_r_trail == null: leg_r_trail = line
+				elif "l" in p_name and leg_l_trail == null: leg_l_trail = line
+				elif leg_l_trail == null: leg_l_trail = line
+				elif leg_r_trail == null: leg_r_trail = line
+
+func update_limb_trails(step: int) -> void:
+	var show_arm_l = is_pogoing or (step == 1 or step == 3 or step == 4)
+	var show_arm_r = is_pogoing or (step == 1 or step == 2 or step == 3 or step == 4)
+	var show_legs  = is_pogoing or (step == 3)
+
+	if arm_l_trail: 
+		if "emitting" in arm_l_trail: arm_l_trail.emitting = show_arm_l
+		else: arm_l_trail.visible = show_arm_l
+	if arm_r_trail: 
+		if "emitting" in arm_r_trail: arm_r_trail.emitting = show_arm_r
+		else: arm_r_trail.visible = show_arm_r
+	if leg_l_trail: 
+		if "emitting" in leg_l_trail: leg_l_trail.emitting = show_legs
+		else: leg_l_trail.visible = show_legs
+	if leg_r_trail: 
+		if "emitting" in leg_r_trail: leg_r_trail.emitting = show_legs
+		else: leg_r_trail.visible = show_legs
 
 func shift_all_keyframe_offsets(offset_x: float) -> void:
 	if offset_x == 0.0: 
@@ -138,6 +182,11 @@ func _physics_process(delta):
 
 	if is_pogoing:
 		pogo_fall_timer += delta
+
+	# Check for Pogo state change to toggle trails automatically
+	if is_pogoing != was_pogoing:
+		was_pogoing = is_pogoing
+		update_limb_trails(combo_step)
 
 	moneyLabel.text = "$" + str(money)
 	
@@ -345,6 +394,7 @@ func execute_punch() -> void:
 	%SlashArea2.show()
 	%SlashArea2.monitoring = true
 	anim_player.play("Punch" + str(combo_step))
+	update_limb_trails(combo_step)
 
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name.begins_with("Punch"):
@@ -352,6 +402,7 @@ func _on_animation_finished(anim_name: String) -> void:
 		%SlashArea2.hide()
 		%SlashArea2.monitoring = false
 		combo_timer = 0.2
+		update_limb_trails(0)
 	if anim_name == "Jumpstart":
 		if not is_on_floor():
 			anim_player.play("Leap" if velocity.x != 0 else "Jump")
@@ -465,7 +516,6 @@ func _process(_delta):
 	if not is_on_wall():
 		visuals.position.x = visual_offset_x
 		
-	# NEW: Filter out deleted/invalid hazards from the list
 	for i in range(attackers.size() - 1, -1, -1):
 		if not is_instance_valid(attackers[i]):
 			attackers.remove_at(i)
@@ -509,13 +559,12 @@ func finish_bloodbind() -> void:
 
 func trigger_endlag_punishment() -> void:
 	$AudioStreamPlayer2D.play()
-	visuals.position.y = -100
+	visuals.position.y = -100 # <--- Shifts sprite up by 100px
 	anim_player.play("Bloodbind Endlag")
 	await anim_player.animation_finished
-	visuals.position.y = 0
+	visuals.position.y = 0    # <--- Snaps back down
 	$AudioStreamPlayer2D.playing = false
 	finish_bloodbind()
-
 func take_damage(amount):
 	if (is_pogoing and velocity.y > 0) or bouncing_in_progress: 
 		return
