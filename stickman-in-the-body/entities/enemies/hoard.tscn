@@ -149,7 +149,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qnedo")
 }],
-"loop": 0,
+"loop": false,
 "name": &"Awakening",
 "speed": 5.0
 }, {
@@ -181,7 +181,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2dyae")
 }],
-"loop": 1,
+"loop": true,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -189,7 +189,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2u5n8")
 }],
-"loop": 1,
+"loop": true,
 "name": &"Unawakened",
 "speed": 5.0
 }, {
@@ -233,7 +233,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_k3r5w")
 }],
-"loop": 0,
+"loop": false,
 "name": &"Zeal",
 "speed": 5.0
 }]

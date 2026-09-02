@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://2ii80bak51ux"]
+
+[ext_resource type="Script" uid="uid://dach514nb2h55" path="res://non_respawning_tag.gd" id="1_5gkgn"]
+
+[node name="Non-Respawning Tag" type="Node" unique_id=1480212627]
+script = ExtResource("1_5gkgn")

@@ -5,9 +5,19 @@
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="3_ov3pg"]
 [ext_resource type="Texture2D" uid="uid://dhli81x86e771" path="res://Scenes/ui/Sunset Battle.png" id="4_agb1x"]
 [ext_resource type="AudioStream" uid="uid://b73e73aemk4oi" path="res://assets/audio/music/Menu.wav" id="5_al3p8"]
+[ext_resource type="Script" uid="uid://clfondgr8m7d0" path="res://Scenes/levels/deletesaveopen.gd" id="6_4fyxb"]
+[ext_resource type="Script" uid="uid://dif6y15jiqipe" path="res://Scenes/levels/delete.gd" id="7_4sng5"]
+[ext_resource type="Script" uid="uid://qlpuq53qb7uw" path="res://Scenes/levels/cancel.gd" id="8_k86cj"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ue4lf"]
 load_path = "res://.godot/imported/Screenshot 2026-05-07 063547.png-00990db0c0abbfd6d5c2bb90ef54de3e.ctex"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mj4cp"]
+bg_color = Color(0, 0, 0, 0.7490196)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
 
 [node name="Control" type="Control" unique_id=528503606]
 layout_mode = 3
@@ -44,11 +54,18 @@ position = Vector2(576, 324)
 texture = ExtResource("4_agb1x")
 
 [node name="Play" type="Button" parent="." unique_id=2072732764]
-layout_mode = 0
-offset_left = 158.0
-offset_top = 556.0
-offset_right = 396.0
-offset_bottom = 623.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -119.0
+offset_top = -148.0
+offset_right = 119.0
+offset_bottom = -81.0
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.58392406, 0.58392406, 1)
@@ -58,11 +75,18 @@ theme_override_fonts/font = ExtResource("3_ov3pg")
 text = "PLAY"
 
 [node name="Settings2" type="Button" parent="." unique_id=1897028856]
-layout_mode = 0
-offset_left = 452.0
-offset_top = 556.0
-offset_right = 690.0
-offset_bottom = 623.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -520.0
+offset_top = -148.0
+offset_right = -282.0
+offset_bottom = -81.0
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0, 0.58431375, 0.58431375, 1)
@@ -73,11 +97,18 @@ theme_override_fonts/font = ExtResource("3_ov3pg")
 text = "SETTINGS"
 
 [node name="Quit" type="Button" parent="." unique_id=1889684929]
-layout_mode = 0
-offset_left = 746.0
-offset_top = 556.0
-offset_right = 984.0
-offset_bottom = 623.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 280.0
+offset_top = -148.0
+offset_right = 518.0
+offset_bottom = -81.0
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0, 0.58431375, 0.58431375, 1)
@@ -97,6 +128,133 @@ texture = SubResource("CompressedTexture2D_ue4lf")
 stream = ExtResource("5_al3p8")
 autoplay = true
 
+[node name="DELETESAVEOPEN" type="Button" parent="." unique_id=929089715]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -119.0
+offset_top = -55.0
+offset_right = 119.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ov3pg")
+text = "Delete Save File"
+script = ExtResource("6_4fyxb")
+
+[node name="DeleteSavePopup" type="Panel" parent="." unique_id=602542209]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -404.0
+offset_top = -164.0
+offset_right = 404.0
+offset_bottom = 164.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mj4cp")
+
+[node name="DeleteSaveLabel" type="Label" parent="DeleteSavePopup" unique_id=1088036002]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -194.0
+offset_right = 194.0
+offset_bottom = 78.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ov3pg")
+theme_override_font_sizes/font_size = 64
+text = "WARNING!"
+
+[node name="DeleteSaveLabel2" type="Label" parent="DeleteSavePopup" unique_id=264470225]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -133.0
+offset_top = 77.0
+offset_right = 134.0
+offset_bottom = 100.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_ov3pg")
+theme_override_font_sizes/font_size = 32
+text = "This action cannot be undone"
+
+[node name="DeleteSaveLabel3" type="Label" parent="DeleteSavePopup" unique_id=2112449768]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -266.0
+offset_top = 124.0
+offset_right = 268.0
+offset_bottom = 164.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_ov3pg")
+theme_override_font_sizes/font_size = 32
+text = "Are you sure you want to proceed?"
+
+[node name="Delete" type="Button" parent="DeleteSavePopup" unique_id=2137745910]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -309.0
+offset_top = -115.0
+offset_right = -71.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.7411765, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.7411765, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.7411765, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.7411765, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ov3pg")
+theme_override_font_sizes/font_size = 32
+text = "DELETE"
+script = ExtResource("7_4sng5")
+
+[node name="Cancel" type="Button" parent="DeleteSavePopup" unique_id=1454569223]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 93.0
+offset_top = -115.0
+offset_right = 331.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0.735357, 0.7373294, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.7372549, 0.7372549, 1)
+theme_override_colors/font_hover_color = Color(0, 0.7372549, 0.7372549, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0.7372549, 0.7372549, 1)
+theme_override_fonts/font = ExtResource("3_ov3pg")
+theme_override_font_sizes/font_size = 32
+text = "CANCEL"
+script = ExtResource("8_k86cj")
+
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Settings2" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="DELETESAVEOPEN" to="DELETESAVEOPEN" method="_on_pressed"]
+[connection signal="pressed" from="DeleteSavePopup/Delete" to="DeleteSavePopup/Delete" method="_on_pressed"]
+[connection signal="pressed" from="DeleteSavePopup/Cancel" to="DeleteSavePopup/Cancel" method="_on_pressed"]

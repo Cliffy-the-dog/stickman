@@ -80,6 +80,9 @@ var facing_direction: float = 1.0
 func _ready():
 	%SlashArea2.hide()
 	%SlashArea2.monitoring = false
+	# Force SlashArea2 to check every single layer automatically
+	%SlashArea2.collision_mask = 0xFFFFFFFF
+	
 	shift_all_keyframe_offsets(keyframe_x_shift)
 	anim_player.animation_finished.connect(_on_animation_finished)
 	pause_menu.load_game()
@@ -102,6 +105,8 @@ func _ready():
 		
 	if not %SlashArea2.area_entered.is_connected(_on_slash_area_2_area_entered):
 		%SlashArea2.area_entered.connect(_on_slash_area_2_area_entered)
+	if not %SlashArea2.body_entered.is_connected(_on_slash_area_2_body_entered):
+		%SlashArea2.body_entered.connect(_on_slash_area_2_body_entered)
 
 func _setup_limb_trails() -> void:
 	var lines = visuals.find_children("*", "Line2D", true, false)
@@ -183,7 +188,6 @@ func _physics_process(delta):
 	if is_pogoing:
 		pogo_fall_timer += delta
 
-	# Check for Pogo state change to toggle trails automatically
 	if is_pogoing != was_pogoing:
 		was_pogoing = is_pogoing
 		update_limb_trails(combo_step)
@@ -372,7 +376,9 @@ func _physics_process(delta):
 
 # --- Combat Functions ---
 func execute_punch() -> void:
-	if is_punching: return 
+	print("--- PUNCH ATTEMPTED ---")
+	if is_punching: 
+		return 
 	
 	if combo_timer > 0.0:
 		combo_step += 1
@@ -393,8 +399,26 @@ func execute_punch() -> void:
 	
 	%SlashArea2.show()
 	%SlashArea2.monitoring = true
-	anim_player.play("Punch" + str(combo_step))
-	update_limb_trails(combo_step)
+	
+	var anim_name = "Punch" + str(combo_step)
+	if anim_player.has_animation(anim_name):
+		anim_player.play(anim_name)
+		update_limb_trails(combo_step)
+
+	await get_tree().process_frame
+	_check_slash_hitbox_overlaps()
+
+func _check_slash_hitbox_overlaps() -> void:
+	if not is_punching: return
+	
+	var bodies = %SlashArea2.get_overlapping_bodies()
+	var areas = %SlashArea2.get_overlapping_areas()
+	
+	for body in bodies:
+		_process_hit_target(body)
+		
+	for area in areas:
+		_process_hit_target(area)
 
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name.begins_with("Punch"):
@@ -408,9 +432,24 @@ func _on_animation_finished(anim_name: String) -> void:
 			anim_player.play("Leap" if velocity.x != 0 else "Jump")
 
 func _on_slash_area_2_area_entered(a):
-	if a == self or a == fazed_hitbox: return
-	var target = a if a.has_method("take_damage") else a.get_parent()
-	if target and target.has_method("take_damage") and is_punching: 
+	_process_hit_target(a)
+
+func _on_slash_area_2_body_entered(b):
+	_process_hit_target(b)
+
+func _process_hit_target(node: Node) -> void:
+	if not is_punching or node == self or node == fazed_hitbox: 
+		return
+		
+	var target = node
+	while target != null and not target.has_method("take_damage"):
+		target = target.get_parent()
+		if target == get_tree().root:
+			target = null
+			break
+			
+	if target and target.has_method("take_damage"): 
+		print("SUCCESS: Calling take_damage() on ", target.name)
 		target.take_damage(damage)
 		if is_instance_valid(bloodbar):
 			bloodbar.value = min(bloodbar.max_value, bloodbar.value + 10)
@@ -542,14 +581,20 @@ func shoot_projectile() -> void:
 	bloodbind_in_progress = 1
 	pause_Idleanimationforce = 1
 	SPEED = 0
-	anim_player.play("Bloodbind Launch")
-		
+	
+	var is_facing_left: bool = facing_direction < 0
+	var launch_dir: Vector2 = Vector2.LEFT if is_facing_left else Vector2.RIGHT
+
 	var proj = projectile_scene.instantiate()
-	proj.is_flipped = visuals.scale.x < 0
-	proj.global_position = global_position
+	proj.is_flipped = is_facing_left
+	proj.direction = launch_dir
 	proj.player_ref = self
-	proj.direction = Vector2.LEFT if visuals.scale.x < 0 else Vector2.RIGHT
+	proj.global_position = global_position
+	
 	get_tree().current_scene.add_child(proj)
+	
+	if anim_player and anim_player.has_animation("Bloodbind Launch"):
+		anim_player.play("Bloodbind Launch")
 
 func finish_bloodbind() -> void:
 	bloodbind_in_progress = 0
@@ -559,12 +604,13 @@ func finish_bloodbind() -> void:
 
 func trigger_endlag_punishment() -> void:
 	$AudioStreamPlayer2D.play()
-	visuals.position.y = -100 # <--- Shifts sprite up by 100px
+	visuals.position.y = -100
 	anim_player.play("Bloodbind Endlag")
 	await anim_player.animation_finished
-	visuals.position.y = 0    # <--- Snaps back down
+	visuals.position.y = 0
 	$AudioStreamPlayer2D.playing = false
 	finish_bloodbind()
+
 func take_damage(amount):
 	if (is_pogoing and velocity.y > 0) or bouncing_in_progress: 
 		return

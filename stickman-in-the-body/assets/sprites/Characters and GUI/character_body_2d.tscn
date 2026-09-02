@@ -3020,8 +3020,6 @@ script = ExtResource("1_21c00")
 projectile_scene = ExtResource("2_ljjww")
 keyframe_x_shift = 190.0
 visual_offset_x = 0.0
-wall_slide_offset_x = 25.0
-wall_slide_speed = 450.0
 
 [node name="Fazed Hitbox" type="Area2D" parent="." unique_id=713956515]
 collision_layer = 7
@@ -3125,8 +3123,8 @@ script = ExtResource("10_f6ue3")
 [node name="SlashArea2" type="Area2D" parent="Visuals" unique_id=1506186180]
 unique_name_in_owner = true
 position = Vector2(-60, 0)
-collision_layer = 2
-collision_mask = 7
+collision_layer = 7
+collision_mask = 2
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/SlashArea2" unique_id=1723089465]

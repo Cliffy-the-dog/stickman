@@ -13,7 +13,7 @@ var player_ref: Node2D = null
 var distance_traveled: float = 0.0
 var is_returning: bool = false
 var is_flipped: bool = false
-var is_punching: bool = false 
+var is_punching: bool = false
 
 var caught_targets: Array = []
 @onready var chain_line: Line2D = $Line2D
@@ -25,6 +25,7 @@ var punch_audio_player: AudioStreamPlayer2D
 func _ready() -> void:
 	texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
 	
+	# Ensure sprite flip reflects the direction passed at spawn
 	if has_node("AnimatedSprite2D"):
 		$AnimatedSprite2D.flip_h = is_flipped
 	elif has_node("Sprite2D"):
@@ -52,8 +53,8 @@ func _physics_process(delta: float) -> void:
 		
 		if distance_traveled >= max_distance:
 			is_returning = true
-			if is_instance_valid(player_ref):
-				player_ref.anim_player.play("Reeling") # FIXED
+			if is_instance_valid(player_ref) and player_ref.has_node("AnimationPlayer"):
+				player_ref.anim_player.play("Reeling")
 	else:
 		if is_instance_valid(player_ref):
 			if not is_punching:
@@ -64,7 +65,6 @@ func _physics_process(delta: float) -> void:
 				if global_position.distance_to(player_ref.global_position) < 300.0:
 					is_punching = true
 					
-					# --- MODIFIED: Only punch if we actually caught targets ---
 					if caught_targets.size() > 0:
 						trigger_punch()
 					else:
@@ -80,50 +80,42 @@ func _physics_process(delta: float) -> void:
 	update_chain_trail()
 
 func trigger_punch() -> void:
-	# 1. Stop the chain sound immediately as the projectile returns
 	if is_instance_valid(chain_audio_player):
 		chain_audio_player.stop()
 
-	# 2. Start the visual winding-up punch animation
-	if is_instance_valid(player_ref):
-		player_ref.anim_player.play("Bloodpunch") # FIXED
+	if is_instance_valid(player_ref) and player_ref.has_node("AnimationPlayer"):
+		player_ref.anim_player.play("Bloodpunch")
 		
-	# 3. Apply the cinematic delay pause (or switch to animation_finished)
-	await get_tree().create_timer(0.4).timeout 
+	await get_tree().create_timer(0.4).timeout
 	
-	# ========================================================
-	# 4. THE IMPACT: Play the punch sound effect NOW
-	# ========================================================
 	if is_instance_valid(punch_audio_player):
 		punch_audio_player.play()
 
-	# 5. Apply the knockback forces right as the sound hits
 	if is_instance_valid(player_ref):
 		for target in caught_targets:
 			if is_instance_valid(target) and target.has_method("apply_knockback"):
 				var push_dir = sign(target.global_position.x - player_ref.global_position.x)
 				if push_dir == 0:
-					push_dir = -1.0 if player_ref.visuals.scale.x < 0 else 1.0 # FIXED
+					push_dir = -1.0 if is_flipped else 1.0
 					
 				target.apply_knockback(Vector2(push_dir * 2400.0, -800.0))
 		
-		player_ref.finish_bloodbind()
+		if player_ref.has_method("finish_bloodbind"):
+			player_ref.finish_bloodbind()
 	
-	# 6. Keep the node alive long enough for the punch sound to finish playing
 	if is_instance_valid(punch_audio_player) and punch_audio_player.playing:
-		hide() 
+		hide()
 		if chain_line: chain_line.queue_free()
 		set_physics_process(false)
 		await punch_audio_player.finished
 		
 	queue_free()
 
-# --- NEW: Safely handles unlocking the player without playing any effects ---
 func trigger_miss_cleanup() -> void:
 	if is_instance_valid(chain_audio_player):
 		chain_audio_player.stop()
 		
-	if is_instance_valid(player_ref):
+	if is_instance_valid(player_ref) and player_ref.has_method("trigger_endlag_punishment"):
 		player_ref.trigger_endlag_punishment()
 		
 	cleanup()

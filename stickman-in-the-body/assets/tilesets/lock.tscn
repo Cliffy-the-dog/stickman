@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dsu7jshd0nymg"]
+
+[ext_resource type="Texture2D" uid="uid://c5n6e2d0sy7x0" path="res://assets/tilesets/Lock.png" id="1_5x2er"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w64bo"]
+size = Vector2(128, 640)
+
+[node name="Lock" type="StaticBody2D" unique_id=1536124526]
+collision_layer = 255
+collision_mask = 255
+
+[node name="Lock" type="Sprite2D" parent="." unique_id=1652550935]
+texture = ExtResource("1_5x2er")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1817010574]
+shape = SubResource("RectangleShape2D_w64bo")

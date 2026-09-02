@@ -32,7 +32,6 @@ func _ready() -> void:
 	video_stream_player.hide()
 
 func _physics_process(delta: float) -> void:
-	# 1. Stop all logic if dead
 	if current_state == BossState.DEAD:
 		return
 		
@@ -46,25 +45,19 @@ func _physics_process(delta: float) -> void:
 				character.play("Unawakened")
 				
 		BossState.WAKING:
-			# FIX: We removed the reset-to-sleep code from here.
-			# Let the trigger_awakening function handle the logic.
 			pass
 				
 		BossState.AWAKENED:
 			combat_loop(delta)
 
 func trigger_awakening():
-	# If we are already waking up, don't start the process again
 	if current_state == BossState.WAKING: return
 	
 	current_state = BossState.WAKING
 	character.play("Awakening")
 	
-	# Wait for the animation to fully complete
 	await character.animation_finished
 	
-	# After animation, check if player is STILL in range
-	# This is the "proper" place to decide whether to fight or sleep
 	if distance < 800:
 		current_state = BossState.AWAKENED
 		MusicManager.start_chase(self.name, true)
@@ -97,13 +90,12 @@ func reset_boss():
 	MusicManager.stop_chase(self.name, true)
 
 func take_damage(damage):
-	# FIX: Gate prevents the video from playing twice
 	if current_state == BossState.DEAD:
 		return
 
 	healthbar.value -= damage
 	if healthbar.value <= 0:
-		current_state = BossState.DEAD # Set state immediately
+		current_state = BossState.DEAD
 		await get_tree().create_timer(0.01).timeout
 		die_and_play_video()
 
@@ -113,16 +105,13 @@ func die_and_play_video():
 	character.hide()
 	healthbar.hide()
 	
-	# Safety check for collisions
 	for child in get_children():
 		if child is CollisionShape2D or child is CollisionPolygon2D:
 			child.set_deferred("disabled", true)
 	
-	# FIX: Ensure full screen UI anchors
 	video_stream_player.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	video_stream_player.expand = true
 	
-	# Play during pause
 	video_stream_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	get_tree().paused = true
 	
@@ -147,7 +136,7 @@ func Projectile(target_node: Node2D):
 	head_instance.global_position = global_position
 	var direction = (target_node.global_position - global_position).normalized()
 	if head_instance.has_method("launch"):
-		head_instance.launch(direction)
+		head_instance.launch(direction, target_node)
 		
 func Dash():
 	velocity.x = SPEED * side
