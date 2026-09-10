@@ -3,8 +3,9 @@ extends AnimatedSprite2D
 @onready var area_2d: Area2D = $Area2D
 @onready var label: Label = $Area2D/CollisionShape2D/Label
 
-@onready var TxtBg: ColorRect = $"../DirectionalLight2D/Management/Player/ColorRect"
-@onready var Txt: RichTextLabel = $"../DirectionalLight2D/Management/Player/ColorRect/RichTextLabel"
+@onready var TxtBg: ColorRect = $"../DirectionalLight2D/Management/Player/Camera2D2/ColorRect2"
+@onready var Txt: RichTextLabel = $"../DirectionalLight2D/Management/Player/Camera2D2/ColorRect2/RichTextLabel"
+
 @onready var player: CharacterBody2D = %Player
 
 var animationlock = 0

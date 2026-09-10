@@ -9,8 +9,10 @@ extends CharacterBody2D
 
 @onready var healthbar: ProgressBar = $Healthbar
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var target: CharacterBody2D = %Player
-@onready var music_manager: Node = %MusicManager
+
+# Removed % unique node syntax to prevent null instances on runtime spawn
+var target: CharacterBody2D = null
+var music_manager: Node = null
 
 var skinshred_scene = preload("res://assets/sprites/skin_shred.tscn")
 
@@ -24,14 +26,16 @@ var is_chasing = false
 var detection_range = 1100
 var is_dead = false
 
-# --- NEW STUN VARIABLE ---
 var is_stunned: bool = false
 
 func _ready():
-	player = get_tree().root.find_child("Player", true, false)
+	# Dynamically locate nodes in the scene root
+	player = get_tree().root.find_child("Player", true, false) as CharacterBody2D
+	target = player
+	music_manager = get_tree().root.find_child("MusicManager", true, false)
+	
 	set_particles_emitting(false) 
 
-# --- NEW KNOCKBACK FUNCTION ---
 func apply_knockback(force: Vector2) -> void:
 	velocity = force
 	is_stunned = true
@@ -48,11 +52,12 @@ func _physics_process(delta: float) -> void:
 		if distance < detection_range and not is_chasing:
 			is_chasing = true
 			set_particles_emitting(true) 
-			music_manager.start_chase(get_instance_id()) 
+			if music_manager and music_manager.has_method("start_chase"):
+				music_manager.start_chase(get_instance_id()) 
 
-	# --- UPDATED MOVEMENT LOGIC ---
+	# --- MOVEMENT LOGIC ---
 	if not is_stunned:
-		if can_move == 1 and is_chasing == true:
+		if can_move == 1 and is_chasing and target:
 			look_at(target.global_position)
 			velocity = transform.x * sped * negative_value
 			sprite.play("Fly")
@@ -62,11 +67,10 @@ func _physics_process(delta: float) -> void:
 				await get_tree().create_timer(0.15).timeout
 				negative_value = 1
 		
-		if can_move == 1 and is_chasing == false:
+		if can_move == 1 and not is_chasing:
 			sprite.play("Idle")
 			set_particles_emitting(false) 
 	else:
-		# If stunned, add gravity so the flying enemy arcs downwards dynamically
 		velocity += get_gravity() * delta
 		velocity.x = move_toward(velocity.x, 0, 800 * delta)
 		move_and_slide()
@@ -93,7 +97,10 @@ func take_damage(damage) -> void:
 func die() -> void:
 	is_dead = true
 	set_particles_emitting(false)
-	music_manager.stop_chase(get_instance_id())
+	
+	if music_manager and music_manager.has_method("stop_chase"):
+		music_manager.stop_chase(get_instance_id())
+		
 	can_move = 0
 	
 	if skinshred_scene:

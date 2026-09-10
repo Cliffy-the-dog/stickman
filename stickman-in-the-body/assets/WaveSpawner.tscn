@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://b0tmligpr6ug3"]
+
+[ext_resource type="Script" uid="uid://dbbdogpadcihl" path="res://WaveSpawner.gd" id="1_ak4xi"]
+[ext_resource type="Script" uid="uid://dach514nb2h55" path="res://non_respawning_tag.gd" id="2_wa300"]
+
+[node name="Node2D" type="Node2D" unique_id=574899934 node_paths=PackedStringArray("persistency_tracker")]
+script = ExtResource("1_ak4xi")
+persistency_tracker = NodePath("PersistencyTracker")
+
+[node name="PersistencyTracker" type="Node" parent="." unique_id=1094024549]
+script = ExtResource("2_wa300")
+metadata/_custom_type_script = "uid://dach514nb2h55"

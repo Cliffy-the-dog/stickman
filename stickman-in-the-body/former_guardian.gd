@@ -2,19 +2,24 @@ extends CharacterBody2D
 
 @onready var AnimatedSprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var healthbar: ProgressBar = $Healthbar
-@onready var boss_hitbox: Area2D = $BossHitbox 
+@onready var boss_hitbox: Area2D = $BossHitbox
 
 var head_scene = preload("res://entities/projectiles/head.tscn")
 var spike_scene = preload("res://assets/sprites/Spike.tscn")
 var limb_projectile_scene = preload("res://assets/sprites/LimbProjectile.tscn")
 
-@export var player: Node2D 
+@export_group("Persistence")
+## Unique ID for saving (auto-assigned to child PersistencyTracker if left empty there)
+@export var entity_id: String = "former_guardian_boss"
+
+@export_group("Guardian Settings")
+@export var player: Node2D
 
 # --- ADJUSTABLE EXPORT VARIABLES ---
 @export var max_health: int = 1000
 @export var attack_cooldown: float = 1.0 # Delay between attacks
-@export var spike_gap: float = 150.0 
-@export var DASH_SPEED: float = 1500.0 
+@export var spike_gap: float = 150.0
+@export var DASH_SPEED: float = 1500.0
 
 # --- BOSS STATS ---
 @onready var health: int = max_health
@@ -25,7 +30,7 @@ var dash_distance_left = 0.0
 var spin_timer = 0.0
 var head_reference: Node2D = null
 var attack_timer = 0.0
-var headless_timeout = 0.0 
+var headless_timeout = 0.0
 var last_attack_choice: int = 0
 
 # --- STATE MACHINE ---
@@ -39,6 +44,12 @@ func _ready():
 	healthbar.max_value = max_health
 	healthbar.value = health
 	AnimatedSprite.play("StartIdle")
+
+	# Sync entity_id to child PersistencyTracker if it was left empty
+	if has_node("PersistencyTracker"):
+		var tracker = $PersistencyTracker
+		if "entity_id" in tracker and tracker.entity_id == "" and entity_id != "":
+			tracker.entity_id = entity_id
 
 func _physics_process(delta):
 	# Apply gravity during air movement except active horizontal DASH
@@ -272,8 +283,22 @@ func take_damage(amount):
 	if health <= 0:
 		change_state(State.DYING)
 		velocity.x = 0 
+		if is_instance_valid(healthbar):
+			healthbar.hide()
+			
 		AnimatedSprite.play("Keeling over and dying")
 		await AnimatedSprite.animation_finished
+		
+		# --- REGISTER PERSISTENT DEATH ---
+		if has_node("PersistencyTracker"):
+			$PersistencyTracker.on_defeated()
+		elif entity_id.strip_edges() != "":
+			var save_mgr = get_tree().get_first_node_in_group("save_manager")
+			if not save_mgr:
+				save_mgr = get_tree().current_scene.find_child("pause_menu", true, false)
+			if save_mgr and save_mgr.has_method("register_entity_death"):
+				save_mgr.register_entity_death(entity_id)
+
 		queue_free()
 
 func _on_boss_hitbox_body_entered(body):
@@ -282,17 +307,16 @@ func _on_boss_hitbox_body_entered(body):
 	if body == player:
 		# 1. Base contact damage applied in ALL states
 		if body.has_method("take_damage"): 
-			body.take_damage(10) # You can adjust this base damage
+			body.take_damage(10)
 		
 		# 2. State-specific bonuses and knockbacks
 		if current_state == State.DASH:
 			if body.has_method("take_damage"): 
-				body.take_damage(10) # Additional 10 damage brings it to your original 20
+				body.take_damage(10)
 			
 			var knock_dir = sign(global_position.x - player.global_position.x)
 			global_position.x += (knock_dir if knock_dir != 0 else 1.0) * 100
 			change_state(State.IDLE)
 			
 		elif current_state == State.SPIN:
-			# The base 10 damage is already applied above, so we don't need to add more here
 			pass

@@ -3164,6 +3164,9 @@ theme_override_font_sizes/font_size = 50
 text = "Health"
 script = ExtResource("10_eceog")
 
+[node name="KeySocket" type="Marker2D" parent="." unique_id=1565881676]
+position = Vector2(70, 0)
+
 [connection signal="area_entered" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_area_entered"]
 [connection signal="body_entered" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_body_entered"]
 [connection signal="body_exited" from="Fazed Hitbox" to="." method="_on_fazed_hitbox_body_exited"]

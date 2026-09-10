@@ -3,7 +3,6 @@ extends RigidBody2D
 @onready var healthbar: ProgressBar = $Healthbar
 @export var speed = 600.0
 @export var detection_range = 1000.0
-@onready var music_manager: Node = %MusicManager
 @onready var animatedSprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var sprite = $AnimatedSprite2D 
 
@@ -14,20 +13,22 @@ var not_dying = 1
 var movable = 1
 var damage_value = 20
 var player = null
+var music_manager = null # Changed from @onready %MusicManager
 var is_chasing = false
 var dir = 1
 var is_dead = false 
 
-# --- NEW STUN VARIABLE ---
 var is_stunned: bool = false
 
 func _ready():
 	player = get_tree().root.find_child("Player", true, false)
+	# Dynamically find MusicManager in the scene tree:
+	music_manager = get_tree().root.find_child("MusicManager", true, false)
+	
 	lock_rotation = true
 	contact_monitor = true
 	max_contacts_reported = 4
 
-# --- NEW KNOCKBACK FUNCTION ---
 func apply_knockback(force: Vector2) -> void:
 	linear_velocity = force
 	is_stunned = true
@@ -40,9 +41,9 @@ func _physics_process(_delta):
 		
 		if distance < detection_range and not is_chasing:
 			is_chasing = true
-			music_manager.start_chase(get_instance_id()) 
+			if music_manager and music_manager.has_method("start_chase"):
+				music_manager.start_chase(get_instance_id()) 
 		
-		# --- UPDATED MOVEMENT LOGIC ---
 		if not is_stunned:
 			if is_chasing:
 				var direction = sign(player.global_position.x - global_position.x)
@@ -66,7 +67,8 @@ func take_damage(damage) -> void:
 
 func die() -> void:
 	is_dead = true
-	music_manager.stop_chase(get_instance_id())
+	if music_manager and music_manager.has_method("stop_chase"):
+		music_manager.stop_chase(get_instance_id())
 	movable = 0
 	not_dying = 0
 	

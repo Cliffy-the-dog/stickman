@@ -3,16 +3,20 @@ extends AnimatedSprite2D
 @onready var management: Node = %Management
 @onready var DetectionZone: Area2D = $Area2D
 @onready var label: Label = $Area2D/CollisionShape2D/Label
-@onready var TxtBg: ColorRect = $"../Player/ColorRect"
-@onready var Txt: RichTextLabel = $"../Player/ColorRect/RichTextLabel"
+@onready var TxtBg: ColorRect = $"../Player/Camera2D2/ColorRect2"
+@onready var Txt: RichTextLabel = $"../Player/Camera2D2/ColorRect2/RichTextLabel"
+@onready var press_space_to_continue: Label = $"../Player/Camera2D2/ColorRect2/Press Space to Continue"
+@onready var accept: Button = $"../Player/Camera2D2/ColorRect2/Accept"
+@onready var button_3: Button = $"../Player/Camera2D2/ColorRect2/Button3"
+@onready var button_4: Button = $"../Player/Camera2D2/ColorRect2/Button4"
+@onready var button_5: Button = $"../Player/Camera2D2/ColorRect2/Button5"
+@onready var decline: Button = $"../Player/Camera2D2/ColorRect2/Decline"
+
 @onready var player: CharacterBody2D = %Player
-@onready var accept: Button = $"../Player/ColorRect/Accept"
-@onready var decline: Button = $"../Player/ColorRect/Decline"
-@onready var button_3: Button = $"../Player/ColorRect/Button3"
-@onready var button_4: Button = $"../Player/ColorRect/Button4"
+
 # FIXED: Changed from %Healthbar to the direct node path relative to this character
 @onready var healthbar: ProgressBar = $"../Player/Healthbar"
-@onready var button_5: Button = $"../Player/ColorRect/Button5"
+
 
 var animationlock = 0
 var indialog = 0
@@ -24,13 +28,7 @@ signal interact_pressed
 signal choice_made(choice: String)
 
 func _ready() -> void:
-	Txt.hide()
-	TxtBg.hide()
-	accept.hide()
-	decline.hide()
-	button_3.hide()
-	button_4.hide()
-	button_5.hide()
+
 	
 	accept.pressed.connect(func(): choice_made.emit("heal"))
 	decline.pressed.connect(func(): choice_made.emit("decline"))

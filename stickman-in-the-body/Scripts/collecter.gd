@@ -2,11 +2,14 @@ extends AnimatedSprite2D
 
 @onready var DetectionZone: Area2D = $Area2D
 @onready var label: Label = $Area2D/CollisionShape2D/Label
-@onready var TxtBg: ColorRect = $"../Player/ColorRect"
-@onready var Txt: RichTextLabel = $"../Player/ColorRect/RichTextLabel"
+@onready var TxtBg: ColorRect = $"../Player/Camera2D2/ColorRect2"
+
+@onready var Txt: RichTextLabel = $"../Player/Camera2D2/ColorRect2/RichTextLabel"
+
 @onready var player: CharacterBody2D = %Player
-@onready var accept: Button = $"../Player/ColorRect/Accept"
-@onready var decline: Button = $"../Player/ColorRect/Decline"
+@onready var accept: Button = $"../Player/Camera2D2/ColorRect2/Accept"
+@onready var decline: Button = $"../Player/Camera2D2/ColorRect2/Decline"
+
 
 var animationlock = 0
 var indialog = 0

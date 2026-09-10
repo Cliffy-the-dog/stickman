@@ -36,11 +36,20 @@ const CHAIN_TOSS = preload("uid://cvoqnry8ssqo6")
 
 # --- Player Stats & Flags ---
 var health
-var hasbloodbind = false
+var has_bloodbind: bool = false
+var hasbloodbind: bool:
+	get: return has_bloodbind
+	set(v): has_bloodbind = v
+
 var bootson = true
 const JUMP_VELOCITY = -2200.0
 var money = 0.0
-var skins = 0
+
+# Safe setter guarantees skins can NEVER drop below 0
+var skins: int = 0:
+	set(value):
+		skins = max(0, value)
+
 var abletoheal = 1; var damage = 20; var last_checkpoint = Vector2.ZERO; var attackers: Array[Node] = []
 var last_floor_pos = Vector2.ZERO; var pause_Idleanimationforce = 0; var damage_taken_in_the_past_0point4seconds = 0
 var damage_value = 10; var bouncing_in_progress = 0; var being_touched = 0
@@ -575,7 +584,24 @@ func _process(_delta):
 		else:
 			print("DEBUG: Projectile Scene is missing in Inspector!")
 
-# --- Spells ---
+# --- Spells & Helper Functions ---
+func spend_skins(amount: int) -> bool:
+	if skins >= amount:
+		skins -= amount
+		return true
+	return false
+
+func unlock_bloodbind() -> bool:
+	if spend_skins(10):
+		has_bloodbind = true
+		
+		# Auto-trigger SaveManager on successful unlock
+		var save_manager = get_tree().get_first_node_in_group("save_manager")
+		if save_manager and save_manager.has_method("save_game"):
+			save_manager.save_game()
+		return true
+	return false
+
 func shoot_projectile() -> void:
 	if projectile_scene == null: return
 	bloodbind_in_progress = 1
@@ -594,7 +620,7 @@ func shoot_projectile() -> void:
 	get_tree().current_scene.add_child(proj)
 	
 	if anim_player and anim_player.has_animation("Bloodbind Launch"):
-		anim_player.play("Bloodbind Launch")
+		anim_player.play("Bloodbind Launscreen-fixed UIch")
 
 func finish_bloodbind() -> void:
 	bloodbind_in_progress = 0
