@@ -46,10 +46,9 @@ func _ready():
 	AnimatedSprite.play("StartIdle")
 
 	# Sync entity_id to child PersistencyTracker if it was left empty
-	if has_node("PersistencyTracker"):
-		var tracker = $PersistencyTracker
-		if "entity_id" in tracker and tracker.entity_id == "" and entity_id != "":
-			tracker.entity_id = entity_id
+	var tracker := _find_persistency_tracker()
+	if tracker and "entity_id" in tracker and tracker.entity_id == "" and entity_id != "":
+		tracker.entity_id = entity_id
 
 func _physics_process(delta):
 	# Apply gravity during air movement except active horizontal DASH
@@ -290,8 +289,9 @@ func take_damage(amount):
 		await AnimatedSprite.animation_finished
 		
 		# --- REGISTER PERSISTENT DEATH ---
-		if has_node("PersistencyTracker"):
-			$PersistencyTracker.on_defeated()
+		var tracker := _find_persistency_tracker()
+		if tracker and tracker.has_method("on_defeated"):
+			tracker.on_defeated()
 		elif entity_id.strip_edges() != "":
 			var save_mgr = get_tree().get_first_node_in_group("save_manager")
 			if not save_mgr:
@@ -300,6 +300,12 @@ func take_damage(amount):
 				save_mgr.register_entity_death(entity_id)
 
 		queue_free()
+
+func _find_persistency_tracker() -> Node:
+	for child in get_children():
+		if child is PersistencyTracker:
+			return child
+	return get_node_or_null("PersistencyTracker")
 
 func _on_boss_hitbox_body_entered(body):
 	if current_state == State.DYING: return 

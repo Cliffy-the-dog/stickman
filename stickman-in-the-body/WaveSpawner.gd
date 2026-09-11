@@ -35,8 +35,13 @@ func _ready() -> void:
 	if not is_instance_valid(player):
 		player = get_tree().get_first_node_in_group("player") as CharacterBody2D
 
-	if not is_instance_valid(persistency_tracker) and has_node("PersistencyTracker"):
-		persistency_tracker = get_node("PersistencyTracker")
+	if not is_instance_valid(persistency_tracker):
+		for child in get_children():
+			if child is PersistencyTracker:
+				persistency_tracker = child
+				break
+		if not is_instance_valid(persistency_tracker) and has_node("PersistencyTracker"):
+			persistency_tracker = get_node("PersistencyTracker")
 
 	# Sync gauntlet_id to PersistencyTracker if entity_id was left empty
 	if is_instance_valid(persistency_tracker) and "entity_id" in persistency_tracker:
