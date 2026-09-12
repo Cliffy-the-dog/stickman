@@ -6,7 +6,6 @@ extends AnimatedSprite2D
 
 @onready var accept: Button = TxtBg.get_node("Accept")
 @onready var decline: Button = TxtBg.get_node("Decline")
-# Hide extra buttons to prevent UI overlap
 @onready var button_3: Button = TxtBg.get_node_or_null("Button3")
 @onready var button_4: Button = TxtBg.get_node_or_null("Button4")
 @onready var button_5: Button = TxtBg.get_node_or_null("Button5")
@@ -25,6 +24,7 @@ func _ready() -> void:
 		if ui: ui.hide()
 	
 	Txt.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	
 	accept.pressed.connect(func(): choice_made.emit(true))
 	decline.pressed.connect(func(): choice_made.emit(false))
 
@@ -32,10 +32,6 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Interact"):
 		if in_dialog: interact_pressed.emit()
 		elif colliding and not must_leave_area: start_dialogue()
-
-func _process(_delta: float) -> void:
-	if in_dialog and is_instance_valid(TxtBg) and get_viewport().get_camera_2d():
-		TxtBg.global_position = get_viewport().get_camera_2d().get_screen_center_position() - (TxtBg.size / 2.0)
 
 func _physics_process(_delta: float) -> void:
 	if not is_playing(): play("Anim")
@@ -45,7 +41,6 @@ func start_dialogue() -> void:
 	in_dialog = true; player.SPEED = 0
 	Txt.show(); TxtBg.show()
 	
-	# Explicitly hide all buttons at the start
 	for btn in [accept, decline, button_3, button_4, button_5]:
 		if btn: btn.hide()
 	

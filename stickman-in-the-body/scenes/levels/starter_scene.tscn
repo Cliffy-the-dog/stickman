@@ -845,7 +845,7 @@ scale = Vector2(1.5, 1.5)
 
 [node name="Camera2D2" type="Camera2D" parent="DirectionalLight2D/Management/Player" unique_id=1035022596]
 position = Vector2(7, 8)
-zoom = Vector2(0.3, 0.3)
+zoom = Vector2(0.2, 0.2)
 limit_bottom = 20647
 
 [node name="ColorRect" type="ColorRect" parent="DirectionalLight2D/Management/Player/Camera2D2" unique_id=761315978]

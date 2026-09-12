@@ -4,6 +4,8 @@
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="2_6ykjb"]
 [ext_resource type="PackedScene" uid="uid://bkufjfdnayad6" path="res://Scenes/ui/Item Icons/skinshred(ui).tscn" id="3_sxppk"]
 [ext_resource type="Script" uid="uid://b0u0lck44204v" path="res://Scenes/ui/healthbar.gd" id="4_4lboj"]
+[ext_resource type="Shader" uid="uid://cyf150hcoar30" path="res://Scenes/ui/skillnode.gdshader" id="5_t7a6n"]
+[ext_resource type="Script" uid="uid://dehfrfh22l7au" path="res://Scenes/ui/SkillNode.gd" id="6_jwqo6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxppk"]
 bg_color = Color(0.37951472, 5.9862623e-07, 1.6845763e-07, 1)
@@ -19,11 +21,35 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t7a6n"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jwqo6"]
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rlkn0"]
+noise = SubResource("FastNoiseLite_jwqo6")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ebcmq"]
+shader = ExtResource("5_t7a6n")
+shader_parameter/flame_base_color = Color(0, 0.46351713, 0.46388447, 1)
+shader_parameter/flame_mid_color = Color(0, 0.81454074, 0.8145405, 1)
+shader_parameter/flame_core_color = Color(0.51317734, 0.8672819, 1, 1)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_rlkn0")
+shader_parameter/expansion_speed = 0.5000000074506
+shader_parameter/swirl_speed = 0.4
+shader_parameter/flame_scale = 1.2
+shader_parameter/center_hollow_radius = 0.08
+shader_parameter/edge_fade_width = 0.10999999754128
+shader_parameter/elapsed_time = 0.0
+
 [node name="Inventory" type="Node2D" unique_id=666343005]
 z_index = 4096
 script = ExtResource("1_afu2s")
 
 [node name="Binventory" type="ColorRect" parent="." unique_id=1388620417]
+visible = false
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 0.5)
@@ -91,7 +117,6 @@ show_percentage = false
 script = ExtResource("4_4lboj")
 
 [node name="Ninventory" type="ColorRect" parent="." unique_id=1909490822]
-visible = false
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 0.5)
@@ -122,16 +147,49 @@ offset_bottom = -57.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Tree" type="Tree" parent="Ninventory/ScrollContainer" unique_id=330132451]
+[node name="Panel" type="Panel" parent="Ninventory/ScrollContainer" unique_id=1191772329]
+custom_minimum_size = Vector2(1056, 482)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_t7a6n")
 
-[node name="ColorRect" type="ColorRect" parent="Ninventory" unique_id=216596636]
-layout_mode = 0
-offset_left = 48.0
-offset_top = 109.0
-offset_right = 1104.0
-offset_bottom = 591.0
-color = Color(0, 0, 0, 1)
+[node name="ColorRect" type="ColorRect" parent="Ninventory/ScrollContainer/Panel" unique_id=1511145330]
+material = SubResource("ShaderMaterial_ebcmq")
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 189.0
+offset_top = -77.0
+offset_right = 343.0
+offset_bottom = 77.0
+grow_vertical = 2
+script = ExtResource("6_jwqo6")
+
+[node name="ColorRect2" type="ColorRect" parent="Ninventory/ScrollContainer/Panel" unique_id=1401773240]
+material = SubResource("ShaderMaterial_ebcmq")
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 459.0
+offset_top = -206.0
+offset_right = 613.0
+offset_bottom = -52.0
+grow_vertical = 2
+script = ExtResource("6_jwqo6")
+
+[node name="ColorRect3" type="ColorRect" parent="Ninventory/ScrollContainer/Panel" unique_id=2025584209]
+material = SubResource("ShaderMaterial_ebcmq")
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 459.0
+offset_top = 48.0
+offset_right = 613.0
+offset_bottom = 202.0
+grow_vertical = 2
+script = ExtResource("6_jwqo6")
 
 [node name="Minventory" type="ColorRect" parent="." unique_id=239126784]
 visible = false
