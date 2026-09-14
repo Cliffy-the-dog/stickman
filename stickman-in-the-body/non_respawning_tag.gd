@@ -1,41 +1,119 @@
 class_name PersistencyTracker
 extends Node
 
-## Unique string identifier for this entity (e.g., "guardian_boss_area_1")
+## Optional stable ID. If empty, uses the parent's entity_id, then its path in the level.
 @export var entity_id: String = ""
 
+var _resolved_id: String = ""
+var _tracked_parent: Node = null
+var _logged: bool = false
+
 func _ready() -> void:
+	add_to_group("non_respawning_tags")
+	_tracked_parent = get_parent()
+	_resolved_id = _make_id()
+	if is_instance_valid(_tracked_parent) and not _tracked_parent.tree_exiting.is_connected(_on_parent_tree_exiting):
+		_tracked_parent.tree_exiting.connect(_on_parent_tree_exiting)
 	call_deferred("_check_persistence")
 
-func _check_persistence() -> void:
-	if entity_id.strip_edges() == "":
-		return
+func _make_id() -> String:
+	var override := entity_id.strip_edges()
+	if override != "":
+		return override
+	if is_instance_valid(_tracked_parent) and "entity_id" in _tracked_parent:
+		var parent_id := str(_tracked_parent.entity_id).strip_edges()
+		if parent_id != "":
+			return parent_id
+	if not is_instance_valid(_tracked_parent):
+		return ""
+	var tree := _scene_tree()
+	if tree and is_instance_valid(tree.current_scene) and tree.current_scene.is_ancestor_of(_tracked_parent):
+		return str(tree.current_scene.get_path_to(_tracked_parent))
+	return str(_tracked_parent.get_path())
 
-	if is_defeated():
-		# Free the parent node (e.g., Guardian, Door, Spawner) before it renders
-		var parent = get_parent()
-		if parent:
-			parent.queue_free()
+func _id() -> String:
+	if _resolved_id != "":
+		return _resolved_id
+	_resolved_id = _make_id()
+	return _resolved_id
+
+func _candidate_ids() -> Array[String]:
+	var ids: Array[String] = []
+	var primary := _id()
+	if primary != "":
+		ids.append(primary)
+	if entity_id.strip_edges() != "" and not ids.has(entity_id.strip_edges()):
+		ids.append(entity_id.strip_edges())
+	if is_instance_valid(_tracked_parent) and "entity_id" in _tracked_parent:
+		var parent_id := str(_tracked_parent.entity_id).strip_edges()
+		if parent_id != "" and not ids.has(parent_id):
+			ids.append(parent_id)
+	return ids
+
+func _check_persistence() -> void:
+	if is_defeated() and is_instance_valid(_tracked_parent):
+		_tracked_parent.queue_free()
 
 func is_defeated() -> bool:
-	if entity_id.strip_edges() == "":
+	var save_mgr := _find_save_manager()
+	if save_mgr == null or not ("defeated_entity_ids" in save_mgr):
 		return false
-		
-	var save_mgr = _find_save_manager()
-	if save_mgr and "defeated_entity_ids" in save_mgr:
-		return entity_id in save_mgr.defeated_entity_ids
+	var saved: Array = save_mgr.defeated_entity_ids
+	for id in _candidate_ids():
+		if saved.has(id):
+			return true
 	return false
 
 func on_defeated() -> void:
-	if entity_id.strip_edges() == "":
-		return
+	_log_gone()
 
-	var save_mgr = _find_save_manager()
-	if save_mgr and save_mgr.has_method("register_entity_death"):
-		save_mgr.register_entity_death(entity_id)
+func _on_parent_tree_exiting() -> void:
+	_try_log_parent_freed()
+
+func _exit_tree() -> void:
+	_try_log_parent_freed()
+
+func _try_log_parent_freed() -> void:
+	if _logged:
+		return
+	if not is_instance_valid(_tracked_parent) or not _tracked_parent.is_queued_for_deletion():
+		return
+	if _is_scene_unloading():
+		return
+	_log_gone()
+
+func _is_scene_unloading() -> bool:
+	var tree := _scene_tree()
+	if tree == null:
+		return true
+	var scene := tree.current_scene
+	if scene == null or not is_instance_valid(scene) or scene.is_queued_for_deletion():
+		return true
+	return false
+
+func _log_gone() -> void:
+	if _logged:
+		return
+	var save_mgr := _find_save_manager()
+	if save_mgr == null or not save_mgr.has_method("register_entity_death"):
+		return
+	_logged = true
+	for id in _candidate_ids():
+		save_mgr.register_entity_death(id)
+
+func _scene_tree() -> SceneTree:
+	var tree := get_tree()
+	if tree:
+		return tree
+	return Engine.get_main_loop() as SceneTree
 
 func _find_save_manager() -> Node:
-	var sm = get_tree().get_first_node_in_group("save_manager")
+	var tree := _scene_tree()
+	if tree == null:
+		return null
+	var sm := tree.get_first_node_in_group("save_manager")
 	if sm:
 		return sm
-	return get_tree().current_scene.find_child("pause_menu", true, false)
+	if tree.current_scene:
+		return tree.current_scene.find_child("pause_menu", true, false)
+	return null

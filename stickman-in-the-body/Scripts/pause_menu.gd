@@ -91,22 +91,39 @@ func load_game():
 			healer.health_upgrade_bought = inventory.has("healer_upgrade")
 
 		# 4. Persistence Deletions
-		if data.has("defeated_entities"):
-			defeated_entity_ids = data["defeated_entities"]
-			apply_entity_deaths()
+		if data.has("defeated_entities") and data["defeated_entities"] is Array:
+			defeated_entity_ids = []
+			for item in data["defeated_entities"]:
+				defeated_entity_ids.append(str(item))
 
-		if is_instance_valid(hoard):
-			hoard.exists_in_previous_save = not defeated_entity_ids.has("boss_hoard")
+		# PauseMenu _ready runs before later siblings (Hoard, Former Guardian) enter the tree.
+		call_deferred("_apply_loaded_persistence")
 
 func register_entity_death(entity_id: String) -> void:
 	if entity_id != "" and not defeated_entity_ids.has(entity_id):
 		defeated_entity_ids.append(entity_id)
 		save_game()
 
+func _apply_loaded_persistence() -> void:
+	apply_entity_deaths()
+	if not is_instance_valid(hoard):
+		hoard = get_node_or_null("../../../Hoard")
+	if is_instance_valid(hoard) and "exists_in_previous_save" in hoard:
+		hoard.exists_in_previous_save = not defeated_entity_ids.has("boss_hoard")
+
 func apply_entity_deaths() -> void:
-	var persistent_nodes = get_tree().get_nodes_in_group("persistent_entities")
-	for node in persistent_nodes:
-		if "entity_id" in node and defeated_entity_ids.has(node.entity_id):
+	var tree := get_tree()
+	if tree == null:
+		return
+
+	for tag in tree.get_nodes_in_group("non_respawning_tags"):
+		if tag.has_method("is_defeated") and tag.is_defeated():
+			var parent = tag.get_parent()
+			if is_instance_valid(parent):
+				parent.queue_free()
+
+	for node in tree.get_nodes_in_group("persistent_entities"):
+		if "entity_id" in node and defeated_entity_ids.has(str(node.entity_id)):
 			node.queue_free()
 
 func _process(_delta: float) -> void:
