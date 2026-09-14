@@ -33,9 +33,9 @@ seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ebcmq"]
 shader = ExtResource("5_t7a6n")
-shader_parameter/flame_base_color = Color(0, 0.46351713, 0.46388447, 1)
-shader_parameter/flame_mid_color = Color(0, 0.81454074, 0.8145405, 1)
-shader_parameter/flame_core_color = Color(0.51317734, 0.8672819, 1, 1)
+shader_parameter/flame_base_color = Color(0, 1, 0.463739, 1)
+shader_parameter/flame_mid_color = Color(0, 1, 0.81467485, 1)
+shader_parameter/flame_core_color = Color(0.5137255, 1, 1, 1)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_rlkn0")
 shader_parameter/expansion_speed = 0.5000000074506
 shader_parameter/swirl_speed = 0.4
@@ -43,6 +43,9 @@ shader_parameter/flame_scale = 1.2
 shader_parameter/center_hollow_radius = 0.08
 shader_parameter/edge_fade_width = 0.10999999754128
 shader_parameter/elapsed_time = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jwqo6"]
+bg_color = Color(0, 0, 0, 0.9019608)
 
 [node name="Inventory" type="Node2D" unique_id=666343005]
 z_index = 4096
@@ -152,44 +155,100 @@ custom_minimum_size = Vector2(1056, 482)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_t7a6n")
 
-[node name="ColorRect" type="ColorRect" parent="Ninventory/ScrollContainer/Panel" unique_id=1511145330]
+[node name="BloodSkillNode" type="ColorRect" parent="Ninventory/ScrollContainer/Panel" unique_id=1511145330]
 material = SubResource("ShaderMaterial_ebcmq")
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 189.0
-offset_top = -77.0
-offset_right = 343.0
-offset_bottom = 77.0
+offset_left = 136.0
+offset_top = -111.0
+offset_right = 290.0
+offset_bottom = 43.0
 grow_vertical = 2
+rotation = 0.7417649
 script = ExtResource("6_jwqo6")
 
-[node name="ColorRect2" type="ColorRect" parent="Ninventory/ScrollContainer/Panel" unique_id=1401773240]
+[node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/Panel/BloodSkillNode" unique_id=1764238123]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 18.0
+offset_right = -18.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jwqo6")
+
+[node name="HealthNode" type="ColorRect" parent="Ninventory/ScrollContainer/Panel" unique_id=1990271677]
 material = SubResource("ShaderMaterial_ebcmq")
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 459.0
-offset_top = -206.0
-offset_right = 613.0
-offset_bottom = -52.0
+offset_left = 136.0
+offset_top = -373.0
+offset_right = 290.0
+offset_bottom = -219.0
 grow_vertical = 2
+rotation = 0.7417649
 script = ExtResource("6_jwqo6")
 
-[node name="ColorRect3" type="ColorRect" parent="Ninventory/ScrollContainer/Panel" unique_id=2025584209]
+[node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/Panel/HealthNode" unique_id=215177323]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 18.0
+offset_right = -18.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jwqo6")
+
+[node name="Label" type="Label" parent="Ninventory/ScrollContainer/Panel/HealthNode/Panel" unique_id=672025596]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -11.5
+offset_right = 32.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TraversalNode" type="ColorRect" parent="Ninventory/ScrollContainer/Panel" unique_id=697314440]
 material = SubResource("ShaderMaterial_ebcmq")
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 459.0
-offset_top = 48.0
-offset_right = 613.0
-offset_bottom = 202.0
+offset_left = 136.0
+offset_top = 161.0
+offset_right = 290.0
+offset_bottom = 315.0
 grow_vertical = 2
+rotation = 0.7417649
 script = ExtResource("6_jwqo6")
+
+[node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/Panel/TraversalNode" unique_id=715013273]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 18.0
+offset_right = -18.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jwqo6")
 
 [node name="Minventory" type="ColorRect" parent="." unique_id=239126784]
 visible = false
