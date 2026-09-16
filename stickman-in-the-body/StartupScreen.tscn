@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bu4gwd0s1xcex"]
+
+[ext_resource type="Script" uid="uid://df4bba2erq7ed" path="res://startup_screen.gd" id="1_swofy"]
+[ext_resource type="VideoStream" uid="uid://u4ugnkmmlyyq" path="res://Logo1080p.ogv" id="2_swofy"]
+
+[node name="Control" type="Control" unique_id=1155078564]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_swofy")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=1486538988]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("2_swofy")
+autoplay = true
+expand = true
+
+[connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]

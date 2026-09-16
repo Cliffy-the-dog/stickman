@@ -5,7 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://bkufjfdnayad6" path="res://Scenes/ui/Item Icons/skinshred(ui).tscn" id="3_sxppk"]
 [ext_resource type="Script" uid="uid://b0u0lck44204v" path="res://Scenes/ui/healthbar.gd" id="4_4lboj"]
 [ext_resource type="Shader" uid="uid://cyf150hcoar30" path="res://Scenes/ui/skillnode.gdshader" id="5_t7a6n"]
-[ext_resource type="Script" uid="uid://dehfrfh22l7au" path="res://Scenes/ui/SkillNode.gd" id="6_jwqo6"]
+[ext_resource type="Script" uid="uid://8pvelhxhtftx" path="res://Scenes/ui/BloodSkillNode.gd" id="6_ebcmq"]
+[ext_resource type="Script" uid="uid://dtxqjdhgwu4d0" path="res://Scenes/ui/HealthSkillNode.gd" id="7_16lh2"]
+[ext_resource type="Script" uid="uid://c1jib38qb6k8l" path="res://Scenes/ui/TraversalSkillNode.gd" id="8_43kg7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxppk"]
 bg_color = Color(0.37951472, 5.9862623e-07, 1.6845763e-07, 1)
@@ -20,9 +22,6 @@ corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t7a6n"]
-bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_jwqo6"]
 domain_warp_enabled = true
@@ -139,6 +138,8 @@ theme_override_font_sizes/font_size = 75
 text = "Skills"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Ninventory" unique_id=1328697044]
+process_mode = 3
+custom_minimum_size = Vector2(1056, 482)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -150,26 +151,23 @@ offset_bottom = -57.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="Ninventory/ScrollContainer" unique_id=1191772329]
+[node name="ColorRect" type="ColorRect" parent="Ninventory/ScrollContainer" unique_id=631530394]
 custom_minimum_size = Vector2(1056, 482)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_t7a6n")
+color = Color(0, 0, 0, 1)
 
-[node name="BloodSkillNode" type="ColorRect" parent="Ninventory/ScrollContainer/Panel" unique_id=1511145330]
+[node name="BloodSkillNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=1511145330]
 material = SubResource("ShaderMaterial_ebcmq")
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 136.0
-offset_top = -111.0
-offset_right = 290.0
-offset_bottom = 43.0
-grow_vertical = 2
-rotation = 0.7417649
-script = ExtResource("6_jwqo6")
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 0
+offset_top = 215.0
+offset_right = 150.0
+offset_bottom = 365.0
+script = ExtResource("6_ebcmq")
+is_root_bloodbind = true
 
-[node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/Panel/BloodSkillNode" unique_id=1764238123]
+[node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/ColorRect/BloodSkillNode" unique_id=1764238123]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -182,21 +180,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jwqo6")
 
-[node name="HealthNode" type="ColorRect" parent="Ninventory/ScrollContainer/Panel" unique_id=1990271677]
+[node name="HealthNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=1990271677]
 material = SubResource("ShaderMaterial_ebcmq")
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 136.0
-offset_top = -373.0
-offset_right = 290.0
-offset_bottom = -219.0
-grow_vertical = 2
-rotation = 0.7417649
-script = ExtResource("6_jwqo6")
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 0
+offset_top = 449.0
+offset_right = 150.0
+offset_bottom = 599.0
+script = ExtResource("7_16lh2")
+is_root_health = true
 
-[node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/Panel/HealthNode" unique_id=215177323]
+[node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/ColorRect/HealthNode" unique_id=215177323]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -209,7 +204,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jwqo6")
 
-[node name="Label" type="Label" parent="Ninventory/ScrollContainer/Panel/HealthNode/Panel" unique_id=672025596]
+[node name="Label" type="Label" parent="Ninventory/ScrollContainer/ColorRect/HealthNode/Panel" unique_id=672025596]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -223,21 +219,19 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TraversalNode" type="ColorRect" parent="Ninventory/ScrollContainer/Panel" unique_id=697314440]
+[node name="TraversalNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=697314440]
 material = SubResource("ShaderMaterial_ebcmq")
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 136.0
-offset_top = 161.0
-offset_right = 290.0
-offset_bottom = 315.0
-grow_vertical = 2
-rotation = 0.7417649
-script = ExtResource("6_jwqo6")
+custom_minimum_size = Vector2(150, 150)
+layout_direction = 4
+layout_mode = 0
+offset_top = 689.0
+offset_right = 150.0
+offset_bottom = 839.0
+script = ExtResource("8_43kg7")
+is_root_walljump = true
 
-[node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/Panel/TraversalNode" unique_id=715013273]
+[node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/ColorRect/TraversalNode" unique_id=715013273]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
