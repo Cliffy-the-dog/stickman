@@ -1,5 +1,7 @@
 shader_type canvas_item;
 
+// Unpaused animation time — driven by SkillNode._process via elapsed_time (not built-in TIME).
+
 // --- INSPECTOR PARAMETERS ---
 group_uniforms Flame_Colors;
 uniform vec4 flame_base_color : source_color = vec4(0.2, 0.0, 0.4, 1.0); // Dark outer aura shroud
@@ -16,8 +18,13 @@ group_uniforms Performance_Trimming;
 uniform float center_hollow_radius : hint_range(0.0, 0.4, 0.01) = 0.08; // Keeps center clean for icon visibility
 uniform float edge_fade_width : hint_range(0.01, 0.3, 0.01) = 0.06;      // Smooth edge lock
 
-// --- CUSTOM UNISCALE TIME ---
-uniform float elapsed_time;
+uniform float elapsed_time = 0.0;
+uniform bool is_owned = false;
+
+group_uniforms Owned_Orange;
+uniform vec4 owned_base_color : source_color = vec4(0.55, 0.12, 0.0, 1.0);
+uniform vec4 owned_mid_color : source_color = vec4(1.0, 0.45, 0.0, 1.0);
+uniform vec4 owned_core_color : source_color = vec4(1.0, 0.85, 0.35, 1.0);
 
 void fragment() {
     // 1. Establish center vectors
@@ -53,9 +60,13 @@ void fragment() {
     float mid_mask = smoothstep(0.30, 0.50, combined_flame);
     float core_mask = smoothstep(0.55, 0.80, combined_flame);
 
-    // 7. Compose Colors Smoothly
-    vec4 final_color = mix(vec4(0.0), flame_base_color, base_mask);
-    final_color = mix(final_color, flame_mid_color, mid_mask);
-    final_color = mix(final_color, flame_core_color, core_mask);
+    // 7. Compose Colors Smoothly (orange when the player already owns this skill)
+    vec4 base_c = is_owned ? owned_base_color : flame_base_color;
+    vec4 mid_c = is_owned ? owned_mid_color : flame_mid_color;
+    vec4 core_c = is_owned ? owned_core_color : flame_core_color;
+
+    vec4 final_color = mix(vec4(0.0), base_c, base_mask);
+    final_color = mix(final_color, mid_c, mid_mask);
+    final_color = mix(final_color, core_c, core_mask);
     COLOR = final_color;
 }

@@ -2,11 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dn4u6avnidn31" path="res://Scripts/InventoryControls.gd" id="1_afu2s"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="2_6ykjb"]
-[ext_resource type="PackedScene" uid="uid://bkufjfdnayad6" path="res://Scenes/ui/Item Icons/skinshred(ui).tscn" id="3_sxppk"]
-[ext_resource type="Script" uid="uid://b0u0lck44204v" path="res://Scenes/ui/healthbar.gd" id="4_4lboj"]
-[ext_resource type="Shader" uid="uid://cyf150hcoar30" path="res://Scenes/ui/skillnode.gdshader" id="5_t7a6n"]
+[ext_resource type="PackedScene" uid="uid://bkufjfdnayad6" path="res://scenes/ui/Item Icons/skinshred(ui).tscn" id="3_sxppk"]
+[ext_resource type="Script" uid="uid://b0u0lck44204v" path="res://scenes/ui/healthbar.gd" id="4_4lboj"]
+[ext_resource type="Shader" uid="uid://cyf150hcoar30" path="res://scenes/ui/skillnode.gdshader" id="5_t7a6n"]
 [ext_resource type="Script" uid="uid://p1va44n32vbf" path="res://Scripts/SkillNode.gd" id="6_jwqo6"]
-[ext_resource type="Shader" uid="uid://b6yqhgmnuvgd4" path="res://Scenes/ui/SkillNodeShader.gdshader" id="7_rlkn0"]
+[ext_resource type="Script" path="res://Scripts/SkillTreeLines.gd" id="8_skilllines"]
+[ext_resource type="Shader" uid="uid://b6yqhgmnuvgd4" path="res://scenes/ui/SkillNodeShader.gdshader" id="7_rlkn0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxppk"]
 bg_color = Color(0.37951472, 5.9862623e-07, 1.6845763e-07, 1)
@@ -41,6 +42,10 @@ shader_parameter/flame_scale = 1.2
 shader_parameter/center_hollow_radius = 0.08
 shader_parameter/edge_fade_width = 0.10999999754128
 shader_parameter/elapsed_time = 0.0
+shader_parameter/is_owned = false
+shader_parameter/owned_base_color = Color(0.55, 0.12, 0, 1)
+shader_parameter/owned_mid_color = Color(1, 0.45, 0, 1)
+shader_parameter/owned_core_color = Color(1, 0.85, 0.35, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_16lh2"]
 shader = ExtResource("7_rlkn0")
@@ -103,8 +108,10 @@ script = ExtResource("1_afu2s")
 
 [node name="Binventory" type="ColorRect" parent="." unique_id=1388620417]
 visible = false
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_left = -1924.0
+offset_top = -1081.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="B" type="Label" parent="Binventory" unique_id=927334110]
@@ -170,8 +177,11 @@ show_percentage = false
 script = ExtResource("4_4lboj")
 
 [node name="Ninventory" type="ColorRect" parent="." unique_id=1909490822]
-offset_right = 1152.0
-offset_bottom = 648.0
+visible = false
+offset_left = -1924.0
+offset_top = -1081.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="N" type="Label" parent="Ninventory" unique_id=815205436]
@@ -203,19 +213,32 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="Ninventory/ScrollContainer" unique_id=631530394]
-custom_minimum_size = Vector2(1056, 482)
+custom_minimum_size = Vector2(720, 480)
 layout_mode = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.06, 0.06, 0.08, 1)
 
-[node name="BloodSkillNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=1511145330 groups=["skill_nodes"]]
+[node name="SkillLines" type="Control" parent="Ninventory/ScrollContainer/ColorRect" unique_id=631530395]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("8_skilllines")
+
+[node name="BloodSkillNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=1511145330 node_paths=PackedStringArray("child_nodes") groups=["skill_nodes"]]
+z_index = 2
 material = SubResource("ShaderMaterial_ebcmq")
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 0
-offset_top = 215.0
-offset_right = 150.0
-offset_bottom = 365.0
+offset_left = 285.0
+offset_top = 24.0
+offset_right = 435.0
+offset_bottom = 174.0
 script = ExtResource("6_jwqo6")
-line_shader = SubResource("ShaderMaterial_16lh2")
+skill_id = "bloodbind"
+child_nodes = [NodePath("../HealthNode")]
 
 [node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/ColorRect/BloodSkillNode" unique_id=1764238123]
 custom_minimum_size = Vector2(100, 100)
@@ -231,15 +254,40 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jwqo6")
 
-[node name="HealthNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=1990271677 groups=["skill_nodes"]]
+[node name="Label" type="Label" parent="Ninventory/ScrollContainer/ColorRect/BloodSkillNode/Panel" unique_id=1511145331]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_6ykjb")
+theme_override_font_sizes/font_size = 20
+text = "Bloodbind"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="HealthNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=1990271677 node_paths=PackedStringArray("parent_nodes", "child_nodes") groups=["skill_nodes"]]
+z_index = 2
 material = SubResource("ShaderMaterial_ebcmq")
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 0
-offset_top = 449.0
-offset_right = 150.0
-offset_bottom = 599.0
+offset_left = 285.0
+offset_top = 164.0
+offset_right = 435.0
+offset_bottom = 314.0
 script = ExtResource("6_jwqo6")
-line_shader = SubResource("ShaderMaterial_43kg7")
+skill_id = "healer_upgrade"
+player_method = "healer_health_upgrade"
+parent_nodes = [NodePath("../BloodSkillNode")]
+child_nodes = [NodePath("../TraversalNode")]
 
 [node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/ColorRect/HealthNode" unique_id=215177323]
 custom_minimum_size = Vector2(100, 100)
@@ -258,28 +306,36 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_jwqo6")
 [node name="Label" type="Label" parent="Ninventory/ScrollContainer/ColorRect/HealthNode/Panel" unique_id=672025596]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -32.5
-offset_top = -11.5
-offset_right = 32.5
-offset_bottom = 11.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_6ykjb")
+theme_override_font_sizes/font_size = 18
+text = "Healer+"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
 
-[node name="TraversalNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=697314440 groups=["skill_nodes"]]
+[node name="TraversalNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=697314440 node_paths=PackedStringArray("parent_nodes", "child_nodes") groups=["skill_nodes"]]
+z_index = 2
 material = SubResource("ShaderMaterial_ebcmq")
 custom_minimum_size = Vector2(150, 150)
-layout_direction = 4
 layout_mode = 0
-offset_top = 689.0
-offset_right = 150.0
-offset_bottom = 839.0
+offset_left = 285.0
+offset_top = 304.0
+offset_right = 435.0
+offset_bottom = 454.0
 script = ExtResource("6_jwqo6")
-line_shader = SubResource("ShaderMaterial_en7om")
+skill_id = "walljump"
+parent_nodes = [NodePath("../HealthNode")]
+child_nodes = [NodePath("../Sprint")]
 
 [node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/ColorRect/TraversalNode" unique_id=715013273]
 custom_minimum_size = Vector2(100, 100)
@@ -295,18 +351,39 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jwqo6")
 
-[node name="Sprint" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=1140575753 groups=["skill_nodes"]]
+[node name="Label" type="Label" parent="Ninventory/ScrollContainer/ColorRect/TraversalNode/Panel" unique_id=697314441]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_6ykjb")
+theme_override_font_sizes/font_size = 18
+text = "Wall Jump"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="Sprint" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=1140575753 node_paths=PackedStringArray("parent_nodes") groups=["skill_nodes"]]
+z_index = 2
 material = SubResource("ShaderMaterial_ebcmq")
 custom_minimum_size = Vector2(150, 150)
-layout_direction = 4
 layout_mode = 0
-offset_left = 279.0
-offset_top = 615.0
-offset_right = 429.0
-offset_bottom = 765.0
+offset_left = 485.0
+offset_top = 304.0
+offset_right = 635.0
+offset_bottom = 454.0
 script = ExtResource("6_jwqo6")
-function_name = "unlock_sprint"
-line_shader = SubResource("ShaderMaterial_5cddh")
+skill_id = "sprint"
+player_method = "sprint"
+parent_nodes = [NodePath("../TraversalNode")]
 
 [node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/ColorRect/Sprint" unique_id=2102205726]
 custom_minimum_size = Vector2(100, 100)
@@ -323,26 +400,31 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jwqo6")
 
 [node name="Label" type="Label" parent="Ninventory/ScrollContainer/ColorRect/Sprint/Panel" unique_id=1642487684]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -62.5
-offset_top = -22.0
-offset_right = 62.5
-offset_bottom = 22.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_6ykjb")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 20
 text = "Sprint"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
 
 [node name="Minventory" type="ColorRect" parent="." unique_id=239126784]
 visible = false
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_left = -1924.0
+offset_top = -1081.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="M" type="Label" parent="Minventory" unique_id=1983997278]

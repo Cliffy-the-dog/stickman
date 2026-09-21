@@ -1,13 +1,16 @@
 extends Area2D
 
 
-# Called when the node enters the scene tree for the first time.
+## Placeholder setup hook for the fazed hitbox area.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+## Placeholder per-frame update hook for the fazed hitbox area.
 func _process(delta: float) -> void:
 	pass
+
+
+## No-op flash hook so this node matches the player damage interface.
 func flash_red():
 	pass

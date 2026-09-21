@@ -1,3 +1,4 @@
+## Defines wave composition and timing for the wave spawner system.
 class_name WaveData
 extends Resource
 

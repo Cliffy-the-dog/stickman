@@ -3,20 +3,20 @@ extends AnimatedSprite2D
 var slashing_counts = 0
 
 
-# Called when the node enters the scene tree for the first time.
+## Hides the slash sprite until an attack is triggered.
 func _ready() -> void:
 	hide()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+## Positions the slash sprite on input and plays a single slash animation.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Walk Left"):
-		position = Vector2(-130, 0) 
+		position = Vector2(-130, 0)
 		flip_h = false
 	if Input.is_action_just_pressed("Walk Right"):
-		position = Vector2(130, 0) 
+		position = Vector2(130, 0)
 		flip_h = true
-	
+
 	if Input.is_action_just_pressed("Slash"):
 		if get_parent().is_on_floor():
 			if slashing_counts == 0:

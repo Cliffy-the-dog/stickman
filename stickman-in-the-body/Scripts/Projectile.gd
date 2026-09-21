@@ -4,7 +4,6 @@ extends Area2D
 @export var max_distance: float = 400.0
 @export var damage: int = 50
 
-# --- AUDIO VOLUME EXPORTS ---
 @export_range(-80.0, 24.0, 0.1) var chain_toss_volume_db: float = 0.0
 @export_range(-80.0, 24.0, 0.1) var punch_volume_db: float = 0.0
 
@@ -18,39 +17,43 @@ var is_punching: bool = false
 var caught_targets: Array = []
 @onready var chain_line: Line2D = $Line2D
 
-# Audio Players
 var chain_audio_player: AudioStreamPlayer2D
 var punch_audio_player: AudioStreamPlayer2D
 
+
+## Sets up sprite orientation and audio players on spawn.
 func _ready() -> void:
 	texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
-	
-	# Ensure sprite flip reflects the direction passed at spawn
+
 	if has_node("AnimatedSprite2D"):
 		$AnimatedSprite2D.flip_h = is_flipped
 	elif has_node("Sprite2D"):
 		$Sprite2D.flip_h = is_flipped
-		
+
 	setup_audio_players()
 
+
+## Creates chain toss and punch audio stream players.
 func setup_audio_players() -> void:
 	chain_audio_player = AudioStreamPlayer2D.new()
 	chain_audio_player.stream = load("res://Music/ChainToss.mp3")
 	chain_audio_player.volume_db = chain_toss_volume_db
 	chain_audio_player.autoplay = true
 	add_child(chain_audio_player)
-	
+
 	punch_audio_player = AudioStreamPlayer2D.new()
 	punch_audio_player.stream = load("res://Music/Punch.mp3")
 	punch_audio_player.volume_db = punch_volume_db
 	add_child(punch_audio_player)
 
+
+## Moves the chain outward, returns to the player, and drags caught targets.
 func _physics_process(delta: float) -> void:
 	if not is_returning:
 		var step = direction * speed * delta
 		global_position += step
 		distance_traveled += step.length()
-		
+
 		if distance_traveled >= max_distance:
 			is_returning = true
 			if is_instance_valid(player_ref) and player_ref.has_node("AnimationPlayer"):
@@ -60,11 +63,10 @@ func _physics_process(delta: float) -> void:
 			if not is_punching:
 				direction = (player_ref.global_position - global_position).normalized()
 				global_position += direction * speed * delta
-				
-				# Check distance to player
+
 				if global_position.distance_to(player_ref.global_position) < 300.0:
 					is_punching = true
-					
+
 					if caught_targets.size() > 0:
 						trigger_punch()
 					else:
@@ -79,15 +81,17 @@ func _physics_process(delta: float) -> void:
 
 	update_chain_trail()
 
+
+## Plays blood punch animation, knocks back caught targets, and finishes bloodbind.
 func trigger_punch() -> void:
 	if is_instance_valid(chain_audio_player):
 		chain_audio_player.stop()
 
 	if is_instance_valid(player_ref) and player_ref.has_node("AnimationPlayer"):
 		player_ref.anim_player.play("Bloodpunch")
-		
+
 	await get_tree().create_timer(0.4).timeout
-	
+
 	if is_instance_valid(punch_audio_player):
 		punch_audio_player.play()
 
@@ -97,47 +101,57 @@ func trigger_punch() -> void:
 				var push_dir = sign(target.global_position.x - player_ref.global_position.x)
 				if push_dir == 0:
 					push_dir = -1.0 if is_flipped else 1.0
-					
+
 				target.apply_knockback(Vector2(push_dir * 2400.0, -800.0))
-		
+
 		if player_ref.has_method("finish_bloodbind"):
 			player_ref.finish_bloodbind()
-	
+
 	if is_instance_valid(punch_audio_player) and punch_audio_player.playing:
 		hide()
-		if chain_line: chain_line.queue_free()
+		if chain_line:
+			chain_line.queue_free()
 		set_physics_process(false)
 		await punch_audio_player.finished
-		
+
 	queue_free()
 
+
+## Punishes a missed chain with endlag and removes the projectile.
 func trigger_miss_cleanup() -> void:
 	if is_instance_valid(chain_audio_player):
 		chain_audio_player.stop()
-		
+
 	if is_instance_valid(player_ref) and player_ref.has_method("trigger_endlag_punishment"):
 		player_ref.trigger_endlag_punishment()
-		
+
 	cleanup()
 	queue_free()
 
+
+## Updates the line connecting the chain to the player.
 func update_chain_trail() -> void:
 	if chain_line and is_instance_valid(player_ref):
 		if chain_line.points.size() != 2:
 			chain_line.clear_points()
 			chain_line.add_point(Vector2.ZERO)
 			chain_line.add_point(Vector2.ZERO)
-		
+
 		chain_line.set_point_position(0, chain_line.to_local(player_ref.global_position))
 		chain_line.set_point_position(1, chain_line.to_local(global_position))
 
-func cleanup() -> void:
-	if chain_line: chain_line.queue_free()
 
+## Removes the chain line visual.
+func cleanup() -> void:
+	if chain_line:
+		chain_line.queue_free()
+
+
+## Damages and captures enemies hit by the chain projectile.
 func _on_body_entered(body: Node2D) -> void:
 	if body == player_ref:
 		return
-		
+
 	if body.has_method("take_damage") and not body in caught_targets:
 		body.take_damage(damage)
 		caught_targets.append(body)

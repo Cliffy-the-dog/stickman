@@ -1,41 +1,38 @@
 extends CharacterBody2D
+
 @onready var healthbar: ProgressBar = $Healthbar
 const speed = 600.0
 @export var detection_range = 1000.0
 @onready var music_manager: Node = %MusicManager
 @export var player: Node2D
-@onready var nav_agent := $NavigationAgent2D 
-
-
+@onready var nav_agent := $NavigationAgent2D
 @onready var animatedSprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sprite = $AnimatedSprite2D
 
 var not_dying = 1
 var movable = 1
 var damage_value = 20
-
-# This looks for your AnimatedSprite2D child node
-@onready var sprite = $AnimatedSprite2D 
-
 var playera = null
 var is_chasing = false
 
+
+## Locates the player node in the scene tree.
 func _ready():
-	# Find the player by its unique name
 	playera = get_tree().root.find_child("Player", true, false)
 
+
+## Starts chase music and navigates toward the player when in range.
 func _physics_process(_delta):
 	if playera:
 		var distance = position.distance_to(playera.position)
 		if distance < detection_range and not is_chasing:
 			is_chasing = true
-			# --- CHANGE THIS NAME TO YOUR AUTOLOAD NAME ---
-			music_manager.start_chase(get_instance_id()) 
+			music_manager.start_chase(get_instance_id())
 	if is_chasing == true:
-			var dir = to_local(nav_agent.get_next_path_position()).normalized()
-			velocity = dir * 1200
-			move_and_slide()
-	
-	
+		var dir = to_local(nav_agent.get_next_path_position()).normalized()
+		velocity = dir * 1200
+		move_and_slide()
+
 	if healthbar.value < 0:
 		if healthbar.value - 10 > -1:
 			for a in range(damage_value):
@@ -43,6 +40,8 @@ func _physics_process(_delta):
 				await get_tree().create_timer(0.02).timeout
 				healthbar.damage_bar.value = healthbar.value
 
+
+## Applies damage and plays death animation when health reaches zero.
 func take_damage(damage_amount) -> void:
 	healthbar.value -= 20
 	if healthbar.value < 0:

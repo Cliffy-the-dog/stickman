@@ -1,12 +1,9 @@
 extends CPUParticles2D
 
-
-
 @onready var player: CharacterBody2D = %Player
 
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+# Keeps particle emission offset ahead and above the player each frame.
+func _process(_delta: float) -> void:
 	global_position.x = player.global_position.x + 60
 	global_position.y = player.global_position.y - 10

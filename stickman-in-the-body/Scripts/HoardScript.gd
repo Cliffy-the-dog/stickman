@@ -1,15 +1,16 @@
 extends CharacterBody2D
+
 @onready var character: AnimatedSprite2D = $Character
 @export var head: PackedScene
 @onready var zealpoint: Area2D = $"../Area2D"
 @onready var healthbar: ProgressBar = $Healthbar
 @onready var Target: CharacterBody2D = %Player
 
-#Has 4 Moves:
-#1. Roll: Rolls at you
-#2. Jump: Jumps up
-#3. Hurl: Throws 3 heads at you.
-#4. Zeal: Starts spewing heads at you, 3 at a time
+# Has 4 Moves:
+# 1. Roll: Rolls at you
+# 2. Jump: Jumps up
+# 3. Hurl: Throws 3 heads at you.
+# 4. Zeal: Starts spewing heads at you, 3 at a time
 
 var zeal_in_progress = 0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -19,6 +20,8 @@ const JUMP_VELOCITY = -400.0
 var gravity_on = 1
 var speed = 1000
 
+
+## Handles awakening, idle/combat states, and zeal attack movement.
 func _physics_process(delta: float) -> void:
 	if not is_on_floor() and gravity_on == 1:
 		velocity.y += gravity * delta
@@ -50,25 +53,23 @@ func _physics_process(delta: float) -> void:
 			zealHurl()
 			await get_tree().create_timer(1).timeout
 
-func dash():
 
-	# Determine direction: negative is left, positive is right
+## Dashes horizontally toward the player for a short burst.
+func dash():
 	var direction = Target.global_position.x - global_position.x
 
 	if direction < 0:
-		# Target is to the left
 		velocity.x = -2500
 	elif direction > 0:
-		# Target is to the right
 		velocity.x = 2500
-	
-	# Apply the movement
+
 	move_and_slide()
 	await get_tree().create_timer(0.3).timeout
 	velocity.x = 0
 	velocity.y = 0
-	
 
+
+## Jumps with random horizontal velocity until landing.
 func jump():
 	velocity.y = JUMP_VELOCITY
 	velocity.x = randi_range(-100, 100)
@@ -76,13 +77,16 @@ func jump():
 	velocity.x = 0
 	velocity.y = 0
 
+
+## Throws a single head projectile at the player.
 func Battle_hurl():
-	# Instance the bullet
 	var b = head.instantiate()
 	look_at(Target.global_position)
 	get_tree().root.add_child(b)
 	await get_tree().create_timer(0.3).timeout
 
+
+## Randomly chooses dash, jump, or hurl as the next attack.
 func battle():
 	var RNG = randi_range(1, 3)
 	if RNG == 1:
@@ -92,15 +96,17 @@ func battle():
 	if RNG == 3:
 		Battle_hurl()
 
+
+## Spawns a head projectile during the zeal attack phase.
 func zealHurl():
-	# Instance the bullet
 	var b = head.instantiate()
 	look_at(Target.global_position)
 	position += speed
 	get_tree().root.add_child(b)
 
+
+## Applies damage and removes the boss when health reaches zero.
 func take_damage(damage_amount) -> void:
 	healthbar.value -= 20
 	if healthbar.value == 0:
-
 		queue_free()

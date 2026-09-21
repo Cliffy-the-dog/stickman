@@ -1,3 +1,4 @@
+## Defines a single enemy type and spawn count for a wave.
 class_name WaveEnemy
 extends Resource
 

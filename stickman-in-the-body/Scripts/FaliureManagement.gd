@@ -1,2 +1,4 @@
 extends Node
-var health_upgrades = 0
+
+# Tracks how many health upgrades the player has purchased.
+var health_upgrades: int = 0

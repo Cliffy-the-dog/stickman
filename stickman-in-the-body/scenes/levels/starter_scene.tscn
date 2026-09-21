@@ -22,7 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://benjnxbd0layw" path="res://assets/tilesets/PhysicsTiles/Swamp Biome Tileset.png" id="12_83h8q"]
 [ext_resource type="Texture2D" uid="uid://bahkxvetoi1hk" path="res://assets/sprites/Dusgt.png" id="13_uds5j"]
 [ext_resource type="FontFile" uid="uid://buqsd22kihau4" path="res://assets/fonts/Quadrillion Sb It.otf" id="14_cgehh"]
-[ext_resource type="PackedScene" uid="uid://c31warb72412w" path="res://Scenes/ui/Inventory.tscn" id="15_i6g23"]
+[ext_resource type="PackedScene" uid="uid://c31warb72412w" path="res://scenes/ui/Inventory.tscn" id="15_i6g23"]
 [ext_resource type="PackedScene" uid="uid://djv72irkalgai" path="res://entities/enemies/slimyboi.tscn" id="16_83h8q"]
 [ext_resource type="PackedScene" uid="uid://bmokuk76jjpav" path="res://Scenes/world/TempPlatform.tscn" id="17_4roa6"]
 [ext_resource type="PackedScene" uid="uid://2ii80bak51ux" path="res://assets/non_respawning_tag.tscn" id="17_n6cad"]
@@ -1120,12 +1120,13 @@ emitting = false
 amount = 128
 texture = ExtResource("13_uds5j")
 lifetime = 2.0
-speed_scale = 64.0
+speed_scale = 1.0
 process_material = SubResource("ParticleProcessMaterial_qayqj")
 
-[node name="Inventory" parent="DirectionalLight2D/Management/Player" unique_id=666343005 instance=ExtResource("15_i6g23")]
-position = Vector2(-1913, -1072.0001)
-scale = Vector2(3.334, 3.334)
+[node name="Inventory" parent="DirectionalLight2D/Management/Player/Camera2D2" unique_id=666343005 instance=ExtResource("15_i6g23")]
+process_mode = 3
+z_index = 4096
+z_as_relative = false
 
 [node name="Killzone" type="Area2D" parent="DirectionalLight2D/Management" unique_id=1330915264]
 unique_name_in_owner = true

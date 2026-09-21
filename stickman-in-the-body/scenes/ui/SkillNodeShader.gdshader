@@ -1,5 +1,7 @@
 shader_type canvas_item;
 
+// Unpaused animation time — driven by SkillLine._process via u_time (not built-in TIME).
+
 uniform bool is_unlocked = false;
 uniform float u_time = 0.0;
 

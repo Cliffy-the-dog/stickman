@@ -1,11 +1,11 @@
 extends ProgressBar
 
 
-# Called when the node enters the scene tree for the first time.
+# Placeholder initialization hook; no setup is performed yet.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+# Placeholder per-frame hook; no behavior is implemented yet.
+func _process(_delta: float) -> void:
 	pass

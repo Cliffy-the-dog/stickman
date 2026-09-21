@@ -1,5 +1,7 @@
 shader_type canvas_item;
 
+// Unpaused animation time — set from script via elapsed_time (not built-in TIME).
+
 // --- INSPECTOR VARIABLES ---
 group_uniforms Flame_Appearance;
 uniform sampler2D noise_texture : repeat_enable, hint_default_black;
@@ -16,6 +18,8 @@ uniform float distortion : hint_range(0.0, 1.0, 0.05) = 0.25;          // How ja
 group_uniforms Masking;
 uniform float edge_fade : hint_range(0.01, 0.5, 0.01) = 0.1;           // Smooth cutoff at the ColorRect borders
 
+uniform float elapsed_time = 0.0;
+
 void fragment() {
     // 1. Center coordinates so (0,0) is the middle of the ColorRect
     vec2 center_uv = UV - vec2(0.5);
@@ -27,14 +31,14 @@ void fragment() {
     float square_mask = smoothstep(0.0, edge_fade, min(border_dist.x, border_dist.y));
     
     // 3. Simple distortion pass to break up straight lines
-    vec2 distort_uv = vec2(angle / (2.0 * 3.14159), dist - (TIME * 0.2));
+    vec2 distort_uv = vec2(angle / (2.0 * 3.14159), dist - (elapsed_time * 0.2));
     float raw_distortion = texture(noise_texture, distort_uv).r;
     float modified_angle = angle + (raw_distortion - 0.5) * distortion;
     
     // 4. Transform coordinates to burst radially outward from the core
-    // X handles the circumferential wrap around the square, Y drives the outward explosion over TIME
-    vec2 flame_uv_a = vec2(modified_angle / (2.0 * 3.14159) + (TIME * swirl_amount * 0.05), dist - (TIME * expansion_speed));
-    vec2 flame_uv_b = vec2(-modified_angle / (2.0 * 3.14159) - (TIME * swirl_amount * 0.02), dist * 1.3 - (TIME * expansion_speed * 1.2));
+    // X handles the circumferential wrap around the square, Y drives the outward explosion over elapsed_time
+    vec2 flame_uv_a = vec2(modified_angle / (2.0 * 3.14159) + (elapsed_time * swirl_amount * 0.05), dist - (elapsed_time * expansion_speed));
+    vec2 flame_uv_b = vec2(-modified_angle / (2.0 * 3.14159) - (elapsed_time * swirl_amount * 0.02), dist * 1.3 - (elapsed_time * expansion_speed * 1.2));
     
     // 5. Sample the noise texture using the outward vector streams
     float noise_a = texture(noise_texture, flame_uv_a).r;

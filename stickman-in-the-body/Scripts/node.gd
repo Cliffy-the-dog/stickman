@@ -4,31 +4,31 @@ extends Node
 
 const TRACK_BLOODBORN = preload("res://assets/audio/music/The Bloodborn.mp3")
 const TRACK_FLOW = preload("res://assets/audio/music/Ambient for Apoptosis.wav")
-const TRACK_HOARD1 = preload("res://assets/audio/music//Main 1.wav")
-const TRACK_HOARD2 = preload("res://assets/audio/music//Main 2.wav")
+const TRACK_HOARD1 = preload("res://assets/audio/music/Main 1.wav")
+const TRACK_HOARD2 = preload("res://assets/audio/music/Main 2.wav")
 const TRACK_HOARD_FALL = preload("res://assets/audio/music/Screen Recording 2026-05-01 091735.mp3")
 
-var chasing_enemies = []
+var chasing_enemies: Array = []
 
 enum MusicState { FLOW, CHASE, BOSS_P1, BOSS_P2, BOSS_FALLING }
-var current_state = MusicState.FLOW
+var current_state: MusicState = MusicState.FLOW
 
-# This variable is updated by your slider script
 var volume_multiplier: float = 1.0:
 	set(value):
 		volume_multiplier = value
-		# Instantly apply the new volume to the player
 		if player:
 			player.volume_linear = volume_multiplier
 
-func _ready():
+
+# Connects track finished signal and starts ambient music.
+func _ready() -> void:
 	player.finished.connect(_on_track_finished)
-	# Set initial volume
 	player.volume_linear = volume_multiplier
 	play_music(TRACK_FLOW)
 
-# --- CHASE LOGIC ---
-func start_chase(enemy_id, is_boss = false):
+
+# Begins chase or boss music when an enemy starts pursuing the player.
+func start_chase(enemy_id, is_boss: bool = false) -> void:
 	if is_boss:
 		current_state = MusicState.BOSS_P1
 		play_music(TRACK_HOARD1)
@@ -38,7 +38,9 @@ func start_chase(enemy_id, is_boss = false):
 			current_state = MusicState.CHASE
 			play_music(TRACK_BLOODBORN)
 
-func stop_chase(enemy_id, is_boss = false):
+
+# Ends chase or boss music when an enemy stops pursuing the player.
+func stop_chase(enemy_id, is_boss: bool = false) -> void:
 	if is_boss:
 		current_state = MusicState.BOSS_FALLING
 		play_music(TRACK_HOARD_FALL)
@@ -48,31 +50,31 @@ func stop_chase(enemy_id, is_boss = false):
 			current_state = MusicState.FLOW
 			play_music(TRACK_FLOW)
 
-func _on_track_finished():
+
+# Advances boss phases or loops the current track when playback finishes.
+func _on_track_finished() -> void:
 	match current_state:
 		MusicState.BOSS_P1:
 			current_state = MusicState.BOSS_P2
 			play_music(TRACK_HOARD2)
 		MusicState.BOSS_P2:
-			play_music(TRACK_HOARD2) 
+			play_music(TRACK_HOARD2)
 		MusicState.BOSS_FALLING:
 			current_state = MusicState.FLOW
 			play_music(TRACK_FLOW)
 		MusicState.CHASE:
 			play_music(TRACK_BLOODBORN)
 
-# --- CORE PLAY FUNCTION ---
-func play_music(track: AudioStream):
+
+# Switches to a new track with a fade-in to the current volume setting.
+func play_music(track: AudioStream) -> void:
 	if player.stream == track and player.playing:
 		return
-	
+
 	player.stop()
 	player.stream = track
-	
-	# Start at 0 volume for the fade-in effect
-	player.volume_linear = 0.0 
+	player.volume_linear = 0.0
 	player.play()
-	
-	# Fade volume up to the current setting
+
 	var fade = create_tween()
 	fade.tween_property(player, "volume_linear", volume_multiplier, 1.0)

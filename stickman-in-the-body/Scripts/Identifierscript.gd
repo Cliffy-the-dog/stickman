@@ -1,5 +1,6 @@
 extends Area2D
 
 
-func AreaIdentifier():
+# Marker method used by CharacterMove to identify area trigger types.
+func AreaIdentifier() -> void:
 	pass

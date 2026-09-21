@@ -10,7 +10,6 @@ extends CharacterBody2D
 @onready var healthbar: ProgressBar = $Healthbar
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-# Removed % unique node syntax to prevent null instances on runtime spawn
 var target: CharacterBody2D = null
 var music_manager: Node = null
 
@@ -25,37 +24,40 @@ var player = null
 var is_chasing = false
 var detection_range = 1100
 var is_dead = false
-
 var is_stunned: bool = false
 
+
+## Locates player and music manager, and disables particle emission.
 func _ready():
-	# Dynamically locate nodes in the scene root
 	player = get_tree().root.find_child("Player", true, false) as CharacterBody2D
 	target = player
 	music_manager = get_tree().root.find_child("MusicManager", true, false)
-	
-	set_particles_emitting(false) 
 
+	set_particles_emitting(false)
+
+
+## Applies knockback velocity and briefly stuns movement.
 func apply_knockback(force: Vector2) -> void:
 	velocity = force
 	is_stunned = true
 	await get_tree().create_timer(0.5).timeout
 	is_stunned = false
 
+
+## Chases the player when in range, or idles and handles stun recovery.
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
-		
+
 	if player:
 		var distance = global_position.distance_to(player.global_position)
-		
+
 		if distance < detection_range and not is_chasing:
 			is_chasing = true
-			set_particles_emitting(true) 
+			set_particles_emitting(true)
 			if music_manager and music_manager.has_method("start_chase"):
-				music_manager.start_chase(get_instance_id()) 
+				music_manager.start_chase(get_instance_id())
 
-	# --- MOVEMENT LOGIC ---
 	if not is_stunned:
 		if can_move == 1 and is_chasing and target:
 			look_at(target.global_position)
@@ -66,48 +68,55 @@ func _physics_process(delta: float) -> void:
 				negative_value = -1
 				await get_tree().create_timer(0.15).timeout
 				negative_value = 1
-		
+
 		if can_move == 1 and not is_chasing:
 			sprite.play("Idle")
-			set_particles_emitting(false) 
+			set_particles_emitting(false)
 	else:
 		velocity += get_gravity() * delta
 		velocity.x = move_toward(velocity.x, 0, 800 * delta)
 		move_and_slide()
 
+
+## Toggles emission on all attached particle nodes.
 func set_particles_emitting(emit: bool) -> void:
 	for p in particles:
-		if p: p.emitting = emit
+		if p:
+			p.emitting = emit
 
+
+## Reduces health, briefly reverses direction, and triggers death at zero HP.
 func take_damage(damage) -> void:
 	if is_dead:
 		return
-		
+
 	healthbar.value -= damage
 	if healthbar.value <= 0:
 		healthbar.value = 0
-	
+
 	negative_value = -1
 	await get_tree().create_timer(0.15).timeout
 	negative_value = 1
-	
+
 	if healthbar.value == 0 and not is_dead:
 		die()
 
+
+## Spawns skin shred pickup, plays death animation, and removes the enemy.
 func die() -> void:
 	is_dead = true
 	set_particles_emitting(false)
-	
+
 	if music_manager and music_manager.has_method("stop_chase"):
 		music_manager.stop_chase(get_instance_id())
-		
+
 	can_move = 0
-	
+
 	if skinshred_scene:
 		var shred = skinshred_scene.instantiate()
 		shred.global_position = global_position
 		get_parent().call_deferred("add_child", shred)
-	
+
 	sprite.play("Die")
 	await sprite.animation_finished
 	queue_free()

@@ -7,34 +7,48 @@ extends AnimatedSprite2D
 
 var in_dialog = false
 var colliding = false
-var must_leave_area = false 
+var must_leave_area = false
 
 signal interact_pressed
 
-func _ready() -> void:
-	Txt.hide(); TxtBg.hide()
 
+## Hides dialogue UI until the player interacts.
+func _ready() -> void:
+	Txt.hide()
+	TxtBg.hide()
+
+
+## Handles interact input to start or advance dialogue.
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Interact"):
-		if in_dialog: interact_pressed.emit()
-		elif colliding and not must_leave_area: start_dialogue()
+		if in_dialog:
+			interact_pressed.emit()
+		elif colliding and not must_leave_area:
+			start_dialogue()
 
+
+## Plays idle animation and toggles the interact prompt label.
 func _physics_process(_delta: float) -> void:
-	if not is_playing(): play("Anim")
+	if not is_playing():
+		play("Anim")
 	label.visible = (not in_dialog and colliding and not must_leave_area)
 
+
+## Runs wall-jump tutorial dialogue and grants the ability if needed.
 func start_dialogue() -> void:
-	in_dialog = true; player.SPEED = 0
-	Txt.show(); TxtBg.show()
-	
-	# Walljump giver has no choices, so we sweep the UI and hide ANY buttons
+	in_dialog = true
+	player.SPEED = 0
+	Txt.show()
+	TxtBg.show()
+
 	for child in TxtBg.get_children():
 		if child is Button:
 			child.hide()
-	
+
 	if player.has_walljump:
 		Txt.text = "Go on, try it out, hop on a wall and keep jumping!"
-		await get_tree().create_timer(0.1).timeout; await interact_pressed 
+		await get_tree().create_timer(0.1).timeout
+		await interact_pressed
 	else:
 		var lines = [
 			"Yo, you. I'm kinda dying here, and there's no way to go back down.",
@@ -43,12 +57,36 @@ func start_dialogue() -> void:
 		]
 		for line in lines:
 			Txt.text = line
-			await get_tree().create_timer(0.1).timeout; await interact_pressed 
+			await get_tree().create_timer(0.1).timeout
+			await interact_pressed
 		player.has_walljump = true
-	
-	must_leave_area = true 
-	Txt.hide(); TxtBg.hide()
-	player.SPEED = 1200; in_dialog = false
+		_refresh_skill_tree()
 
-func _on_area_2d_body_entered(body: Node2D) -> void: if body.has_method("flash_red"): colliding = true
-func _on_area_2d_body_exited(body: Node2D) -> void: if body.has_method("flash_red"): colliding = false; must_leave_area = false
+	must_leave_area = true
+	Txt.hide()
+	TxtBg.hide()
+	player.SPEED = 1200
+	in_dialog = false
+
+
+## Marks the player as inside the interaction area.
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.has_method("flash_red"):
+		colliding = true
+
+
+## Clears interaction state when the player leaves the area.
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body.has_method("flash_red"):
+		colliding = false
+		must_leave_area = false
+
+
+## Updates skill tree glows and saves after teaching Wall Jump.
+func _refresh_skill_tree() -> void:
+	for node in get_tree().get_nodes_in_group("skill_nodes"):
+		if node.has_method("sync_from_player"):
+			node.sync_from_player()
+	var save_manager := get_tree().get_first_node_in_group("save_manager")
+	if save_manager and save_manager.has_method("save_game"):
+		save_manager.save_game()

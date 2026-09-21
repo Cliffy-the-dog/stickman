@@ -8,6 +8,8 @@ var _resolved_id: String = ""
 var _tracked_parent: Node = null
 var _logged: bool = false
 
+
+# Registers with persistence groups and checks whether the parent should be removed.
 func _ready() -> void:
 	add_to_group("non_respawning_tags")
 	_tracked_parent = get_parent()
@@ -16,6 +18,8 @@ func _ready() -> void:
 		_tracked_parent.tree_exiting.connect(_on_parent_tree_exiting)
 	call_deferred("_check_persistence")
 
+
+# Builds a stable ID from export override, parent ID, or scene-relative path.
 func _make_id() -> String:
 	var override := entity_id.strip_edges()
 	if override != "":
@@ -31,12 +35,16 @@ func _make_id() -> String:
 		return str(tree.current_scene.get_path_to(_tracked_parent))
 	return str(_tracked_parent.get_path())
 
+
+# Returns the cached persistence ID, resolving it on first access.
 func _id() -> String:
 	if _resolved_id != "":
 		return _resolved_id
 	_resolved_id = _make_id()
 	return _resolved_id
 
+
+# Collects every ID that may match this entity in save data.
 func _candidate_ids() -> Array[String]:
 	var ids: Array[String] = []
 	var primary := _id()
@@ -50,10 +58,14 @@ func _candidate_ids() -> Array[String]:
 			ids.append(parent_id)
 	return ids
 
+
+# Removes the tracked parent immediately if it was already defeated in a save.
 func _check_persistence() -> void:
 	if is_defeated() and is_instance_valid(_tracked_parent):
 		_tracked_parent.queue_free()
 
+
+# Returns whether any candidate ID is marked defeated in the save manager.
 func is_defeated() -> bool:
 	var save_mgr := _find_save_manager()
 	if save_mgr == null or not ("defeated_entity_ids" in save_mgr):
@@ -64,15 +76,23 @@ func is_defeated() -> bool:
 			return true
 	return false
 
+
+# Public hook called when an entity is defeated during gameplay.
 func on_defeated() -> void:
 	_log_gone()
 
+
+# Attempts to record defeat when the tracked parent begins exiting the tree.
 func _on_parent_tree_exiting() -> void:
 	_try_log_parent_freed()
 
+
+# Attempts to record defeat when this tracker leaves the scene tree.
 func _exit_tree() -> void:
 	_try_log_parent_freed()
 
+
+# Records defeat once when the parent is actually being freed outside scene unload.
 func _try_log_parent_freed() -> void:
 	if _logged:
 		return
@@ -82,6 +102,8 @@ func _try_log_parent_freed() -> void:
 		return
 	_log_gone()
 
+
+# Returns true while the current scene is unloading or unavailable.
 func _is_scene_unloading() -> bool:
 	var tree := _scene_tree()
 	if tree == null:
@@ -91,6 +113,8 @@ func _is_scene_unloading() -> bool:
 		return true
 	return false
 
+
+# Persists all candidate IDs as defeated through the save manager.
 func _log_gone() -> void:
 	if _logged:
 		return
@@ -101,12 +125,16 @@ func _log_gone() -> void:
 	for id in _candidate_ids():
 		save_mgr.register_entity_death(id)
 
+
+# Returns the active scene tree, falling back to the main loop when needed.
 func _scene_tree() -> SceneTree:
 	var tree := get_tree()
 	if tree:
 		return tree
 	return Engine.get_main_loop() as SceneTree
 
+
+# Finds the save manager node from group membership or the pause menu.
 func _find_save_manager() -> Node:
 	var tree := _scene_tree()
 	if tree == null:

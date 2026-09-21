@@ -7,28 +7,36 @@ extends Control
 @onready var starter_scene: Node2D = $"../../../../.."
 @onready var player: CharacterBody2D = %Player
 @onready var healthbar: ProgressBar = %Healthbar
-const SAVE_PATH = "user://savegame.json"
 @onready var control: Control = $"../Control"
+
+const SAVE_PATH = "user://savegame.json"
 
 var defeated_entity_ids: Array = []
 
+
+# Registers as save manager, hides the menu, and loads any existing save data.
 func _ready() -> void:
 	add_to_group("save_manager")
 	hide()
 	load_game()
 
-func save_game():
+
+# Writes checkpoint, stats, inventory, and defeated entities to disk.
+func save_game() -> void:
 	if is_instance_valid(hoard) and hoard.current_state == hoard.BossState.DEAD:
 		if not defeated_entity_ids.has("boss_hoard"):
 			defeated_entity_ids.append("boss_hoard")
 
-	# Save active abilities and unlocks to array
 	var inventory: Array = []
 	if is_instance_valid(player):
 		if player.has_walljump:
 			inventory.append("walljump")
 		if "has_bloodbind" in player and player.has_bloodbind:
 			inventory.append("bloodbind")
+		if player.get("has_sprint_unlocked"):
+			inventory.append("sprint")
+		if player.get("has_healer_health_upgrade"):
+			inventory.append("healer_upgrade")
 
 	if is_instance_valid(healer) and healer.health_upgrade_bought:
 		inventory.append("healer_upgrade")
@@ -50,7 +58,9 @@ func save_game():
 		file.store_line(JSON.stringify(save_data))
 		file.close()
 
-func load_game():
+
+# Reads save data from disk and applies it to the current scene.
+func load_game() -> void:
 	if not FileAccess.file_exists(SAVE_PATH):
 		return
 
@@ -62,12 +72,10 @@ func load_game():
 	if json.parse(json_string) == OK and json.data is Dictionary:
 		var data = json.data
 
-		# 1. Checkpoint Position
 		if data.has("checkpoint") and data["checkpoint"] is Array and is_instance_valid(player):
 			player.last_checkpoint = Vector2(data["checkpoint"][0], data["checkpoint"][1])
 			player.global_position = player.last_checkpoint
 
-		# 2. Player Stats
 		if data.has("stats") and data["stats"] is Dictionary:
 			var stats = data["stats"]
 			if is_instance_valid(player):
@@ -80,17 +88,19 @@ func load_game():
 				if target_bar:
 					target_bar.max_value = 100 + 20 * management.health_upgrades
 
-		# 3. Inventory Unlocks
 		var inventory = data.get("inventory", [])
 		if is_instance_valid(player):
 			player.has_walljump = inventory.has("walljump")
 			if "has_bloodbind" in player:
 				player.has_bloodbind = inventory.has("bloodbind")
+			if "has_sprint_unlocked" in player:
+				player.has_sprint_unlocked = inventory.has("sprint")
+			if "has_healer_health_upgrade" in player:
+				player.has_healer_health_upgrade = inventory.has("healer_upgrade")
 
 		if is_instance_valid(healer):
 			healer.health_upgrade_bought = inventory.has("healer_upgrade")
 
-		# 4. Persistence Deletions
 		if data.has("defeated_entities") and data["defeated_entities"] is Array:
 			defeated_entity_ids = []
 			for item in data["defeated_entities"]:
@@ -98,12 +108,24 @@ func load_game():
 
 		# PauseMenu _ready runs before later siblings (Hoard, Former Guardian) enter the tree.
 		call_deferred("_apply_loaded_persistence")
+		call_deferred("_sync_skill_tree_from_player")
 
+
+# Records a defeated entity ID and immediately persists the save file.
 func register_entity_death(entity_id: String) -> void:
 	if entity_id != "" and not defeated_entity_ids.has(entity_id):
 		defeated_entity_ids.append(entity_id)
 		save_game()
 
+
+# Updates skill tree node glows after save data is applied to the player.
+func _sync_skill_tree_from_player() -> void:
+	for node in get_tree().get_nodes_in_group("skill_nodes"):
+		if node.has_method("sync_from_player"):
+			node.sync_from_player()
+
+
+# Applies loaded persistence after all scene nodes have entered the tree.
 func _apply_loaded_persistence() -> void:
 	apply_entity_deaths()
 	if not is_instance_valid(hoard):
@@ -111,6 +133,8 @@ func _apply_loaded_persistence() -> void:
 	if is_instance_valid(hoard) and "exists_in_previous_save" in hoard:
 		hoard.exists_in_previous_save = not defeated_entity_ids.has("boss_hoard")
 
+
+# Removes non-respawning tags and persistent entities marked as defeated.
 func apply_entity_deaths() -> void:
 	var tree := get_tree()
 	if tree == null:
@@ -126,17 +150,25 @@ func apply_entity_deaths() -> void:
 		if "entity_id" in node and defeated_entity_ids.has(str(node.entity_id)):
 			node.queue_free()
 
-func _process(_delta: float) -> void:
-	if color_rect.local_hide == 1: hide()
-	elif color_rect.local_hide == 0: show()
 
+# Shows or hides the pause menu based on the overlay ColorRect state.
+func _process(_delta: float) -> void:
+	if color_rect.local_hide == 1:
+		hide()
+	elif color_rect.local_hide == 0:
+		show()
+
+
+# Resumes gameplay via the starter scene pause toggle.
 func _on_resume_pressed() -> void:
 	starter_scene.pauseMenu()
 	control.mouse_filter = Control.MOUSE_FILTER_PASS
 	mouse_filter = Control.MOUSE_FILTER_PASS
 
+
+# Saves progress and returns to the main menu scene.
 func _on_quit_to_menu_pressed() -> void:
 	save_game()
 	get_tree().paused = false
 	Engine.time_scale = 1
-	get_tree().change_scene_to_file("res://Scenes/levels/MainMenu.tscn")
+	get_tree().change_scene_to_file("res://scenes/levels/MainMenu.tscn")

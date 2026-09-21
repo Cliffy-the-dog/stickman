@@ -4,46 +4,50 @@ extends RigidBody2D
 @export var speed = 600.0
 @export var detection_range = 1000.0
 @onready var animatedSprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var sprite = $AnimatedSprite2D 
+@onready var sprite = $AnimatedSprite2D
 
-var skinshred_scene = preload("res://assets/sprites/skin_shred.tscn") 
+var skinshred_scene = preload("res://assets/sprites/skin_shred.tscn")
 
 var multiplier = 1
 var not_dying = 1
 var movable = 1
 var damage_value = 20
 var player = null
-var music_manager = null # Changed from @onready %MusicManager
+var music_manager = null
 var is_chasing = false
 var dir = 1
-var is_dead = false 
-
+var is_dead = false
 var is_stunned: bool = false
 
+
+## Initializes chase enemy state and locates player and music manager.
 func _ready():
 	player = get_tree().root.find_child("Player", true, false)
-	# Dynamically find MusicManager in the scene tree:
 	music_manager = get_tree().root.find_child("MusicManager", true, false)
-	
+
 	lock_rotation = true
 	contact_monitor = true
 	max_contacts_reported = 4
 
+
+## Applies a velocity impulse and briefly stuns movement.
 func apply_knockback(force: Vector2) -> void:
 	linear_velocity = force
 	is_stunned = true
 	await get_tree().create_timer(0.5).timeout
 	is_stunned = false
 
+
+## Chases the player when within range and updates run animation.
 func _physics_process(_delta):
 	if player and not is_dead:
 		var distance = global_position.distance_to(player.global_position)
-		
+
 		if distance < detection_range and not is_chasing:
 			is_chasing = true
 			if music_manager and music_manager.has_method("start_chase"):
-				music_manager.start_chase(get_instance_id()) 
-		
+				music_manager.start_chase(get_instance_id())
+
 		if not is_stunned:
 			if is_chasing:
 				var direction = sign(player.global_position.x - global_position.x)
@@ -52,31 +56,35 @@ func _physics_process(_delta):
 				if healthbar.value > 0:
 					sprite.play("Run")
 
+
+## Reduces health, briefly reverses movement, and triggers death at zero HP.
 func take_damage(damage) -> void:
 	if is_dead:
 		return
-		
+
 	healthbar.value -= damage
 	multiplier = -1
 	await get_tree().create_timer(0.15).timeout
 	multiplier = 1
-	
+
 	if healthbar.value <= 0:
 		healthbar.value = 0
 		die()
 
+
+## Spawns skin shred pickup, plays death animation, and removes the enemy.
 func die() -> void:
 	is_dead = true
 	if music_manager and music_manager.has_method("stop_chase"):
 		music_manager.stop_chase(get_instance_id())
 	movable = 0
 	not_dying = 0
-	
+
 	if skinshred_scene:
 		var shred = skinshred_scene.instantiate()
 		shred.global_position = global_position
 		get_parent().call_deferred("add_child", shred)
-	
+
 	animatedSprite.play("Die")
 	await animatedSprite.animation_finished
 	queue_free()

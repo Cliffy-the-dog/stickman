@@ -2,6 +2,8 @@ extends Button
 
 var save_file_path: String = "user://savegame.json"
 
+
+## Deletes the save file from disk if it exists.
 func _on_pressed() -> void:
 	if FileAccess.file_exists(save_file_path):
 		var error = DirAccess.remove_absolute(save_file_path)
