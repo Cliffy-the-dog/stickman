@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var fazed_hitbox: Area2D = $"Fazed Hitbox"
 @onready var inventory: Node2D = $Inventory
 @export var projectile_scene: PackedScene
+@export var bloodmine_scene: PackedScene
 
 @onready var bloodbar: ProgressBar = get_node_or_null("CanvasLayer/Bloodbar") if get_node_or_null("CanvasLayer/Bloodbar") else $Bloodbar
 @onready var healthbar: ProgressBar = %Healthbar if has_node("%Healthbar") else get_node_or_null("CanvasLayer/Healthbar")
@@ -35,47 +36,61 @@ const CHAIN_TOSS = preload("uid://cvoqnry8ssqo6")
 @export var push_force = 100.0
 
 # --- Player Stats & Flags ---
-var health
+var health: float
 var has_bloodbind: bool = false
 var hasbloodbind: bool:
 	get: return has_bloodbind
 	set(v): has_bloodbind = v
 
-var bootson = true
+var bootson: bool = true
 const JUMP_VELOCITY = -2200.0
-var money = 0.0
+var money: float = 0.0
 
 # Safe setter guarantees skins can NEVER drop below 0
 var skins: int = 0:
 	set(value):
 		skins = max(0, value)
 
-var abletoheal = 1; var damage = 20; var last_checkpoint = Vector2.ZERO; var attackers: Array[Node] = []
-var last_floor_pos = Vector2.ZERO; var pause_Idleanimationforce = 0; var damage_taken_in_the_past_0point4seconds = 0
-var damage_value = 10; var bouncing_in_progress = 0; var being_touched = 0
-var health_upgrades = 1; var SPEED = 1440.0; var healthpause = 0; var is_safe_ground = true
-var max_health = 100 + 20 * health_upgrades
-var bloodbind_in_progress = 0
-var goo_spawn_cooldown = 0.0
-var has_walljump = false
-var is_crouching = false
-var crouch_cooldown = 0.0
+var abletoheal: bool = true
+var is_healing: bool = false
+var damage: int = 20
+var last_checkpoint: Vector2 = Vector2.ZERO
+var attackers: Array[Node] = []
+var last_floor_pos: Vector2 = Vector2.ZERO
+var pause_Idleanimationforce: bool = false
+var damage_taken_in_the_past_0point4seconds: bool = false
+var damage_value: int = 10
+var bouncing_in_progress: bool = false
+var being_touched: bool = false
+var health_upgrades: int = 1
+var has_healer_health_upgrade: bool = false
+var SPEED: float = 1440.0
+var sprint_speed_boost: float = 400.0
+var healthpause: bool = false
+var is_safe_ground: bool = true
+var max_health: int = 100 + 20 * health_upgrades
+var bloodbind_in_progress: bool = false
+var goo_spawn_cooldown: float = 0.0
+var has_walljump: bool = false
+var is_crouching: bool = false
+var crouch_cooldown: float = 0.0
+var has_sprint_unlocked: bool = false # Properly implemented now!
 
 # --- Dash & Movement Variables ---
-var is_dashing = false
-var dash_timer = 0.0
-var dash_direction = 1
-var dash_cooldown_timer = 0.0
-var is_pogo_sliding = false
-var wall_jump_lock_timer = 0.0
+var is_dashing: bool = false
+var dash_timer: float = 0.0
+var dash_direction: int = 1
+var dash_cooldown_timer: float = 0.0
+var is_pogo_sliding: bool = false
+var wall_jump_lock_timer: float = 0.0
 
 # --- Pogo Variables ---
-var is_pogoing = false
-var was_pogoing = false
-var pogo_start_y = 0.0
-var pogo_direction = 0.0
-var pogo_fall_timer = 0.0
-var pogo_cooldown_timer = 0.0
+var is_pogoing: bool = false
+var was_pogoing: bool = false
+var pogo_start_y: float = 0.0
+var pogo_direction: float = 0.0
+var pogo_fall_timer: float = 0.0
+var pogo_cooldown_timer: float = 0.0
 
 # --- Combo Variables ---
 var combo_step: int = 0
@@ -89,8 +104,8 @@ var facing_direction: float = 1.0
 func _ready():
 	# Reset abilities & state flags explicitly on spawn
 	has_bloodbind = false
-	bloodbind_in_progress = 0
-	pause_Idleanimationforce = 0
+	bloodbind_in_progress = false
+	pause_Idleanimationforce = false
 	SPEED = 1440.0
 
 	%SlashArea2.hide()
@@ -112,7 +127,7 @@ func _ready():
 		healthbar.health = healthbar.max_value
 		
 	if is_instance_valid(bloodbar):
-		bloodbar.value = 100
+		bloodbar.value = bloodbar.max_value
 	
 	for p in particles:
 		p.show()
@@ -145,7 +160,7 @@ func _setup_limb_trails() -> void:
 func update_limb_trails(step: int) -> void:
 	var show_arm_l = is_pogoing or (step == 1 or step == 3 or step == 4)
 	var show_arm_r = is_pogoing or (step == 1 or step == 2 or step == 3 or step == 4)
-	var show_legs  = is_pogoing or (step == 3)
+	var show_legs = is_pogoing or (step == 3)
 
 	if arm_l_trail:
 		if "emitting" in arm_l_trail: arm_l_trail.emitting = show_arm_l
@@ -236,7 +251,8 @@ func _physics_process(delta):
 	elif bloodbind_in_progress or (is_dashing and not is_pogo_sliding):
 		velocity.y = 0
 	
-	if is_on_floor() and Input.is_action_just_pressed("Heal") and is_instance_valid(healthbar) and healthbar.value < healthbar.max_value:
+	if is_on_floor() and Input.is_action_just_pressed("Heal") and is_instance_valid(healthbar) and healthbar.value < healthbar.max_value and not is_healing:
+		is_healing = true
 		while is_instance_valid(bloodbar) and bloodbar.value > 0 and healthbar.value < healthbar.max_value and abletoheal:
 			for p in particles: p.emitting = true
 			SPEED = 0
@@ -246,6 +262,7 @@ func _physics_process(delta):
 			healthbar.health = healthbar.value
 		SPEED = 1440
 		for p in particles: p.emitting = false
+		is_healing = false
 
 	if Input.is_action_just_pressed("Slash") and is_on_floor() and not is_crouching:
 		execute_punch()
@@ -298,7 +315,7 @@ func _physics_process(delta):
 		visuals.scale.x = 1 if facing_direction < 0 else -1
 		
 	if bouncing_in_progress and velocity.y >= 0:
-		bouncing_in_progress = 0
+		bouncing_in_progress = false
 		
 	var attempted_aerial_pogo = Input.is_action_just_pressed("Crouch") or Input.is_action_just_pressed("Slash")
 	
@@ -347,6 +364,11 @@ func _physics_process(delta):
 		elif d == 0 and is_on_floor():
 			anim_player.play("Idle")
 
+	var current_speed = SPEED
+	# NOW strictly checks if sprint is unlocked instead of just wall jump
+	if Input.is_action_pressed("Sprint") and has_sprint_unlocked:
+		current_speed += sprint_speed_boost
+
 	if bloodbind_in_progress:
 		velocity = Vector2.ZERO
 	elif is_dashing:
@@ -354,11 +376,11 @@ func _physics_process(delta):
 	elif is_pogoing:
 		velocity.x = (pogo_direction * velocity.y) * 1.2
 	elif is_punching:
-		velocity.x = move_toward(velocity.x, 0, SPEED * delta * 8)
+		velocity.x = move_toward(velocity.x, 0, current_speed * delta * 8)
 	elif wall_jump_lock_timer > 0.0:
-		if d != 0: velocity.x = move_toward(velocity.x, d * SPEED, 3000 * delta)
+		if d != 0: velocity.x = move_toward(velocity.x, d * current_speed, 3000 * delta)
 	else:
-		velocity.x = d * SPEED if d else move_toward(velocity.x, 0, SPEED)
+		velocity.x = d * current_speed if d else move_toward(velocity.x, 0, current_speed)
 	
 	velocity.y = clamp(velocity.y, -3600.0, 3600.0)
 	move_and_slide()
@@ -379,7 +401,7 @@ func _physics_process(delta):
 			pogo_cooldown_timer = pogo_cooldown_duration
 			
 		if bouncing_in_progress:
-			bouncing_in_progress = 0
+			bouncing_in_progress = false
 			
 		for i in get_slide_collision_count():
 			var collision = get_slide_collision(i)
@@ -487,8 +509,8 @@ func respawn_logic():
 		get_tree().reload_current_scene()
 
 func apply_damage(val):
-	abletoheal = 0
-	damage_taken_in_the_past_0point4seconds = 1
+	abletoheal = false
+	damage_taken_in_the_past_0point4seconds = true
 	flash_red()
 	
 	if is_instance_valid(healthbar):
@@ -498,14 +520,14 @@ func apply_damage(val):
 			healthbar.damage_bar.value = healthbar.health
 			
 	await get_tree().create_timer(0.4).timeout
-	damage_taken_in_the_past_0point4seconds = 0
-	abletoheal = 1
+	damage_taken_in_the_past_0point4seconds = false
+	abletoheal = true
 
 func die_sequence():
-	healthpause = 1; SPEED = 0; pause_Idleanimationforce = 1
+	healthpause = true; SPEED = 0; pause_Idleanimationforce = true
 	anim_player.play("Die")
 	await anim_player.animation_finished
-	pause_Idleanimationforce = 0; healthpause = 0; SPEED = 1440
+	pause_Idleanimationforce = false; healthpause = false; SPEED = 1440
 	respawn_logic()
 
 func _on_fazed_hitbox_body_entered(b):
@@ -520,7 +542,7 @@ func _on_fazed_hitbox_body_entered(b):
 		is_pogoing = false
 		pogo_fall_timer = 0.0
 		pogo_cooldown_timer = pogo_cooldown_duration
-		bouncing_in_progress = 1
+		bouncing_in_progress = true
 		return
 	if b.has_method("take_damage") and not attackers.has(b):
 		attackers.append(b)
@@ -547,19 +569,24 @@ func _on_fazed_hitbox_area_entered(a):
 		is_pogoing = false
 		pogo_fall_timer = 0.0
 		pogo_cooldown_timer = pogo_cooldown_duration
-		bouncing_in_progress = 1
+		bouncing_in_progress = true
 		return
 		
 	if is_hazard and not attackers.has(a):
 		attackers.append(a)
 			
 	if a.has_method("AreaIdentifier"):
-		SPEED = 0
-		if is_instance_valid(healthbar):
-			while healthbar.value < healthbar.max_value:
-				healthbar.value += 1; await get_tree().create_timer(0.02).timeout
-			healthbar.health = healthbar.max_value
-		SPEED = 1440; last_checkpoint = global_position; pause_menu.save_game()
+		if not is_healing:
+			is_healing = true
+			SPEED = 0
+			if is_instance_valid(healthbar):
+				while healthbar.value < healthbar.max_value:
+					healthbar.value += 1
+					await get_tree().create_timer(0.02).timeout
+				healthbar.health = healthbar.max_value
+			SPEED = 1440; last_checkpoint = global_position; pause_menu.save_game()
+			is_healing = false
+
 	if a.has_method("GITGUD"):
 		SPEED = 700; await get_tree().create_timer(0.2).timeout; SPEED = 1440
 
@@ -608,8 +635,8 @@ func unlock_bloodbind() -> bool:
 
 func shoot_projectile() -> void:
 	if projectile_scene == null: return
-	bloodbind_in_progress = 1
-	pause_Idleanimationforce = 1
+	bloodbind_in_progress = true
+	pause_Idleanimationforce = true
 	SPEED = 0
 	
 	var is_facing_left: bool = facing_direction < 0
@@ -627,8 +654,8 @@ func shoot_projectile() -> void:
 		anim_player.play("Bloodbind Launch")
 
 func finish_bloodbind() -> void:
-	bloodbind_in_progress = 0
-	pause_Idleanimationforce = 0
+	bloodbind_in_progress = false
+	pause_Idleanimationforce = false
 	SPEED = 1440
 	anim_player.play("Idle")
 
@@ -647,3 +674,72 @@ func take_damage(amount):
 		
 	if not damage_taken_in_the_past_0point4seconds and not healthpause:
 		apply_damage(amount)
+
+# --- Skill Tree Upgrades ---
+
+# Traversal Branch (Requires Root: Wall Jump)
+func sprint(cost: int = 10, speed_boost: float = 400.0) -> bool:
+	if has_sprint_unlocked:
+		print("Sprint is already unlocked.")
+		return true
+
+	if not has_walljump:
+		push_warning("Cannot unlock Sprint: Wall Jump (Root) is required first.")
+		return false
+	
+	# Attempt to pay for the upgrade
+	if spend_skins(cost):
+		has_sprint_unlocked = true
+		sprint_speed_boost = speed_boost
+		print("Sprint unlocked successfully!")
+		
+		var save_manager = get_tree().get_first_node_in_group("save_manager")
+		if save_manager and save_manager.has_method("save_game"):
+			save_manager.save_game()
+		return true
+	else:
+		print("Not enough skins to unlock Sprint!")
+		return false
+
+# Blood Branch (Requires Root: Bloodbind)
+func bloodmine() -> void:
+	if not has_bloodbind:
+		push_warning("Cannot use Bloodmine: Bloodbind (Root) is required first.")
+		return
+	if bloodmine_scene == null:
+		push_error("Player: bloodmine_scene is not assigned in the Inspector!")
+		return
+	var mine = bloodmine_scene.instantiate()
+	mine.global_position = global_position
+	get_tree().current_scene.add_child(mine)
+
+func blood_increase_1(amount: float = 20.0) -> bool:
+	if not has_bloodbind:
+		push_warning("Cannot unlock Blood Increase I: Bloodbind (Root) is required first.")
+		return false
+	if is_instance_valid(bloodbar):
+		bloodbar.max_value += amount
+		bloodbar.value = bloodbar.max_value
+	return true
+
+# Health Branch (Requires Root: Healer Health Upgrade)
+func healer_health_upgrade(amount: float = 20.0) -> void:
+	has_healer_health_upgrade = true
+	health_upgrades += 1
+	max_health += amount
+	if is_instance_valid(healthbar):
+		healthbar.max_value = max_health
+		healthbar.value = max_health
+		healthbar.health = max_health
+
+func health_upgrade_2(amount: float = 20.0) -> bool:
+	if not has_healer_health_upgrade and health_upgrades < 1:
+		push_warning("Cannot unlock Health Upgrade II: Healer Health Upgrade (Root) is required first.")
+		return false
+	health_upgrades += 1
+	max_health += amount
+	if is_instance_valid(healthbar):
+		healthbar.max_value = max_health
+		healthbar.value = max_health
+		healthbar.health = max_health
+	return true

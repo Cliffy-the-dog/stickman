@@ -1,9 +1,15 @@
 extends SkillNode
+class_name TraversalSkillNode
 
-@export var is_root_walljump: bool = false
+@export var unlocks_wall_jump: bool = false
+@export var speed_bonus: float = 50.0
 
 func apply_skill_effect() -> void:
-	if is_root_walljump:
-		player.has_walljump = true
+	var player = get_player()
+	if not player:
+		return
+
+	if unlocks_wall_jump:
+		player.can_wall_jump = true
 	else:
-		player.SPEED += 200.0
+		player.speed += speed_bonus

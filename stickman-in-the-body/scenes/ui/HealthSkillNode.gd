@@ -1,11 +1,15 @@
 extends SkillNode
+class_name HealthSkillNode
 
-@export var is_root_health: bool = false
+@export var max_hp_bonus: float = 25.0
+@export var health_regen_bonus: float = 2.0
 
 func apply_skill_effect() -> void:
-	player.health_upgrades += 1
-	player.max_health = 100 + (20 * player.health_upgrades)
-	
-	if is_instance_valid(player.healthbar):
-		player.healthbar.max_value = player.max_health
-		player.healthbar.value = player.max_health
+	var player = get_player()
+	if not player:
+		return
+
+	player.max_health += max_hp_bonus
+	player.current_health += max_hp_bonus
+	if "health_regen_rate" in player:
+		player.health_regen_rate += health_regen_bonus

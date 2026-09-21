@@ -5,9 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://bkufjfdnayad6" path="res://Scenes/ui/Item Icons/skinshred(ui).tscn" id="3_sxppk"]
 [ext_resource type="Script" uid="uid://b0u0lck44204v" path="res://Scenes/ui/healthbar.gd" id="4_4lboj"]
 [ext_resource type="Shader" uid="uid://cyf150hcoar30" path="res://Scenes/ui/skillnode.gdshader" id="5_t7a6n"]
-[ext_resource type="Script" uid="uid://8pvelhxhtftx" path="res://Scenes/ui/BloodSkillNode.gd" id="6_ebcmq"]
-[ext_resource type="Script" uid="uid://dtxqjdhgwu4d0" path="res://Scenes/ui/HealthSkillNode.gd" id="7_16lh2"]
-[ext_resource type="Script" uid="uid://c1jib38qb6k8l" path="res://Scenes/ui/TraversalSkillNode.gd" id="8_43kg7"]
+[ext_resource type="Script" uid="uid://p1va44n32vbf" path="res://Scripts/SkillNode.gd" id="6_jwqo6"]
+[ext_resource type="Shader" uid="uid://b6yqhgmnuvgd4" path="res://Scenes/ui/SkillNodeShader.gdshader" id="7_rlkn0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxppk"]
 bg_color = Color(0.37951472, 5.9862623e-07, 1.6845763e-07, 1)
@@ -43,8 +42,60 @@ shader_parameter/center_hollow_radius = 0.08
 shader_parameter/edge_fade_width = 0.10999999754128
 shader_parameter/elapsed_time = 0.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_16lh2"]
+shader = ExtResource("7_rlkn0")
+shader_parameter/is_unlocked = false
+shader_parameter/u_time = 0.0
+shader_parameter/locked_grey = Color(0.15, 0.17, 0.2, 0.5)
+shader_parameter/locked_lime = Color(0.3, 0.95, 0.3, 0.85)
+shader_parameter/locked_cyan = Color(0, 0.85, 0.95, 0.85)
+shader_parameter/fire_outer = Color(0.9, 0.15, 0, 0.95)
+shader_parameter/fire_inner = Color(1, 0.55, 0, 1)
+shader_parameter/fire_core = Color(1, 0.98, 0.75, 1)
+shader_parameter/flow_speed = 3.0
+shader_parameter/flame_tongues = 7.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jwqo6"]
 bg_color = Color(0, 0, 0, 0.9019608)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_43kg7"]
+shader = ExtResource("7_rlkn0")
+shader_parameter/is_unlocked = false
+shader_parameter/u_time = 0.0
+shader_parameter/locked_grey = Color(0.15, 0.17, 0.2, 0.5)
+shader_parameter/locked_lime = Color(0.3, 0.95, 0.3, 0.85)
+shader_parameter/locked_cyan = Color(0, 0.85, 0.95, 0.85)
+shader_parameter/fire_outer = Color(0.9, 0.15, 0, 0.95)
+shader_parameter/fire_inner = Color(1, 0.55, 0, 1)
+shader_parameter/fire_core = Color(1, 0.98, 0.75, 1)
+shader_parameter/flow_speed = 3.0
+shader_parameter/flame_tongues = 7.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_en7om"]
+shader = ExtResource("7_rlkn0")
+shader_parameter/is_unlocked = false
+shader_parameter/u_time = 0.0
+shader_parameter/locked_grey = Color(0.15, 0.17, 0.2, 0.5)
+shader_parameter/locked_lime = Color(0.3, 0.95, 0.3, 0.85)
+shader_parameter/locked_cyan = Color(0, 0.85, 0.95, 0.85)
+shader_parameter/fire_outer = Color(0.9, 0.15, 0, 0.95)
+shader_parameter/fire_inner = Color(1, 0.55, 0, 1)
+shader_parameter/fire_core = Color(1, 0.98, 0.75, 1)
+shader_parameter/flow_speed = 3.0
+shader_parameter/flame_tongues = 7.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5cddh"]
+shader = ExtResource("7_rlkn0")
+shader_parameter/is_unlocked = false
+shader_parameter/u_time = 0.0
+shader_parameter/locked_grey = Color(0.15, 0.17, 0.2, 0.5)
+shader_parameter/locked_lime = Color(0.3, 0.95, 0.3, 0.85)
+shader_parameter/locked_cyan = Color(0, 0.85, 0.95, 0.85)
+shader_parameter/fire_outer = Color(0.9, 0.15, 0, 0.95)
+shader_parameter/fire_inner = Color(1, 0.55, 0, 1)
+shader_parameter/fire_core = Color(1, 0.98, 0.75, 1)
+shader_parameter/flow_speed = 3.0
+shader_parameter/flame_tongues = 7.0
 
 [node name="Inventory" type="Node2D" unique_id=666343005]
 z_index = 4096
@@ -156,15 +207,15 @@ custom_minimum_size = Vector2(1056, 482)
 layout_mode = 2
 color = Color(0, 0, 0, 1)
 
-[node name="BloodSkillNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=1511145330]
+[node name="BloodSkillNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=1511145330 groups=["skill_nodes"]]
 material = SubResource("ShaderMaterial_ebcmq")
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 0
 offset_top = 215.0
 offset_right = 150.0
 offset_bottom = 365.0
-script = ExtResource("6_ebcmq")
-is_root_bloodbind = true
+script = ExtResource("6_jwqo6")
+line_shader = SubResource("ShaderMaterial_16lh2")
 
 [node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/ColorRect/BloodSkillNode" unique_id=1764238123]
 custom_minimum_size = Vector2(100, 100)
@@ -180,15 +231,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jwqo6")
 
-[node name="HealthNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=1990271677]
+[node name="HealthNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=1990271677 groups=["skill_nodes"]]
 material = SubResource("ShaderMaterial_ebcmq")
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 0
 offset_top = 449.0
 offset_right = 150.0
 offset_bottom = 599.0
-script = ExtResource("7_16lh2")
-is_root_health = true
+script = ExtResource("6_jwqo6")
+line_shader = SubResource("ShaderMaterial_43kg7")
 
 [node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/ColorRect/HealthNode" unique_id=215177323]
 custom_minimum_size = Vector2(100, 100)
@@ -219,7 +270,7 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TraversalNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=697314440]
+[node name="TraversalNode" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=697314440 groups=["skill_nodes"]]
 material = SubResource("ShaderMaterial_ebcmq")
 custom_minimum_size = Vector2(150, 150)
 layout_direction = 4
@@ -227,8 +278,8 @@ layout_mode = 0
 offset_top = 689.0
 offset_right = 150.0
 offset_bottom = 839.0
-script = ExtResource("8_43kg7")
-is_root_walljump = true
+script = ExtResource("6_jwqo6")
+line_shader = SubResource("ShaderMaterial_en7om")
 
 [node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/ColorRect/TraversalNode" unique_id=715013273]
 custom_minimum_size = Vector2(100, 100)
@@ -243,6 +294,50 @@ offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jwqo6")
+
+[node name="Sprint" type="ColorRect" parent="Ninventory/ScrollContainer/ColorRect" unique_id=1140575753 groups=["skill_nodes"]]
+material = SubResource("ShaderMaterial_ebcmq")
+custom_minimum_size = Vector2(150, 150)
+layout_direction = 4
+layout_mode = 0
+offset_left = 279.0
+offset_top = 615.0
+offset_right = 429.0
+offset_bottom = 765.0
+script = ExtResource("6_jwqo6")
+function_name = "unlock_sprint"
+line_shader = SubResource("ShaderMaterial_5cddh")
+
+[node name="Panel" type="Panel" parent="Ninventory/ScrollContainer/ColorRect/Sprint" unique_id=2102205726]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 18.0
+offset_right = -18.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jwqo6")
+
+[node name="Label" type="Label" parent="Ninventory/ScrollContainer/ColorRect/Sprint/Panel" unique_id=1642487684]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.5
+offset_top = -22.0
+offset_right = 62.5
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_6ykjb")
+theme_override_font_sizes/font_size = 36
+text = "Sprint"
 
 [node name="Minventory" type="ColorRect" parent="." unique_id=239126784]
 visible = false

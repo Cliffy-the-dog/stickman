@@ -1,9 +1,15 @@
 extends SkillNode
+class_name BloodSkillNode
 
-@export var is_root_bloodbind: bool = false
+@export var unlocks_lifesteal: bool = false
+@export var lifesteal_bonus: float = 0.05
 
 func apply_skill_effect() -> void:
-	if is_root_bloodbind:
-		player.has_bloodbind = true
+	var player = get_player()
+	if not player:
+		return
+
+	if unlocks_lifesteal:
+		player.has_lifesteal = true
 	else:
-		player.damage_value += 5
+		player.lifesteal_amount += lifesteal_bonus

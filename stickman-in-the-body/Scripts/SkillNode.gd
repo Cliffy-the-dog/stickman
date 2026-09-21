@@ -1,104 +1,101 @@
-class_name SkillNode
 extends ColorRect
+class_name SkillNode
 
-# --- Child Panel Reference ---
-@onready var panel: Control = $Panel
+signal unlocked
 
-# --- Exports ---
-@export var parent_node: SkillNode = null # Leave empty for Root Nodes
-@export var cost: float = 50.0
+@export_category("Custom Player Skill Call")
+@export var function_name: String = ""
+@export var function_argument: float = 0.0
+@export var pass_argument: bool = false
 
-# --- Visual Settings ---
-@export var color_locked: Color = Color(0.2, 0.2, 0.2, 0.8)
-@export var color_available: Color = Color(0.8, 0.6, 0.2, 1.0)
-@export var color_unlocked: Color = Color(0.2, 0.8, 0.3, 1.0)
+@export_category("Node Connections")
+@export var is_unlocked: bool = false:
+	set(value):
+		is_unlocked = value
+		_update_visuals()
 
-# --- Connection Line Settings ---
-@export var draw_connection_line: bool = true
-@export var line_width: float = 4.0
+@export var locked_color: Color = Color(0.2, 0.2, 0.2, 1.0)
+@export var unlocked_color: Color = Color(0.1, 0.8, 0.3, 1.0)
 
-var is_unlocked: bool = false
-var player: CharacterBody2D = null
-var connection_line: Line2D = null
+@export var parent_nodes: Array[SkillNode] = []
+@export var child_nodes: Array[SkillNode] = []
+@export var line_shader: ShaderMaterial
+@export var line_width: float = 16.0
+
+var generated_lines: Array[SkillLine] = []
 
 func _ready() -> void:
-	player = %Player if has_node("%Player") else get_tree().get_first_node_in_group("player")
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	mouse_filter = Control.MOUSE_FILTER_STOP
 	gui_input.connect(_on_gui_input)
 	
-	call_deferred("_setup_line")
-	call_deferred("update_visuals")
-
-func _process(_delta: float) -> void:
-	# Updates shader uniforms
-	if material is ShaderMaterial:
-		var real_time: float = Time.get_ticks_msec() / 1000.0
-		(material as ShaderMaterial).set_shader_parameter("elapsed_time", real_time)
-
-func can_unlock() -> bool:
-	if is_unlocked:
-		return false
-	if parent_node != null and not parent_node.is_unlocked:
-		return false
-	return true
-
-func try_buy() -> void:
-	if not can_unlock() or player == null:
-		return
-		
-	if player.money >= cost:
-		player.money -= cost
-		unlock_skill()
-
-func unlock_skill() -> void:
-	is_unlocked = true
-	update_visuals()
-	apply_skill_effect()
-	
-	# Refresh child nodes
-	for child in get_tree().get_nodes_in_group("skill_nodes"):
-		if child is SkillNode and child.parent_node == self:
-			child.update_visuals()
-
-func apply_skill_effect() -> void:
-	pass
-
-func update_visuals() -> void:
-	var target_color: Color = color_locked
-	
-	if is_unlocked:
-		target_color = color_unlocked
-	elif can_unlock():
-		target_color = color_available
-
-	if panel:
-		panel.modulate = target_color
-		
-	_update_line(target_color)
-
-func _setup_line() -> void:
-	if parent_node == null or not draw_connection_line:
-		return
-		
-	connection_line = Line2D.new()
-	connection_line.width = line_width
-	connection_line.top_level = true # Uses global screen space
-	connection_line.z_index = -1 # Renders behind skill panels
-	add_child(connection_line)
-	
-	_update_line(color_locked)
-
-func _update_line(current_color: Color) -> void:
-	if connection_line == null or parent_node == null:
-		return
-		
-	var start_pos: Vector2 = parent_node.global_position + (parent_node.size / 2.0)
-	var end_pos: Vector2 = global_position + (size / 2.0)
-	
-	connection_line.clear_points()
-	connection_line.add_point(start_pos)
-	connection_line.add_point(end_pos)
-	connection_line.default_color = current_color
+	_update_visuals()
+	_setup_lines.call_deferred()
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		try_buy()
+		if not is_unlocked and can_unlock():
+			unlock()
+
+func _update_visuals() -> void:
+	color = unlocked_color if is_unlocked else locked_color
+
+func _setup_lines() -> void:
+	await get_tree().process_frame
+	
+	for child in child_nodes:
+		if not child:
+			continue
+		
+		var line = SkillLine.new()
+		line.width = line_width
+		line.top_level = true
+		line.z_index = z_index - 1
+		
+		if line_shader:
+			line.material = line_shader.duplicate()
+		
+		var start_pos = global_position + (size * 0.5)
+		var end_pos = child.global_position + (child.size * 0.5)
+		
+		line.add_point(start_pos)
+		line.add_point(end_pos)
+		line.is_unlocked = is_unlocked
+		
+		get_tree().current_scene.add_child(line)
+		generated_lines.append(line)
+
+func can_unlock() -> bool:
+	if parent_nodes.is_empty():
+		return true
+	for parent in parent_nodes:
+		if parent.is_unlocked:
+			return true
+	return false
+
+func unlock() -> void:
+	is_unlocked = true
+	
+	for line in generated_lines:
+		line.is_unlocked = true
+		
+	apply_skill_effect()
+	unlocked.emit()
+
+func apply_skill_effect() -> void:
+	var player = get_tree().get_first_node_in_group("player")
+	if not player:
+		push_error("SkillNode: Player node not found in 'player' group!")
+		return
+
+	if function_name.is_empty():
+		push_warning("SkillNode: No function_name assigned on " + name)
+		return
+
+	if player.has_method(function_name):
+		if pass_argument:
+			player.call(function_name, function_argument)
+		else:
+			player.call(function_name)
+	else:
+		push_error("SkillNode: Player script is missing the function '" + function_name + "'")

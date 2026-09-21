@@ -5,8 +5,14 @@ extends Area2D
 
 var is_following: bool = false
 var player_ref: Node2D = null
+var key_sprite: Node = null
 
 func _ready() -> void:
+	# Cache the sprite reference once on load
+	key_sprite = find_child("*Sprite*", true, false)
+	if not key_sprite:
+		key_sprite = get_node_or_null("Sprite2D") # Fallback to standard node name
+	
 	if not body_entered.is_connected(_on_body_entered):
 		body_entered.connect(_on_body_entered)
 	if not area_entered.is_connected(_on_area_entered):
@@ -30,14 +36,18 @@ func _process(delta: float) -> void:
 	if is_following and is_instance_valid(player_ref):
 		var facing = _get_player_facing_dir() # Returns -1.0 (left) or 1.0 (right)
 		
-		# Direct offset: 40px to facing side, 16px up from origin
+		# Offset positions relative to player facing side
 		var offset = Vector2(facing * 40.0, -16.0)
 		var target_pos = player_ref.global_position + offset
 
 		global_position = global_position.lerp(target_pos, 15.0 * delta)
 		
+		# If pointing at a wall, use look_at; otherwise use horizontal sprite flipping
 		if is_instance_valid(LockedWall):
 			look_at(LockedWall.global_position)
+		elif is_instance_valid(key_sprite) and "flip_h" in key_sprite:
+			rotation = 0.0 # Reset node rotation when not aiming at door
+			key_sprite.flip_h = (facing < 0.0)
 
 func _get_player_facing_dir() -> float:
 	if not is_instance_valid(player_ref):
